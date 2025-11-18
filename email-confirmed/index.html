@@ -1,1 +1,146 @@
-ccc
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Confirmed! | Smartinthe.App</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Apply Inter font globally and ensure full height for centering */
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); /* Lighter mint gradient background */
+        }
+    </style>
+    <!-- Tailwind Configuration for custom color and focus styling -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'smart-primary': '#0d9488', /* Teal */
+                        'smart-secondary': '#34d399', /* Mint Green */
+                    },
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(13, 148, 136, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <main class="w-full max-w-xl px-4 py-16">
+        <div class="bg-white p-6 sm:p-10 md:p-12 rounded-3xl shadow-3xl text-center border-t-8 border-smart-primary">
+            
+            <!-- Success Icon -->
+            <div class="mx-auto w-20 h-20 mb-6 text-smart-secondary">
+                <!-- Icon: Checkmark in a shield (Secure confirmation) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+
+            <!-- Main Confirmation Message -->
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+                Email Confirmed!
+            </h1>
+
+            <p class="text-xl text-gray-600 mb-8">
+                Your <strong>Smartinthe.App</strong> account is now fully activated. Time to start investing smarter!
+            </p>
+
+            <hr class="border-gray-200 mb-8">
+
+            <!-- Primary Call to Action: Open/Download App -->
+            
+            <a href="YOUR_APP_STORE_LINK_HERE" 
+               target="_blank" 
+               id="appStoreButton"
+               class="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-3"><path d="M12 20.94v-3.79c-2.32 0-4.21-1.89-4.21-4.21s1.89-4.21 4.21-4.21 4.21 1.89 4.21 4.21v3.79"/><path d="M5 12.94h-2"/><path d="M19 12.94h2"/><path d="M12 2.94l-3 3"/><path d="M12 2.94l3 3"/><path d="M17.83 5.92L14 9.75"/><path d="M6.17 5.92L10 9.75"/><path d="M12 22.94c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/></svg>
+                Go to the App Store
+            </a>
+
+            <!-- Secondary Guidance -->
+            <div class="mt-8 text-left space-y-4">
+                <p class="text-gray-700">
+                    If you confirmed this on your <strong>iPhone or iPad</strong>, tap the button above to go straight to the App Store page.
+                </p>
+                <p id="androidGuidance" class="text-gray-700 font-medium border-l-4 border-smart-secondary/50 pl-4 py-1 bg-gray-50 rounded-lg">
+                    <strong>Desktop/Android Users:</strong> Please switch to your iOS device and tap the confirmation link again, or search for <strong>"Smartinthe.App"</strong> in the App Store.
+                </p>
+            </div>
+            
+            <!-- Follow Links (Placeholder for social media) -->
+            <div class="mt-10">
+                <p class="text-gray-500 mb-4 text-lg font-semibold">Connect with Us & Get Daily Tips!</p>
+                <div class="flex flex-wrap justify-center space-x-3 sm:space-x-4">
+                    
+                    <!-- Instagram -->
+                    <a href="#" title="Instagram" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="#" title="Facebook" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+
+                    <!-- X (Twitter) -->
+                    <a href="#" title="X / Twitter" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2 1.2-.9 1.9-2.2 2.1-3.6.5-.4 1-.8 1.4-1.3C13.5 10 12 7.5 12 5s.5-3.5 0-5"/></svg>
+                    </a>
+                    
+                    <!-- TikTok -->
+                    <a href="#" title="TikTok" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 8.2c-.1-1.2-.9-2.2-2.1-2.4V11h-3.3v7.4c0 1.9-1.5 3.4-3.4 3.4s-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4c.3 0 .5 0 .8.1V7.9c-.3-.1-.5-.1-.8-.1-2.8 0-5.1 2.3-5.1 5.1s2.3 5.1 5.1 5.1 5.1-2.3 5.1-5.1V8.2c.5 0 .8 0 1.1-.1.2-.1.4-.2.6-.4.5-.5.8-1.2.8-2"/></svg>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="#" title="YouTube" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2.5 17a2.41 2.41 0 0 1-1.42-.48 2.05 2.05 0 0 1-.83-1.64V7.12a2.05 2.05 0 0 1 .83-1.64A2.41 2.41 0 0 1 2.5 5h19a2.41 2.41 0 0 1 1.42.48 2.05 2.05 0 0 1 .83 1.64v7.76a2.05 2.05 0 0 1-.83 1.64 2.41 2.41 0 0 1-1.42.48z"/><path d="M10 15V9l6 3z"/></svg>
+                    </a>
+
+                    <!-- Snap (Snapchat) -->
+                    <a href="#" title="Snapchat" class="text-smart-primary hover:text-smart-secondary transition duration-150 p-2 rounded-full border border-smart-primary/50 hover:border-smart-secondary/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10c-1.2 0-2.37-.2-3.45-.6l-4.55 1.15 1.15-4.55c-.4-.98-.6-2.05-.6-3.15 0-5.52 4.48-10 10-10zm-1.5 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+        
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            The market is waiting. Your account is confirmed. Let's go make some smart financial decisions! (Seriously, let's.)
+        </footer>
+    </main>
+    
+    <script>
+        // --- Conditional Redirection for Android Users ---
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const androidGuidance = document.getElementById('androidGuidance');
+        const appStoreButton = document.getElementById('appStoreButton');
+        const waitlistUrl = 'https://smartinthe.app/waitlist';
+
+        if (/android/i.test(userAgent)) {
+            // 1. Hide the App Store button, as it's irrelevant on Android
+            appStoreButton.classList.add('hidden');
+            
+            // 2. Change the guidance message to inform them about the redirect
+            androidGuidance.innerHTML = '<span class="font-bold">Heads Up!</span> Since you are on an Android device, we\'re automatically redirecting you to our waitlist page as the app is iOS-only. Thank you for confirming!';
+            
+            // 3. Initiate the redirect after a short delay (e.g., 2 seconds) for the user to read the message
+            setTimeout(() => {
+                window.location.href = waitlistUrl;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

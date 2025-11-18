@@ -1,1 +1,220 @@
-eee
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartinthe.App | Factor & GARP Investing Made Easy</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase Client Logic (No external SDK needed for simple fetch) -->
+    <script>
+        // SECURITY IS ENFORCED VIA SUPABASE ROW LEVEL SECURITY (RLS) POLICIES.
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        // 2. Your Supabase Project Anon Key (Public Key)
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        // 3. The name of the table you want to store emails in (e.g., 'waitlist_emails')
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
+
+        // Check if configuration is set
+        const isSupabaseConfigured = () => {
+            return SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
+        };
+
+        const subscribeEmail = async (event) => {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('emailInput');
+            const messageBox = document.getElementById('messageBox');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing. Please update the URL and Key in the script.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                messageBox.textContent = 'Please enter a valid email address.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100');
+                messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                return;
+            }
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            messageBox.classList.add('hidden');
+
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal' // Optimizes for speed
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'Smartinthe.App Landing Page'
+                    })
+                });
+
+                if (response.status === 201 || response.status === 200) {
+                    // 201 Created is the standard successful insertion response for Supabase
+                    messageBox.textContent = 'Success! You are on the waitlist. We will notify you when we launch!';
+                    messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100');
+                    messageBox.classList.add('bg-green-100', 'text-green-800');
+                    emailInput.value = ''; // Clear input
+                } else {
+                    // Try to parse error message if available
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) {
+                            errorMessage = errorData.message;
+                        }
+                    } catch (jsonError) {
+                        // Ignore JSON parsing error
+                    }
+                    throw new Error(errorMessage);
+                }
+
+            } catch (e) {
+                console.error("Error adding document to Supabase: ", e.message);
+                messageBox.textContent = `Submission failed. Check console for details. Error: ${e.message.substring(0, 50)}...`;
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'Join the Waitlist';
+            }
+        };
+
+        // Expose function to the global scope for the form handler
+        window.subscribeEmail = subscribeEmail;
+
+    </script>
+
+    <style>
+        /* Apply Inter font globally and ensure full height for centering */
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); /* Lighter blue gradient background */
+        }
+    </style>
+    <!-- Tailwind Configuration for custom color and focus styling -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'smart-primary': '#0d9488', /* Teal for a financial/trustworthy feel */
+                        'smart-secondary': '#34d399', /* Mint Green for growth/positive feel */
+                    },
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(13, 148, 136, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <main class="w-full max-w-5xl px-4 py-16">
+        <div class="bg-white p-6 sm:p-10 md:p-16 rounded-3xl shadow-3xl text-center border-b-8 border-smart-primary/70">
+            
+            <!-- Logo/Branding -->
+            <h2 class="text-xl font-semibold text-smart-primary mb-3">
+                Smartinthe.App
+            </h2>
+
+            <!-- Main Title (Micro-Marketing Hook) -->
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+                Invest Smarter. Not Harder. <span class="text-smart-secondary">Finally Understand</span> the Market.
+            </h1>
+
+            <!-- Subtitle/Value Proposition -->
+            <p class="2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+                The iOS application that makes <b>Factor and GARP (Growth at a Reasonable Price)</b> investing simple, educational, and entertaining for today's casual investors.
+            </p>
+
+            <!-- Pre-Sign Form -->
+            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="max-w-xl mx-auto mb-10">
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input type="email" id="emailInput" required placeholder="Enter your email to get early access" 
+                           class="flex-grow px-5 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner">
+                    
+                    <button type="submit" id="submitButton" 
+                            class="flex-shrink-0 px-8 py-3 text-lg font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-md">
+                        Join the Waitlist
+                    </button>
+                </div>
+            </form>
+
+            <!-- Submission Message Box -->
+            <div id="messageBox" class="hidden mx-auto max-w-xl p-3 rounded-lg text-sm font-medium border border-current transition-all duration-300">
+                <!-- Submission messages will appear here -->
+            </div>
+
+            <!-- Feature Blocks (Micro-Marketing Details) -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1: GARP Investing Made Simple -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
+                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                        <!-- Icon: Bar Chart (Financial Growth) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">GARP Investing Simplified</h3>
+                    <p class="text-gray-600">
+                        Easily identify stocks with solid <b>growth potential</b> that are also trading at a <b>reasonable price</b>. We guide you past the hype and towards true value.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Factor Strategy Insights -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
+                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                        <!-- Icon: Puzzle (Connecting pieces/factors) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M19.4 15a1.4 1.4 0 0 0 .2-1.4v-3.2a1.4 1.4 0 0 0-1.4-1.4H16.4a1.4 1.4 0 0 0-1.4-1.4V5.4a1.4 1.4 0 0 0-1.4-1.4H9.4a1.4 1.4 0 0 0-1.4 1.4V8a1.4 1.4 0 0 0-1.4 1.4H4.4a1.4 1.4 0 0 0-1.4 1.4v3.2a1.4 1.4 0 0 0 .2 1.4L6 18l3.6-3.6a1.4 1.4 0 0 0 1.4.2v3.2a1.4 1.4 0 0 0 1.4 1.4h3.2a1.4 1.4 0 0 0 1.4-1.4V16l3.6-3.6z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Factor Strategy Insights</h3>
+                    <p class="text-gray-600">
+                        See how <b>Value, Momentum, and Quality</b> factors impact your stock choices. We teach you the 'why' behind successful investment strategies, entertainingly.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Bad Idea Stock Check -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
+                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                        <!-- Icon: Shield Check (Validation/Protection) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">The "Bad Idea" Checker</h3>
+                    <p class="text-gray-600">
+                        Got a hot tip? Run it through our educational analyzer. Get an objective, factor-based perspective on why a stock idea might be good... or bad.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Smartinthe.App. Investing Education for Everyone.
+        </footer>
+    </main>
+    
+</body>
+</html>
