@@ -6,59 +6,34 @@
     <title>Smartinthe.App | Factor & GARP Investing Made Easy</title>
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDK Imports -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    
+    <!-- Supabase Client Logic (No external SDK needed for simple fetch) -->
+    <script>
+        // SECURITY IS ENFORCED VIA SUPABASE ROW LEVEL SECURITY (RLS) POLICIES.
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        // 2. Your Supabase Project Anon Key (Public Key)
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        // 3. The name of the table you want to store emails in (e.g., 'waitlist_emails')
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
 
-        // Global variables for Canvas environment (MUST be used)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db;
-
-        const initFirebase = async () => {
-            if (!firebaseConfig) {
-                console.error("Firebase config not found. Email collection is disabled.");
-                return;
-            }
-
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                const auth = getAuth(app);
-
-                // Set logging level to Debug (Required for Canvas)
-                setLogLevel('Debug');
-
-                // Authenticate
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                console.log("Firebase initialized and authenticated.");
-            } catch (error) {
-                console.error("Firebase initialization failed:", error);
-            }
+        // Check if configuration is set
+        const isSupabaseConfigured = () => {
+            return SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
         };
 
         const subscribeEmail = async (event) => {
             event.preventDefault();
 
-            if (!db) {
-                document.getElementById('messageBox').textContent = 'Error: Database service is not available.';
-                document.getElementById('messageBox').classList.remove('hidden', 'bg-green-100', 'text-green-800');
-                document.getElementById('messageBox').classList.add('bg-red-100', 'text-red-800');
-                return;
-            }
-
             const emailInput = document.getElementById('emailInput');
             const messageBox = document.getElementById('messageBox');
             const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing. Please update the URL and Key in the script.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
 
             const email = emailInput.value.trim();
             if (!email || !email.includes('@')) {
@@ -73,24 +48,47 @@
             submitButton.textContent = 'Joining...';
             messageBox.classList.add('hidden');
 
-            try {
-                // Public collection path: /artifacts/{appId}/public/data/presign_emails
-                const collectionRef = collection(db, `artifacts/${appId}/public/data/presign_emails`);
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
 
-                await addDoc(collectionRef, {
-                    email: email,
-                    timestamp: new Date().toISOString(),
-                    source: 'Smartinthe.App Landing Page'
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal' // Optimizes for speed
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'Smartinthe.App Landing Page'
+                    })
                 });
 
-                messageBox.textContent = 'Success! You are on the waitlist. We will notify you when we launch!';
-                messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100');
-                messageBox.classList.add('bg-green-100', 'text-green-800');
-                emailInput.value = ''; // Clear input
+                if (response.status === 201 || response.status === 200) {
+                    // 201 Created is the standard successful insertion response for Supabase
+                    messageBox.textContent = 'Success! You are on the waitlist. We will notify you when we launch!';
+                    messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100');
+                    messageBox.classList.add('bg-green-100', 'text-green-800');
+                    emailInput.value = ''; // Clear input
+                } else {
+                    // Try to parse error message if available
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) {
+                            errorMessage = errorData.message;
+                        }
+                    } catch (jsonError) {
+                        // Ignore JSON parsing error
+                    }
+                    throw new Error(errorMessage);
+                }
 
             } catch (e) {
-                console.error("Error adding document: ", e);
-                messageBox.textContent = 'Submission failed. Please try again.';
+                console.error("Error adding document to Supabase: ", e.message);
+                messageBox.textContent = `Submission failed. Check console for details. Error: ${e.message.substring(0, 50)}...`;
                 messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100');
                 messageBox.classList.add('bg-red-100', 'text-red-800');
             } finally {
@@ -100,9 +98,6 @@
             }
         };
 
-        // Initialize Firebase on window load
-        window.onload = initFirebase;
-        
         // Expose function to the global scope for the form handler
         window.subscribeEmail = subscribeEmail;
 
@@ -152,7 +147,7 @@
             </h1>
 
             <!-- Subtitle/Value Proposition -->
-            <p class="text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+            <p class="2xl text-gray-600 mb-10 max-w-3xl mx-auto">
                 The iOS application that makes <b>Factor and GARP (Growth at a Reasonable Price)</b> investing simple, educational, and entertaining for today's casual investors.
             </p>
 
