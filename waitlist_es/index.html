@@ -1,0 +1,234 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartinthe.App | What Would Jerry Seinfeld Say About Your Stock Picks?</title>
+    
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase Client Logic (Waitlist logic remains the same) -->
+    <script>
+        // NOTE: Supabase configuration is maintained from your original file.
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
+
+        const isSupabaseConfigured = () => {
+            return SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
+        };
+
+        const subscribeEmail = async (event) => {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('emailInput');
+            const messageBox = document.getElementById('messageBox');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing. Please update the URL and Key in the script.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100', 'text-yellow-800');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                messageBox.textContent = 'Please enter a valid email address.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                return;
+            }
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Analyzing Pick...';
+            messageBox.classList.add('hidden');
+
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'Smartinthe.App Seinfeld Page'
+                    })
+                });
+
+                if (response.status === 201 || response.status === 200) {
+                    messageBox.textContent = 'Success! A soup for you! You are on the waitlist.';
+                    messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100', 'text-red-800');
+                    // Using tailwind's default green for success message background for clarity
+                    messageBox.classList.add('bg-green-100', 'text-green-800'); 
+                    emailInput.value = ''; // Clear input
+                } else {
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) {
+                            errorMessage = errorData.message;
+                        }
+                    } catch (jsonError) {
+                        // Ignore JSON parsing error
+                    }
+                    throw new Error(errorMessage);
+                }
+
+            } catch (e) {
+                console.error("Error adding document to Supabase: ", e.message);
+                messageBox.textContent = `Submission failed. Error: ${e.message.substring(0, 50)}...`;
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100', 'text-yellow-800');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'Join the Waitlist';
+            }
+        };
+
+        // Expose function to the global scope for the form handler
+        window.subscribeEmail = subscribeEmail;
+
+    </script>
+
+    <style>
+        /* Apply Inter font globally and ensure full height for centering */
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Cream background */
+            background-color: #F5F5DC;
+        }
+    </style>
+    <!-- Tailwind Configuration for custom color and focus styling -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Deep Terracotta Red (Primary Action)
+                        'smart-primary': '#C2382B', 
+                        // Rich Mustard Gold (Secondary Accent)
+                        'smart-secondary': '#FFC300', 
+                        // Deep Brown (Main Text)
+                        'smart-text': '#4F372E', 
+                    },
+                    boxShadow: {
+                        /* Softer shadow using the primary color */
+                        '3xl': '0 15px 30px -5px rgba(194, 56, 43, 0.2), 0 5px 15px -3px rgba(194, 56, 43, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <main class="w-full max-w-5xl px-4 py-16">
+        <div class="bg-white p-6 sm:p-10 md:p-16 rounded-3xl shadow-3xl text-center border-b-8 border-smart-primary/70 max-w-4xl mx-auto">
+            
+            <!-- Logo/Branding -->
+            <h2 class="text-xl font-semibold text-smart-primary mb-3 uppercase tracking-widest">
+                Smartinthe.App
+            </h2>
+
+            <!-- Main Title (Micro-Marketing Hook) -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-smart-text mb-6 leading-tight">
+                What Would <span class="text-smart-secondary block sm:inline">Jerry Seinfeld</span> Say About Your Stock Picks?
+            </h1>
+
+            <!-- Subtitle/Value Proposition -->
+            <p class="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+                Get instant stock analysis delivered in <strong>Seinfeld character voices</strong>. Jerry roasts bad picks. Kramer hypes the winners. George panics about everything. <strong>Finally, investment research that doesn't make you want to die.</strong>
+            </p>
+
+            <!-- Pre-Sign Form -->
+            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="max-w-xl mx-auto mb-10">
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    
+                    <!-- Email Input Field -->
+                    <input type="email" id="emailInput" required placeholder="Enter your email to join the absurdity" 
+                            class="flex-grow px-5 py-4 border border-gray-300 rounded-xl text-lg
+                                   focus:ring-4 focus:ring-smart-secondary/50 focus:border-smart-primary transition duration-150 shadow-lg shadow-gray-100/50"
+                            aria-label="Email for waitlist">
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitButton" 
+                            class="flex-shrink-0 px-8 py-4 text-lg font-bold rounded-xl text-white 
+                                   bg-smart-primary hover:bg-smart-secondary active:bg-smart-primary/90 
+                                   transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-xl shadow-smart-primary/30">
+                        Join the Waitlist
+                    </button>
+                </div>
+            </form>
+
+            <!-- Submission Message Box -->
+            <div id="messageBox" class="hidden mx-auto max-w-xl p-4 rounded-xl text-sm font-medium border border-current transition-all duration-300 text-left">
+                <!-- Submission messages will appear here -->
+            </div>
+            
+            <!-- Secondary Pitch Text -->
+            <p class="text-sm text-gray-500 mb-8 max-w-2xl mx-auto">
+                Your friend texts you a "hot tip." Before you YOLO your savings, run it through Smartin. Get <strong>Peter Lynch-style analysis</strong> translated into Seinfeld humor. It's like having Jerry, George, and Kramer as your investment advisors. Except they actually know what they're talking about.
+            </p>
+
+            <!-- Feature Blocks (Micro-Marketing Details) -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                
+                <!-- Feature 1: Get Roasted by Jerry -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg hover:shadow-smart-primary/10">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
+                        <!-- Icon: Message Bubble (Roasting/Talking) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-smart-text mb-3">Get Roasted by Jerry</h3>
+                    <p class="text-gray-600">
+                        Bad stock pick? Jerry will tell you exactly why it's terrible. With jokes. <strong>"Sales are going down, down, down. And your friend wants you to buy IN?"</strong>
+                    </p>
+                </div>
+
+                <!-- Feature 2: Collect All the Lines -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg hover:shadow-smart-primary/10">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
+                        <!-- Icon: Trophy/Triumph (Collecting/Achievement) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14l2 2l2-2"/><path d="M12 16v-6"/><path d="M12 3L12 3"/><path d="M12 7L12 7"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-smart-text mb-3">Collect All the Lines</h3>
+                    <p class="text-gray-600">
+                        Every check gets a random Seinfeld line. Can you get the <strong>Soup Nazi?</strong> (Spoiler: Only the worst stocks trigger him.) Gotta catch 'em all.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Peter Lynch Meets Comedy -->
+                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg hover:shadow-smart-primary/10">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
+                        <!-- Icon: Book/Lightbulb (Learning/Fundamentals) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M4 19.5V10c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v9.5"/><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4.5"/><path d="M12 2c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1zM7 22l5-5l5 5"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-smart-text mb-3">Peter Lynch Meets Comedy</h3>
+                    <p class="text-gray-600">
+                        Real investment fundamentals (P/E ratios, debt, growth). Explained like your <strong>funny friend</strong>, not your boring finance professor. Learn without the pain.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <footer class="mt-8 text-center text-smart-text text-sm">
+            &copy; 2025 Smartinthe.App. Stock Analysis That Actually Makes You Laugh.
+        </footer>
+    </main>
+</body>
+</html>
