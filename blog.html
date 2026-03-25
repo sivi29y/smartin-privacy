@@ -1,0 +1,70 @@
+---
+permalink: /blog/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Smartin Blog | Quick Stock Ratings & Fintainment</title>
+    <meta name="description" content="Read the latest Fintainment stock roasts, market analysis, and feature updates from the Smartin App.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        body {
+            font-family: "Outfit", sans-serif;
+            background-color: #f8fafc;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'smart-primary': '#0d9488',
+                        'smart-dark': '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+
+    <header class="w-full bg-white border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-3xl font-extrabold tracking-tight text-smart-dark hover:text-smart-primary transition-colors">
+                Smartin<span class="text-smart-primary">.App</span>
+            </a>
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-smart-dark text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full hover:bg-smart-primary transition-transform hover:-translate-y-1 shadow-lg text-sm sm:text-base">
+                Get the App
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full max-w-5xl mx-auto px-6 pb-24">
+        
+        <div class="text-center mb-16">
+            <h1 class="text-5xl sm:text-7xl font-extrabold text-smart-dark mb-6 tracking-tight">The <span class="text-smart-primary">Fintainment</span> Feed</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Skip the boring charts. We run the Peter Lynch algorithm on the market's hottest stocks and roast the results.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for post in site.posts %}
+            <a href="{{ post.url }}" class="block group">
+                <div class="bg-white rounded-3xl p-8 border-2 border-gray-100 shadow-sm hover:shadow-2xl hover:border-smart-primary transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
+                    <span class="text-smart-primary font-bold text-sm uppercase tracking-wider mb-2">{{ post.date | date: "%B %d, %Y" }}</span>
+                    <h2 class="text-2xl font-extrabold text-smart-dark mb-4 group-hover:text-smart-primary transition-colors line-clamp-2">{{ post.title }}</h2>
+                    <p class="text-gray-600 mb-6 flex-grow line-clamp-3">{{ post.description }}</p>
+                    <div class="text-smart-dark font-bold text-sm group-hover:translate-x-2 transition-transform inline-flex items-center">
+                        Read Roast <span class="ml-2">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        
+    </main>
+
+</body>
+</html>
