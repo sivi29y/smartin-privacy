@@ -20,11 +20,11 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 
 # 5 Fintainment Personas
 PERSONAS = [
-    "Kurt Vonnegut (writing for SNL) - Darkly satirical, pointing out absurd corporate greed",
-    "Jerry Seinfeld - Observational comedy, confused by the ridiculous minutiae of financial jargon",
-    "George Costanza - Neurotic, panicked about losing money, doing the opposite of rational instincts",
-    "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock",
-    "Elaine Benes - Aggressively confident, tearing down 'bro' stocks with sharp insults"
+    "Satirist - Darkly satirical, pointing out absurd corporate greed",
+    "Standup - Observational comedy, confused by the ridiculous minutiae of financial jargon",
+    "Neurotic - Panicked cheapskate, doing the opposite of rational instincts",
+    "Neighbor - Frantic, erratic, wild conspiracy theories about the stock",
+    "Editor - Aggressively confident, tearing down 'bro' stocks with sharp insults"
 ]
 
 STOCKS = [
@@ -48,7 +48,7 @@ def get_used_history():
             for stock in STOCKS:
                 if f"({stock.lower()})" in content or f" {stock.lower()} " in content:
                     used_stocks.add(stock)
-            for p in ["vonnegut", "seinfeld", "costanza", "kramer", "elaine"]:
+            for p in ["satirist", "standup", "neurotic", "neighbor", "editor"]:
                 if p in content:
                     used_personas.add(p)
     return used_stocks, used_personas

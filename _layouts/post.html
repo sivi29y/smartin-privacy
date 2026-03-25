@@ -21,11 +21,79 @@
                     colors: {
                         'smart-primary': '#0d9488',
                         'smart-dark': '#0f172a',
-                        'smart-accent': '#14b8a6'
+                        'smart-accent': '#14b8a6',
+                        'smart-secondary': '#34d399',
                     }
                 }
             }
         }
+    </script>
+    <script>
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
+
+        const isSupabaseConfigured = () => SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
+
+        const subscribeEmail = async (event) => {
+            event.preventDefault();
+            const emailInput = document.getElementById('emailInput');
+            const messageBox = document.getElementById('messageBox');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing.';
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-red-100 text-red-800';
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                messageBox.textContent = 'Please enter a valid email address.';
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-yellow-100 text-yellow-800';
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            messageBox.classList.add('hidden');
+
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email: email, timestamp: new Date().toISOString(), source: window.location.pathname })
+                });
+
+                if (response.ok || response.status === 201) {
+                    messageBox.textContent = 'Success! You are subscribed.';
+                    messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-green-100 text-green-800';
+                    emailInput.value = ''; 
+                } else {
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) errorMessage = errorData.message;
+                    } catch (e) {}
+                    throw new Error(errorMessage);
+                }
+            } catch (e) {
+                console.error("Error", e.message);
+                messageBox.textContent = `Submission failed. Try again later.`;
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-red-100 text-red-800';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Subscribe';
+            }
+        };
+        window.subscribeEmail = subscribeEmail;
     </script>
 </head>
 <body class="antialiased selection:bg-smart-primary selection:text-white">
@@ -55,9 +123,25 @@
         <div class="mt-20 pt-16 border-t-2 border-gray-200 text-center bg-white p-12 rounded-3xl shadow-xl">
             <h3 class="text-4xl sm:text-5xl font-extrabold text-smart-dark mb-4">Stop guessing. Start roasting.</h3>
             <p class="text-xl text-gray-600 mb-8 max-w-xl mx-auto">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform">
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform mb-12">
                 Download Smartin Now
             </a>
+            
+            <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-inner">
+                <h4 class="text-xl font-bold text-smart-dark mb-2">Love the Roasts? Subscribe for More.</h4>
+                <p class="text-sm text-gray-500 mb-6">Join the newsletter and get our latest stock market comedy sent straight to your inbox.</p>
+                <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <input type="email" id="emailInput" required placeholder="Enter your email address" 
+                               class="flex-grow px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
+                        <button type="submit" id="submitButton" 
+                                class="flex-shrink-0 px-6 py-3 font-bold rounded-xl text-white bg-smart-dark hover:bg-smart-primary transition-all shadow-md">
+                            Subscribe
+                        </button>
+                    </div>
+                </form>
+                <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current"></div>
+            </div>
         </div>
         
     </main>

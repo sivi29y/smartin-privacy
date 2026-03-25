@@ -23,10 +23,78 @@ permalink: /blog/
                     colors: {
                         'smart-primary': '#0d9488',
                         'smart-dark': '#0f172a',
+                        'smart-secondary': '#34d399',
                     }
                 }
             }
         }
+    </script>
+    <script>
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
+
+        const isSupabaseConfigured = () => SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
+
+        const subscribeEmail = async (event) => {
+            event.preventDefault();
+            const emailInput = document.getElementById('emailInput');
+            const messageBox = document.getElementById('messageBox');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing.';
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-red-100 text-red-800';
+                return;
+            }
+
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                messageBox.textContent = 'Please enter a valid email address.';
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-yellow-100 text-yellow-800';
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            messageBox.classList.add('hidden');
+
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email: email, timestamp: new Date().toISOString(), source: window.location.pathname })
+                });
+
+                if (response.ok || response.status === 201) {
+                    messageBox.textContent = 'Success! You are subscribed.';
+                    messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-green-100 text-green-800';
+                    emailInput.value = ''; 
+                } else {
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) errorMessage = errorData.message;
+                    } catch (e) {}
+                    throw new Error(errorMessage);
+                }
+            } catch (e) {
+                console.error("Error", e.message);
+                messageBox.textContent = `Submission failed. Try again later.`;
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-red-100 text-red-800';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Subscribe';
+            }
+        };
+        window.subscribeEmail = subscribeEmail;
     </script>
 </head>
 <body class="antialiased">
@@ -62,6 +130,23 @@ permalink: /blog/
                 </div>
             </a>
             {% endfor %}
+        </div>
+        
+        <!-- Newsletter Signup -->
+        <div class="mt-20 max-w-xl mx-auto bg-white p-8 rounded-3xl border-2 border-gray-100 shadow-xl text-center">
+            <h3 class="text-3xl font-extrabold text-smart-dark mb-4">Get Roasts in Your Inbox</h3>
+            <p class="text-gray-600 mb-8 font-medium">Join the newsletter and get our weekly stock market comedy algorithms sent straight to your email.</p>
+            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input type="email" id="emailInput" required placeholder="Enter your email address" 
+                           class="flex-grow px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
+                    <button type="submit" id="submitButton" 
+                            class="flex-shrink-0 px-8 py-3 text-lg font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-dark transition-all transform hover:-translate-y-1 shadow-md">
+                        Subscribe
+                    </button>
+                </div>
+            </form>
+            <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current"></div>
         </div>
         
     </main>

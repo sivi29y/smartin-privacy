@@ -156,22 +156,32 @@
                 The iOS application that makes <b>Factor and GARP (Growth at a Reasonable Price)</b> investing simple, educational, and entertaining for today's casual investors.
             </p>
 
-            <!-- Pre-Sign Form -->
-            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="max-w-xl mx-auto mb-10">
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <input type="email" id="emailInput" required placeholder="Enter your email to get early access" 
-                           class="flex-grow px-5 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner">
-                    
-                    <button type="submit" id="submitButton" 
-                            class="flex-shrink-0 px-8 py-3 text-lg font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-md">
-                        Join the Waitlist
-                    </button>
-                </div>
-            </form>
+            <!-- App Store CTA -->
+            <div class="max-w-xl mx-auto mb-8">
+                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="block w-full bg-smart-dark text-white font-extrabold py-5 px-8 rounded-2xl hover:bg-smart-primary shadow-2xl transition-all duration-300 transform hover:-translate-y-1 text-2xl sm:text-3xl">
+                    Get Smartin on iOS
+                </a>
+            </div>
 
-            <!-- Submission Message Box -->
-            <div id="messageBox" class="hidden mx-auto max-w-xl p-3 rounded-lg text-sm font-medium border border-current transition-all duration-300">
-                <!-- Submission messages will appear here -->
+            <div class="max-w-xl mx-auto mb-10 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Want Android or Web Access?</h3>
+                <!-- Pre-Sign Form -->
+                <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <input type="email" id="emailInput" required placeholder="Enter email to join waitlist" 
+                               class="flex-grow px-5 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner text-sm">
+                        
+                        <button type="submit" id="submitButton" 
+                                class="flex-shrink-0 px-6 py-3 text-base font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-md">
+                            Join Waitlist
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Submission Message Box -->
+                <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current transition-all duration-300">
+                    <!-- Submission messages will appear here -->
+                </div>
             </div>
 
             <!-- Feature Blocks (Micro-Marketing Details) -->
