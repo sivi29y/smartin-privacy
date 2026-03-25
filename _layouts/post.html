@@ -10,7 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         body {
             font-family: "Outfit", sans-serif;
-            background-color: #020617;
+            background-color: #050505;
             color: #f8fafc;
         }
     </style>
@@ -19,10 +19,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'smart-primary': '#3b82f6',
-                        'smart-dark': '#020617',
-                        'smart-accent': '#60a5fa',
-                        'smart-secondary': '#8b5cf6',
+                        'smart-primary': '#ef4444',
+                        'smart-dark': '#050505',
+                        'smart-accent': '#f87171',
+                        'smart-secondary': '#facc15',
                     }
                 }
             }
@@ -98,12 +98,15 @@
 </head>
 <body class="antialiased selection:bg-smart-primary selection:text-white">
 
-    <header class="w-full bg-slate-900 border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm sticky top-0 z-50">
+    <!-- Ambient Glowing Background -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-red-600/10 blur-[150px] rounded-[100%] pointer-events-none z-0"></div>
+
+    <header class="w-full bg-[#050505]/80 backdrop-blur-2xl border-b border-white/10 py-6 px-6 sm:px-12 mb-12 shadow-sm sticky top-0 z-50">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <a href="/" class="text-3xl font-extrabold tracking-tight text-white hover:text-smart-primary transition-colors">
                 Smartin<span class="text-smart-primary">.App</span>
             </a>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-white text-smart-dark font-bold py-3 px-8 rounded-full hover:bg-smart-primary hover:text-white transition-transform hover:-translate-y-1 shadow-lg">
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-gradient-to-tr from-red-600 to-red-500 text-white font-bold py-3 px-8 rounded-2xl hover:brightness-110 shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all transform hover:-translate-y-1 border border-red-400/50">
                 Get the App
             </a>
         </div>
@@ -120,27 +123,32 @@
             {{ content }}
         </article>
         
-        <div class="mt-20 pt-16 border-t-2 border-slate-800 text-center bg-slate-900/50 backdrop-blur p-12 rounded-3xl border shadow-xl">
+        <div class="mt-20 pt-16 border-t border-white/10 text-center bg-white/[0.02] backdrop-blur-xl p-12 rounded-[2.5rem] shadow-inner relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-[0.05] pointer-events-none"></div>
             <h3 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Stop guessing. Start roasting.</h3>
-            <p class="text-xl text-slate-400 mb-8 max-w-xl mx-auto">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-white hover:text-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform mb-12">
-                Download Smartin Now
-            </a>
+            <p class="text-xl text-slate-400 mb-10 max-w-xl mx-auto font-light">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
             
-            <div class="max-w-xl mx-auto bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-inner">
+            <div class="max-w-xl mx-auto mb-16 relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-yellow-500 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-1000 group-hover:duration-200"></div>
+                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="relative block w-full bg-gradient-to-b from-red-500 to-red-600 border border-red-400/50 text-white font-extrabold py-5 px-12 rounded-2xl hover:brightness-110 shadow-2xl transition-all duration-300 transform hover:-translate-y-1 text-2xl">
+                    Download Smartin Now
+                </a>
+            </div>
+            
+            <div class="max-w-xl mx-auto bg-[#0a0a0a] p-8 rounded-[2rem] border border-white/10 shadow-inner relative z-10">
                 <h4 class="text-xl font-bold text-white mb-2">Love the Roasts? Subscribe for More.</h4>
-                <p class="text-sm text-slate-400 mb-6">Join the newsletter and get our latest stock market comedy sent straight to your inbox.</p>
+                <p class="text-sm text-slate-400 mb-6 font-light">Join the newsletter and get our latest stock market comedy sent straight to your inbox.</p>
                 <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         <input type="email" id="emailInput" required placeholder="Enter your email address" 
-                               class="flex-grow px-4 py-3 border border-slate-600 bg-slate-700 text-white placeholder-slate-400 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
+                               class="flex-grow px-5 py-4 border border-white/10 bg-[#050505] text-white placeholder-slate-500 rounded-xl focus:ring-1 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none transition duration-150 text-sm">
                         <button type="submit" id="submitButton" 
-                                class="flex-shrink-0 px-6 py-3 font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition-all shadow-md">
+                                class="flex-shrink-0 px-8 py-4 text-sm font-bold tracking-wide uppercase rounded-xl text-smart-dark bg-white hover:bg-slate-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                             Subscribe
                         </button>
                     </div>
                 </form>
-                <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current"></div>
+                <div id="messageBox" class="hidden mt-4 mx-auto w-full p-4 rounded-xl text-sm font-medium border border-current"></div>
             </div>
         </div>
         

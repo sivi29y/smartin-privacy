@@ -13,8 +13,9 @@ permalink: /blog/
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         body {
             font-family: "Outfit", sans-serif;
-            background-color: #020617;
+            background-color: #050505;
             color: #f8fafc;
+            overflow-x: hidden;
         }
     </style>
     <script>
@@ -22,9 +23,9 @@ permalink: /blog/
             theme: {
                 extend: {
                     colors: {
-                        'smart-primary': '#3b82f6',
-                        'smart-dark': '#020617',
-                        'smart-secondary': '#8b5cf6',
+                        'smart-primary': '#ef4444',
+                        'smart-dark': '#050505',
+                        'smart-secondary': '#facc15',
                     }
                 }
             }
@@ -100,33 +101,40 @@ permalink: /blog/
 </head>
 <body class="antialiased">
 
-    <header class="w-full bg-slate-900/80 backdrop-blur-xl border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm sticky top-0 z-50">
+    <!-- Ambient Glowing Background -->
+    <div class="fixed top-[10%] left-[-10%] w-[600px] h-[600px] bg-red-600/10 blur-[150px] rounded-[100%] pointer-events-none z-0"></div>
+
+    <header class="w-full bg-[#050505]/80 backdrop-blur-2xl border-b border-white/10 py-6 px-6 sm:px-12 mb-12 shadow-sm sticky top-0 z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-3xl font-extrabold tracking-tight text-white hover:text-smart-primary transition-colors">
+            <a href="/" class="text-3xl font-bold tracking-tight text-white hover:text-smart-primary transition-colors">
                 Smartin<span class="text-smart-primary">.App</span>
             </a>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-white text-smart-dark font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full hover:bg-smart-primary hover:text-white transition-transform hover:-translate-y-1 shadow-lg text-sm sm:text-base">
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-gradient-to-tr from-red-600 to-red-500 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-2xl hover:brightness-110 shadow-[0_0_20px_rgba(239,68,68,0.4)] text-sm sm:text-base transition-all transform hover:-translate-y-1 border border-red-400/50 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
                 Get the App
             </a>
         </div>
     </header>
 
-    <main class="w-full max-w-5xl mx-auto px-6 pb-24">
+    <main class="w-full max-w-5xl mx-auto px-6 pb-24 relative z-10">
         
         <div class="text-center mb-16">
-            <h1 class="text-5xl sm:text-7xl font-extrabold text-white mb-6 tracking-tight">The <span class="text-smart-primary">Fintainment</span> Feed</h1>
-            <p class="text-xl text-slate-300 max-w-2xl mx-auto">Skip the boring charts. We run the Peter Lynch algorithm on the market's hottest stocks and roast the results.</p>
+            <h1 class="text-5xl sm:text-7xl font-extrabold text-white mb-6 tracking-tight">
+                The <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400 drop-shadow-lg">Fintainment</span> Feed
+            </h1>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">Skip the boring charts. We run the Peter Lynch algorithm on the market's hottest stocks and roast the results.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {% for post in site.posts %}
-            <a href="{{ post.url }}" class="block group">
-                <div class="bg-slate-800/50 rounded-3xl p-8 border border-slate-700 shadow-sm hover:shadow-2xl hover:border-smart-primary/50 transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
-                    <span class="text-smart-primary font-bold text-sm uppercase tracking-wider mb-2">{{ post.date | date: "%B %d, %Y" }}</span>
-                    <h2 class="text-2xl font-extrabold text-white mb-4 group-hover:text-smart-primary transition-colors line-clamp-2">{{ post.title }}</h2>
-                    <p class="text-slate-400 mb-6 flex-grow line-clamp-3">{{ post.description }}</p>
-                    <div class="text-white font-bold text-sm group-hover:translate-x-2 transition-transform inline-flex items-center">
-                        Read Roast <span class="ml-2 text-smart-primary">&rarr;</span>
+            <a href="{{ post.url }}" class="block group h-full">
+                <div class="bg-white/[0.02] backdrop-blur-md rounded-[2rem] p-8 border border-white/10 hover:border-red-500/50 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col relative overflow-hidden shadow-inner">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <span class="text-smart-secondary font-bold text-xs uppercase tracking-widest mb-3">{{ post.date | date: "%B %d, %Y" }}</span>
+                    <h2 class="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors line-clamp-2">{{ post.title }}</h2>
+                    <p class="text-slate-400 mb-8 flex-grow line-clamp-3 leading-relaxed text-sm">{{ post.description }}</p>
+                    <div class="text-white font-bold text-sm flex items-center group-hover:text-yellow-400 transition-colors">
+                        Read Roast <span class="ml-2 group-hover:translate-x-2 transition-transform">&rarr;</span>
                     </div>
                 </div>
             </a>
@@ -134,15 +142,16 @@ permalink: /blog/
         </div>
         
         <!-- Newsletter Signup -->
-        <div class="mt-20 max-w-xl mx-auto bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-xl text-center">
+        <div class="mt-20 max-w-xl mx-auto bg-white/[0.02] backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/10 shadow-inner text-center relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-[0.05] pointer-events-none"></div>
             <h3 class="text-3xl font-extrabold text-white mb-4">Get Roasts in Your Inbox</h3>
-            <p class="text-slate-300 mb-8 font-medium">Join the newsletter and get our weekly stock market comedy algorithms sent straight to your email.</p>
-            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
+            <p class="text-slate-400 mb-8 font-light text-sm">Join the newsletter and get our weekly stock market comedy algorithms sent straight to your email.</p>
+            <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full relative z-10">
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                     <input type="email" id="emailInput" required placeholder="Enter your email address" 
-                           class="flex-grow px-5 py-3 border border-slate-600 bg-slate-700 text-white placeholder-slate-400 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
+                           class="flex-grow px-5 py-4 border border-white/10 bg-[#0a0a0a] text-white placeholder-slate-500 rounded-xl focus:ring-1 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none transition duration-150 text-sm">
                     <button type="submit" id="submitButton" 
-                            class="flex-shrink-0 px-8 py-3 text-lg font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition-all transform hover:-translate-y-1 shadow-md">
+                            class="flex-shrink-0 px-8 py-4 text-sm font-bold tracking-wide uppercase rounded-xl text-smart-dark bg-white hover:bg-slate-200 transition-all font-bold shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                         Subscribe
                     </button>
                 </div>
