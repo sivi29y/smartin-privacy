@@ -1,0 +1,42 @@
+name: Autonomous Marketing Sprint
+
+on:
+  schedule:
+    # Runs at 14:00 UTC (10:00 AM EST) on Monday, Wednesday, and Friday
+    - cron: '0 14 * * 1,3,5'
+  workflow_dispatch: # Allows you to manually trigger it with a button in GitHub UI
+
+jobs:
+  generate-sprint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Important: Allows the action to push the generated blog post
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-generativeai
+
+      - name: Run Gemini Headless Agent
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/autonomous_sprint.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add _posts/*.md
+          # Only commit if there are changes generated
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated Marketing Sprint by Gemini AI"
+          git push
