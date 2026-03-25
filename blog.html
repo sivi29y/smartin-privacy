@@ -120,13 +120,14 @@ permalink: /blog/
         
         <div class="text-center mb-16">
             <h1 class="text-5xl sm:text-7xl font-extrabold text-white mb-6 tracking-tight">
-                The <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400 drop-shadow-lg">Fintainment</span> Feed
+                What's the Deal with <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400 drop-shadow-lg">These Stocks?</span>
             </h1>
-            <p class="text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">Skip the boring charts. We run the Peter Lynch algorithm on the market's hottest stocks and roast the results.</p>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">Peter Lynch meets standup comedy. We run the algorithm, we get the facts, and then we complain about them.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {% for post in site.posts %}
+            {% if post.title and post.content and post.content.size > 10 %}
             <a href="{{ post.url }}" class="block group h-full">
                 <div class="bg-white/[0.02] backdrop-blur-md rounded-[2rem] p-8 border border-white/10 hover:border-red-500/50 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col relative overflow-hidden shadow-inner">
                     <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
@@ -138,6 +139,7 @@ permalink: /blog/
                     </div>
                 </div>
             </a>
+            {% endif %}
             {% endfor %}
         </div>
         
