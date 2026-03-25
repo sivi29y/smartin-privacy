@@ -29,6 +29,10 @@ jobs:
       - name: Run Gemini Headless Agent
         env:
           GEMINI_API_KEY: ${{ secrets.SMARTIN_GEMINI_API_KEY }}
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
         run: |
           python scripts/autonomous_sprint.py
 
