@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Smartinthe.App</title>
+    <title>{{ page.title }} | Smartin Quick Stock Ratings</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         body {
-            font-family: "Inter", sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+            font-family: "Outfit", sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
     </style>
     <script>
@@ -18,20 +20,46 @@
                 extend: {
                     colors: {
                         'smart-primary': '#0d9488',
-                        'smart-secondary': '#34d399',
+                        'smart-dark': '#0f172a',
+                        'smart-accent': '#14b8a6'
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="py-16 px-4">
-    <main class="w-full max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-3xl shadow-xl border-b-8 border-smart-primary/70">
-        <a href="/" class="text-smart-primary font-bold hover:underline mb-8 inline-block">&larr; Back to App</a>
+<body class="antialiased selection:bg-smart-primary selection:text-white">
+
+    <header class="w-full bg-white border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-3xl font-extrabold tracking-tight text-smart-dark hover:text-smart-primary transition-colors">
+                Smartin<span class="text-smart-primary">.App</span>
+            </a>
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-smart-dark text-white font-bold py-3 px-8 rounded-full hover:bg-smart-primary transition-transform hover:-translate-y-1 shadow-lg">
+                Get the App
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full max-w-3xl mx-auto px-6 pb-24">
         
-        <article class="prose prose-lg prose-teal max-w-none">
+        <article class="prose prose-xl prose-slate max-w-none 
+            prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-smart-dark 
+            prose-h1:text-4xl sm:prose-h1:text-6xl prose-h1:mb-10 prose-h1:leading-tight 
+            prose-a:text-smart-primary prose-a:font-bold hover:prose-a:text-smart-accent 
+            prose-p:leading-relaxed prose-p:text-gray-800
+            prose-li:text-gray-800">
             {{ content }}
         </article>
+        
+        <div class="mt-20 pt-16 border-t-2 border-gray-200 text-center bg-white p-12 rounded-3xl shadow-xl">
+            <h3 class="text-4xl sm:text-5xl font-extrabold text-smart-dark mb-4">Stop guessing. Start roasting.</h3>
+            <p class="text-xl text-gray-600 mb-8 max-w-xl mx-auto">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform">
+                Download Smartin Now
+            </a>
+        </div>
+        
     </main>
 </body>
 </html>
