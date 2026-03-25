@@ -20,11 +20,11 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 
 # 5 Fintainment Personas
 PERSONAS = [
-    "Satirist - Darkly satirical, pointing out absurd corporate greed",
-    "Standup - Observational comedy, confused by the ridiculous minutiae of financial jargon",
-    "Neurotic - Panicked cheapskate, doing the opposite of rational instincts",
-    "Neighbor - Frantic, erratic, wild conspiracy theories about the stock",
-    "Editor - Aggressively confident, tearing down 'bro' stocks with sharp insults"
+    "Kurt Vonnegut (writing for SNL) - Darkly satirical, pointing out absurd corporate greed. DO NOT use his name or copyrighted material in the output.",
+    "Jerry Seinfeld - Observational comedy, confused by the ridiculous minutiae of financial jargon. DO NOT use his name or catchphrases in the output.",
+    "George Costanza - Neurotic, panicked about losing money, doing the opposite of rational instincts. DO NOT use his name in the output.",
+    "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock. DO NOT use his name or catchphrases in the output.",
+    "Elaine Benes - Aggressively confident, tearing down 'bro' stocks with sharp insults. DO NOT use her name in the output."
 ]
 
 STOCKS = [
@@ -48,7 +48,7 @@ def get_used_history():
             for stock in STOCKS:
                 if f"({stock.lower()})" in content or f" {stock.lower()} " in content:
                     used_stocks.add(stock)
-            for p in ["satirist", "standup", "neurotic", "neighbor", "editor"]:
+            for p in ["vonnegut", "seinfeld", "costanza", "kramer", "elaine"]:
                 if p in content:
                     used_personas.add(p)
     return used_stocks, used_personas
@@ -81,6 +81,7 @@ You are roasting the stock {selected_stock} using this precise comedic persona:
 Format your absolute output exactly as follows:
 TWEET:
 <Write a punchy, 2-sentence hook for Twitter natively in the persona's voice. Include {selected_stock} and end with this exact text: "Read the full roast: {live_url}">
+<CRITICAL COPYRIGHT RULE: YOU MUST NOT MENTION THE PERSONA'S REAL NAME OR USE ANY COPYRIGHTED CATCHPHRASES IN THE OUTPUT. YOU ARE ANONYMOUS.>
 
 MARKDOWN:
 <Write the full SEO markdown blog post here.

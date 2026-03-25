@@ -111,7 +111,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); /* Lighter blue gradient background */
+            background: linear-gradient(135deg, #020617 0%, #0f172a 100%); /* Deep Dark Slate background */
+            color: #f8fafc;
         }
     </style>
     <!-- Tailwind Configuration for custom color and focus styling -->
@@ -120,11 +121,12 @@
             theme: {
                 extend: {
                     colors: {
-                        'smart-primary': '#0d9488', /* Teal for a financial/trustworthy feel */
-                        'smart-secondary': '#34d399', /* Mint Green for growth/positive feel */
+                        'smart-primary': '#3b82f6', /* Blue-500 for a vibrant neon accent */
+                        'smart-secondary': '#8b5cf6', /* Violet-500 for growth/positive feel */
+                        'smart-dark': '#020617',
                     },
                     boxShadow: {
-                        '3xl': '0 35px 60px -15px rgba(13, 148, 136, 0.3)',
+                        '3xl': '0 35px 60px -15px rgba(59, 130, 246, 0.2)',
                     }
                 }
             }
@@ -134,42 +136,42 @@
 <body>
 
     <main class="w-full max-w-5xl px-4 py-16">
-        <div class="bg-white p-6 sm:p-10 md:p-16 rounded-3xl shadow-3xl text-center border-b-8 border-smart-primary/70">
+        <div class="bg-slate-900/80 backdrop-blur-xl p-6 sm:p-10 md:p-16 rounded-3xl shadow-3xl text-center border border-slate-800 border-b-8 border-b-smart-primary/70">
             
             <!-- Logo/Branding & Nav -->
             <div class="flex justify-center items-center gap-6 mb-3">
                 <h2 class="text-xl font-semibold text-smart-primary">
                     Smartinthe.App
                 </h2>
-                <a href="/blog/" class="text-sm font-semibold text-gray-500 hover:text-smart-primary decoration-smart-primary underline underline-offset-4">
+                <a href="/blog/" class="text-sm font-semibold text-slate-400 hover:text-smart-primary decoration-smart-primary underline underline-offset-4">
                     Read the Fintainment Blog
                 </a>
             </div>
 
             <!-- Main Title (Micro-Marketing Hook) -->
-            <h1 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-                Invest Smarter. Not Harder. <span class="text-smart-secondary">Finally Understand</span> the Market.
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-white mb-6 leading-tight">
+                Invest Smarter. Not Harder. <br/><span class="text-smart-secondary">Finally Understand</span> the Market.
             </h1>
 
             <!-- Subtitle/Value Proposition -->
-            <p class="2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+            <p class="text-xl sm:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
                 The iOS application that makes <b>Factor and GARP (Growth at a Reasonable Price)</b> investing simple, educational, and entertaining for today's casual investors.
             </p>
 
             <!-- App Store CTA -->
             <div class="max-w-xl mx-auto mb-8">
-                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="block w-full bg-smart-dark text-white font-extrabold py-5 px-8 rounded-2xl hover:bg-smart-primary shadow-2xl transition-all duration-300 transform hover:-translate-y-1 text-2xl sm:text-3xl">
+                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="block w-full bg-white text-smart-dark font-extrabold py-5 px-8 rounded-2xl hover:bg-smart-primary hover:text-white shadow-2xl transition-all duration-300 transform hover:-translate-y-1 text-2xl sm:text-3xl">
                     Get Smartin on iOS
                 </a>
             </div>
 
-            <div class="max-w-xl mx-auto mb-10 bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Want Android or Web Access?</h3>
+            <div class="max-w-xl mx-auto mb-10 bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Want Android or Web Access?</h3>
                 <!-- Pre-Sign Form -->
                 <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         <input type="email" id="emailInput" required placeholder="Enter email to join waitlist" 
-                               class="flex-grow px-5 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner text-sm">
+                               class="flex-grow px-5 py-3 border border-slate-600 bg-slate-700 text-white placeholder-slate-400 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner text-sm">
                         
                         <button type="submit" id="submitButton" 
                                 class="flex-shrink-0 px-6 py-3 text-base font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-md">
@@ -185,40 +187,40 @@
             </div>
 
             <!-- Feature Blocks (Micro-Marketing Details) -->
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                 
                 <!-- Feature 1: GARP Investing Made Simple -->
-                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
-                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                <div class="p-6 bg-slate-800/50 rounded-2xl border border-slate-700 transition hover:shadow-lg hover:border-smart-primary/50">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
                         <!-- Icon: Bar Chart (Financial Growth) -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">GARP Investing Simplified</h3>
-                    <p class="text-gray-600">
+                    <h3 class="text-xl font-bold text-white mb-3">GARP Investing Simplified</h3>
+                    <p class="text-slate-400 text-sm">
                         Easily identify stocks with solid <b>growth potential</b> that are also trading at a <b>reasonable price</b>. We guide you past the hype and towards true value.
                     </p>
                 </div>
 
                 <!-- Feature 2: Factor Strategy Insights -->
-                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
-                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                <div class="p-6 bg-slate-800/50 rounded-2xl border border-slate-700 transition hover:shadow-lg hover:border-smart-primary/50">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
                         <!-- Icon: Puzzle (Connecting pieces/factors) -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M19.4 15a1.4 1.4 0 0 0 .2-1.4v-3.2a1.4 1.4 0 0 0-1.4-1.4H16.4a1.4 1.4 0 0 0-1.4-1.4V5.4a1.4 1.4 0 0 0-1.4-1.4H9.4a1.4 1.4 0 0 0-1.4 1.4V8a1.4 1.4 0 0 0-1.4 1.4H4.4a1.4 1.4 0 0 0-1.4 1.4v3.2a1.4 1.4 0 0 0 .2 1.4L6 18l3.6-3.6a1.4 1.4 0 0 0 1.4.2v3.2a1.4 1.4 0 0 0 1.4 1.4h3.2a1.4 1.4 0 0 0 1.4-1.4V16l3.6-3.6z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Factor Strategy Insights</h3>
-                    <p class="text-gray-600">
+                    <h3 class="text-xl font-bold text-white mb-3">Factor Strategy Insights</h3>
+                    <p class="text-slate-400 text-sm">
                         See how <b>Value, Momentum, and Quality</b> factors impact your stock choices. We teach you the 'why' behind successful investment strategies, entertainingly.
                     </p>
                 </div>
 
                 <!-- Feature 3: Bad Idea Stock Check -->
-                <div class="p-6 bg-smart-primary/5 rounded-2xl border border-smart-primary/10 transition hover:shadow-lg">
-                    <div class="w-10 h-10 mx-auto mb-4 text-smart-primary">
+                <div class="p-6 bg-slate-800/50 rounded-2xl border border-slate-700 transition hover:shadow-lg hover:border-smart-primary/50">
+                    <div class="w-10 h-10 mb-4 text-smart-primary">
                         <!-- Icon: Shield Check (Validation/Protection) -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">The "Bad Idea" Checker</h3>
-                    <p class="text-gray-600">
+                    <h3 class="text-xl font-bold text-white mb-3">The "Bad Idea" Checker</h3>
+                    <p class="text-slate-400 text-sm">
                         Got a hot tip? Run it through our educational analyzer. Get an objective, factor-based perspective on why a stock idea might be good... or bad.
                     </p>
                 </div>

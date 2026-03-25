@@ -10,8 +10,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         body {
             font-family: "Outfit", sans-serif;
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: #020617;
+            color: #f8fafc;
         }
     </style>
     <script>
@@ -19,10 +19,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'smart-primary': '#0d9488',
-                        'smart-dark': '#0f172a',
-                        'smart-accent': '#14b8a6',
-                        'smart-secondary': '#34d399',
+                        'smart-primary': '#3b82f6',
+                        'smart-dark': '#020617',
+                        'smart-accent': '#60a5fa',
+                        'smart-secondary': '#8b5cf6',
                     }
                 }
             }
@@ -98,12 +98,12 @@
 </head>
 <body class="antialiased selection:bg-smart-primary selection:text-white">
 
-    <header class="w-full bg-white border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm">
+    <header class="w-full bg-slate-900 border-b-4 border-smart-primary py-6 px-6 sm:px-12 mb-12 shadow-sm sticky top-0 z-50">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-3xl font-extrabold tracking-tight text-smart-dark hover:text-smart-primary transition-colors">
+            <a href="/" class="text-3xl font-extrabold tracking-tight text-white hover:text-smart-primary transition-colors">
                 Smartin<span class="text-smart-primary">.App</span>
             </a>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-smart-dark text-white font-bold py-3 px-8 rounded-full hover:bg-smart-primary transition-transform hover:-translate-y-1 shadow-lg">
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-white text-smart-dark font-bold py-3 px-8 rounded-full hover:bg-smart-primary hover:text-white transition-transform hover:-translate-y-1 shadow-lg">
                 Get the App
             </a>
         </div>
@@ -111,31 +111,31 @@
 
     <main class="w-full max-w-3xl mx-auto px-6 pb-24">
         
-        <article class="prose prose-xl prose-slate max-w-none 
-            prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-smart-dark 
+        <article class="prose prose-xl prose-invert max-w-none 
+            prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-white 
             prose-h1:text-4xl sm:prose-h1:text-6xl prose-h1:mb-10 prose-h1:leading-tight 
             prose-a:text-smart-primary prose-a:font-bold hover:prose-a:text-smart-accent 
-            prose-p:leading-relaxed prose-p:text-gray-800
-            prose-li:text-gray-800">
+            prose-p:leading-relaxed prose-p:text-slate-300
+            prose-li:text-slate-300">
             {{ content }}
         </article>
         
-        <div class="mt-20 pt-16 border-t-2 border-gray-200 text-center bg-white p-12 rounded-3xl shadow-xl">
-            <h3 class="text-4xl sm:text-5xl font-extrabold text-smart-dark mb-4">Stop guessing. Start roasting.</h3>
-            <p class="text-xl text-gray-600 mb-8 max-w-xl mx-auto">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform mb-12">
+        <div class="mt-20 pt-16 border-t-2 border-slate-800 text-center bg-slate-900/50 backdrop-blur p-12 rounded-3xl border shadow-xl">
+            <h3 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Stop guessing. Start roasting.</h3>
+            <p class="text-xl text-slate-400 mb-8 max-w-xl mx-auto">Get the cold, hard Peter Lynch truth on any stock in under 15 seconds.</p>
+            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="inline-block bg-smart-primary text-white font-extrabold text-2xl py-5 px-12 rounded-full hover:bg-white hover:text-smart-dark hover:shadow-2xl transition-all hover:scale-105 transform mb-12">
                 Download Smartin Now
             </a>
             
-            <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-inner">
-                <h4 class="text-xl font-bold text-smart-dark mb-2">Love the Roasts? Subscribe for More.</h4>
-                <p class="text-sm text-gray-500 mb-6">Join the newsletter and get our latest stock market comedy sent straight to your inbox.</p>
+            <div class="max-w-xl mx-auto bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-inner">
+                <h4 class="text-xl font-bold text-white mb-2">Love the Roasts? Subscribe for More.</h4>
+                <p class="text-sm text-slate-400 mb-6">Join the newsletter and get our latest stock market comedy sent straight to your inbox.</p>
                 <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         <input type="email" id="emailInput" required placeholder="Enter your email address" 
-                               class="flex-grow px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
+                               class="flex-grow px-4 py-3 border border-slate-600 bg-slate-700 text-white placeholder-slate-400 rounded-xl focus:ring-2 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none">
                         <button type="submit" id="submitButton" 
-                                class="flex-shrink-0 px-6 py-3 font-bold rounded-xl text-white bg-smart-dark hover:bg-smart-primary transition-all shadow-md">
+                                class="flex-shrink-0 px-6 py-3 font-bold rounded-xl text-white bg-smart-primary hover:bg-smart-secondary transition-all shadow-md">
                             Subscribe
                         </button>
                     </div>
