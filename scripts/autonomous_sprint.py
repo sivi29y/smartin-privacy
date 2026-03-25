@@ -2,12 +2,18 @@ import os
 import random
 from datetime import datetime
 import google.generativeai as genai
+import tweepy
 
-# Setup Gemini API Key
+# Setup API Keys
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     print("Error: GEMINI_API_KEY is not set.")
     exit(1)
+
+TWITTER_API_KEY = os.environ.get("TWITTER_API_KEY")
+TWITTER_API_SECRET = os.environ.get("TWITTER_API_SECRET")
+TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.5-flash')
@@ -21,7 +27,6 @@ PERSONAS = [
     "Elaine Benes - Aggressively confident, tearing down 'bro' stocks with sharp insults"
 ]
 
-# 50 Retail/Meme/Tech Stocks
 STOCKS = [
     "AAPL", "TSLA", "GME", "AMC", "PLTR", "SOFI", "NVDA", "AMD", "META", "GOOGL", 
     "AMZN", "NFLX", "MSFT", "INTC", "DJT", "HOOD", "COIN", "MARA", "RIOT", "BABA", 
@@ -31,43 +36,31 @@ STOCKS = [
 ]
 
 def get_used_history():
-    """Reads the _posts directory to prevent repeating the same stock or persona."""
-    used_stocks = set()
-    used_personas = set()
-    
+    used_stocks, used_personas = set(), set()
     posts_dir = "_posts"
     if not os.path.exists(posts_dir):
         return used_stocks, used_personas
         
     for filename in os.listdir(posts_dir):
         if not filename.endswith(".md"): continue
-        
         with open(os.path.join(posts_dir, filename), 'r') as f:
             content = f.read().lower()
-            # Scan for used stocks
             for stock in STOCKS:
                 if f"({stock.lower()})" in content or f" {stock.lower()} " in content:
                     used_stocks.add(stock)
-            
-            # Scan for used personas (George, Elaine, etc.)
             for p in ["vonnegut", "seinfeld", "costanza", "kramer", "elaine"]:
                 if p in content:
                     used_personas.add(p)
-                    
     return used_stocks, used_personas
 
 used_stocks, used_personas = get_used_history()
 
-# Filter available to strictly prevent loops
 available_stocks = [s for s in STOCKS if s not in used_stocks]
-if len(available_stocks) < 5:
-    available_stocks = STOCKS # Reset cycle if we've exhausted everything
+if len(available_stocks) < 5: available_stocks = STOCKS
     
 available_personas = [p for p in PERSONAS if p.split()[0].lower() not in " ".join(used_personas).lower()]
-if not available_personas:
-    available_personas = PERSONAS # Reset cycle
+if not available_personas: available_personas = PERSONAS
 
-# Select random combination of unused variables
 selected_stock = random.choice(available_stocks)
 selected_persona = random.choice(available_personas)
 short_persona_name = selected_persona.split()[0].lower()
@@ -78,31 +71,58 @@ print(f"Selected Persona: {selected_persona}")
 date_str = datetime.now().strftime('%Y-%m-%d')
 safe_slug = f"{selected_stock.lower()}-roast-{short_persona_name}"
 permalink = f"/blog/{safe_slug}/"
+live_url = f"https://smartinthe.app{permalink}"
 
 prompt = f"""
 Write a highly entertaining, SEO-optimized blog post for the iOS app 'Smartin: Quick Stock Ratings'.
-The post must roast the stock {selected_stock} using this precise comedic persona:
+You are roasting the stock {selected_stock} using this precise comedic persona:
 {selected_persona}
 
-Rules:
-1. Briefly explain what {selected_stock} does, but immediately pivot to roasting its valuation (P/E ratio, PEG ratio) in the character's unique voice. Be funny, cynical, and authoritative.
-2. The ultimate goal is converting the reader. You MUST include this exact line as a call to action at the bottom of the article:
-👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**
-3. The response MUST be ONLY valid Markdown with YAML frontmatter. Do not include any block backticks (```markdown) around your output.
-4. The frontmatter MUST ONLY include: layout: post, title, description, keywords, and permalink: {permalink}
-5. The keywords must include the stock ticker, the persona name, and "AI stock analysis app".
-6. The title should be incredibly catchy, funny, and include the ticker.
+Format your absolute output exactly as follows:
+TWEET:
+<Write a punchy, 2-sentence hook for Twitter natively in the persona's voice. Include {selected_stock} and end with this exact text: "Read the full roast: {live_url}">
+
+MARKDOWN:
+<Write the full SEO markdown blog post here.
+Remember to briefly explain {selected_stock}, roast its P/E and PEG ratios.
+Must be valid Markdown with YAML frontmatter containing ONLY layout: post, title, description, keywords, and permalink: {permalink}.
+Must include the following call to action line at the bottom: 
+👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
 
 response = model.generate_content(prompt)
-markdown_content = response.text.replace('```markdown', '').replace('```', '').strip()
+output_text = response.text
 
-# Create directory if it doesn't exist
+try:
+    tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()
+    markdown_content = output_text.split("MARKDOWN:")[1].strip()
+except IndexError:
+    print("Formatting error from Gemini. Defaulting safely.")
+    tweet_content = f"Check out our latest roast on {selected_stock}! {live_url}"
+    markdown_content = output_text
+
+markdown_content = markdown_content.replace('```markdown', '').replace('```', '').strip()
+
+# Generate the SEO Article
 os.makedirs("_posts", exist_ok=True)
-
-# Save the file
 filename = f"_posts/{date_str}-{safe_slug}.md"
 with open(filename, 'w') as f:
     f.write(markdown_content)
-
 print(f"Generated successfully: {filename}")
+
+# Post to Twitter
+if TWITTER_API_KEY and TWITTER_API_SECRET and TWITTER_ACCESS_TOKEN and TWITTER_ACCESS_SECRET:
+    print(f"Tweeting: {tweet_content}")
+    try:
+        client = tweepy.Client(
+            consumer_key=TWITTER_API_KEY,
+            consumer_secret=TWITTER_API_SECRET,
+            access_token=TWITTER_ACCESS_TOKEN,
+            access_token_secret=TWITTER_ACCESS_SECRET
+        )
+        response = client.create_tweet(text=tweet_content)
+        print(f"SUCCESS: Roast posted to Twitter. Tweet ID: {response.data['id']}")
+    except Exception as e:
+        print(f"TWITTER ERROR: {e}")
+else:
+    print("Skipping Twitter: Twitter API Keys not found in environment.")
