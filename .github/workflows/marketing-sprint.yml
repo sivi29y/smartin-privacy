@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Gemini Headless Agent
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.SMARTIN_GEMINI_API_KEY }}
         run: |
           python scripts/autonomous_sprint.py
 
