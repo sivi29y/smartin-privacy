@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Smartinthe.App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'smart-primary': '#0d9488',
+                        'smart-secondary': '#34d399',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="py-16 px-4">
+    <main class="w-full max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-3xl shadow-xl border-b-8 border-smart-primary/70">
+        <a href="/" class="text-smart-primary font-bold hover:underline mb-8 inline-block">&larr; Back to App</a>
+        
+        <article class="prose prose-lg prose-teal max-w-none">
+            {{ content }}
+        </article>
+    </main>
+</body>
+</html>
