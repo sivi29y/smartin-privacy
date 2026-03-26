@@ -9,6 +9,39 @@
     
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://smartin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+    <!-- Google Structured Data (JSON-LD) for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Smartin",
+          "operatingSystem": "iOS",
+          "applicationCategory": "FinanceApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "installUrl": "https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652",
+          "description": "Smartin is a humorous AI stock analyst for the modern investor. We Rate Stocks, We Roast Stocks, and You Make Money."
+        },
+        {
+          "@type": "Organization",
+          "name": "Smartin.App",
+          "url": "https://smartinthe.app",
+          "logo": "https://smartinthe.app/apple-touch-icon.png"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Smartinthe.App",
+          "url": "https://smartinthe.app"
+        }
+      ]
+    }
+    </script>
     
     <!-- Supabase Client Logic (No external SDK needed for simple fetch) -->
     <script>
