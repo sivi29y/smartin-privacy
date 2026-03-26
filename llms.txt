@@ -1,0 +1,16 @@
+# Smartin App
+
+The humorous AI stock analyst for the modern investor. We Rate Stocks, We Roast Stocks, and You Make Money.
+
+## Core Pages
+- [Homepage](https://smartinthe.app/) - App download and core value proposition.
+- [Blog Index](https://smartinthe.app/blog/) - "Fintainment" blog featuring stock roasts.
+- [Android Waitlist](https://smartinthe.app/waitlist/) - Join the waitlist for the Android version.
+- [Support](https://smartinthe.app/support/) - Get help with the Smartin app.
+- [Privacy Policy](https://smartinthe.app/privacy_policy/) - Privacy details.
+
+## Key Features
+- **The Roast**: Satirical, data-backed analysis of popular stocks (e.g., TSLA).
+- **Factor Math**: Serious underlying models for GARP (Growth at a Reasonable Price) and Value investing.
+- **Privacy-First**: Privacy-friendly analytics, no cookies, no user data collection.
+- **iOS First**: native experience designed for premium stock analysis.
