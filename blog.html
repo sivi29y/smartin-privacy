@@ -9,6 +9,10 @@ permalink: /blog/
     <title>The Smartin Blog | Quick Stock Ratings & Fintainment</title>
     <meta name="description" content="Read the latest Fintainment stock roasts, market analysis, and feature updates from the Smartin App.">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://smartin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -53,10 +57,22 @@ permalink: /blog/
                 return;
             }
 
-            const email = emailInput.value.trim();
-            if (!email || !email.includes('@')) {
-                messageBox.textContent = 'Please enter a valid email address.';
+            const email = emailInput.value.trim().toLowerCase();
+            const forbiddenDomains = ['example.com', 'test.com', 'internal.com', 'sample.com'];
+            const domain = email.split('@')[1];
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email || !emailRegex.test(email)) {
+                messageBox.textContent = 'Please enter a valid email address (e.g., name@domain.com).';
                 messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-yellow-100 text-yellow-800';
+                messageBox.classList.remove('hidden');
+                return;
+            }
+
+            if (forbiddenDomains.includes(domain)) {
+                messageBox.textContent = 'Please use a real email address. (No test domains allowed!)';
+                messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-yellow-100 text-yellow-800';
+                messageBox.classList.remove('hidden');
                 return;
             }
 
@@ -75,11 +91,15 @@ permalink: /blog/
                         'Content-Type': 'application/json',
                         'Prefer': 'return=minimal'
                     },
-                    body: JSON.stringify({ email: email, timestamp: new Date().toISOString(), source: window.location.pathname })
+                    body: JSON.stringify({ 
+                        email: email, 
+                        timestamp: new Date().toISOString(), 
+                        source: 'Blog Newsletter' 
+                    })
                 });
 
                 if (response.ok || response.status === 201) {
-                    messageBox.textContent = 'Success! You are subscribed.';
+                    messageBox.innerHTML = 'Success! You are subscribed. <br/><span class="text-[11px] opacity-80">Your email is <b>never</b> shared or used for tracking.</span>';
                     messageBox.className = 'mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current bg-green-100 text-green-800';
                     emailInput.value = ''; 
                 } else {
@@ -160,6 +180,9 @@ permalink: /blog/
                         Subscribe
                     </button>
                 </div>
+                <p class="text-[10px] text-slate-500 mt-4 text-center sm:text-left font-light opacity-80">
+                    By subscribing, you agree to receive updates about the Smartin App. We value your privacy: your email is <b>never</b> used for tracking or shared with third parties.
+                </p>
             </form>
             <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current"></div>
         </div>

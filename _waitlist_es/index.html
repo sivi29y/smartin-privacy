@@ -8,6 +8,10 @@
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
     <!-- GoatCounter Analytics -->
     <script data-goatcounter="https://smartin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     
@@ -36,9 +40,20 @@
                 return;
             }
 
-            const email = emailInput.value.trim();
-            if (!email || !email.includes('@')) {
-                messageBox.textContent = 'Please enter a valid email address.';
+            const email = emailInput.value.trim().toLowerCase();
+            const forbiddenDomains = ['example.com', 'test.com', 'internal.com', 'sample.com'];
+            const domain = email.split('@')[1];
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email || !emailRegex.test(email)) {
+                messageBox.textContent = 'Please enter a valid email address (e.g., name@domain.com).';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                return;
+            }
+
+            if (forbiddenDomains.includes(domain)) {
+                messageBox.textContent = 'Please use a real email address. (No test domains allowed!)';
                 messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
                 messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
                 return;
@@ -63,12 +78,12 @@
                     body: JSON.stringify({
                         email: email,
                         timestamp: new Date().toISOString(),
-                        source: 'Smartinthe.App Seinfeld Page'
+                        source: 'Seinfeld Page'
                     })
                 });
 
                 if (response.status === 201 || response.status === 200) {
-                    messageBox.textContent = 'Success! A soup for you! You are on the waitlist.';
+                    messageBox.innerHTML = 'Success! A soup for you! You are on the waitlist. <br/><span class="text-[11px] opacity-80">Your email is <b>never</b> shared or used for tracking.</span>';
                     messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100', 'text-red-800');
                     // Using tailwind's default green for success message background for clarity
                     messageBox.classList.add('bg-green-100', 'text-green-800'); 
@@ -175,6 +190,9 @@
                         Join the Waitlist
                     </button>
                 </div>
+                <p class="text-[10px] text-gray-500 mt-4 text-center sm:text-left font-light opacity-80">
+                    By joining, you agree to receive updates about the Smartin App. We value your privacy: your email is <b>never</b> used for tracking or shared with third parties.
+                </p>
             </form>
 
             <!-- Submission Message Box -->
