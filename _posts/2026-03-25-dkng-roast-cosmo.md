@@ -20,7 +20,7 @@ permalink: /blog/2026-03-25/dkng/
 
 *KNOCK, KNOCK, KNOCK!*
 
-"Jerry! Jerry, you seeing this?! **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/DKNG)), my hair's standing on end! The PEG ratio is a microscopic **0.08**, and the stock just took a **-2.59%** dive!"
+"Jerry! Jerry, you seeing this?! **[DKNG](https://finance.yahoo.com/quote/DKNG) (-2.59%)** - As of **March 28, 2026** (P/E: N/A, PEG: 0.0815), my hair's standing on end! It's an outrage, Jerry! A financial *abomination*!"
 
 "You know DraftKings, right? DKNG? Yeah, yeah, the whole shebang. People putting money on who can throw a ball furthest, who can run fastest, who can... *exist* in a sporting event without tripping! It's a whole digital playground for your gambling urges! A modern-day coliseum where the lions are your impulse control and the gladiators are... well, they're the guys making money off your... *excitement*!"
 

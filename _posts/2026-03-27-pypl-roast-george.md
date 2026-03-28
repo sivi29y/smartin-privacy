@@ -6,7 +6,7 @@ keywords: "PYPL, stock, ratings, P/E ratio, PEG ratio, investing, panic, money, 
 permalink: /blog/2026-03-27/pypl/
 ---
 
-Another day, another pit in my stomach. **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/PYPL)), the P/E ratio is **8.06**, the PEG ratio is **0.69**, and the stock just plunged **-3.56%**. It’s not the coffee... it’s PYPL.
+Another day, another pit in my stomach. **[PYPL](https://finance.yahoo.com/quote/PYPL) (-3.56%)** - As of **March 28, 2026** (P/E: 8.05, PEG: 0.6941). It’s not the coffee... it’s the stock market.
 
 ### What Even *Is* PYPL? (And Why Is It Taunting Me?)
 
