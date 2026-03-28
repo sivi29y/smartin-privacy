@@ -12,10 +12,10 @@ layout: null
     </url>
   {% endfor %}
   {% for page in site.pages %}
-    {% if page.url contains '.html' or page.url == '/' %}
-      {% unless page.url contains '404' or page.url contains 'privacy_policy' or page.url contains 'terms' %}
+    {% if page.url contains 'index.html' or page.url == '/' or page.url contains 'privacy_policy' or page.url contains 'terms' or page.url contains 'support' %}
+      {% unless page.url contains '404' or page.name contains '.xml' or page.name contains '.txt' %}
         <url>
-          <loc>{{ site.url }}{{ page.url }}</loc>
+          <loc>{{ site.url }}{{ page.url | replace: "index.html", "" }}</loc>
           <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>{% if page.url == '/' %}1.0{% else %}0.5{% endif %}</priority>
