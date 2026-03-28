@@ -11,16 +11,34 @@ layout: null
       <priority>0.8</priority>
     </url>
   {% endfor %}
-  {% for page in site.pages %}
-    {% if page.url contains 'index.html' or page.url == '/' or page.url contains 'privacy_policy' or page.url contains 'terms' or page.url contains 'support' %}
-      {% unless page.url contains '404' or page.name contains '.xml' or page.name contains '.txt' %}
-        <url>
-          <loc>{{ site.url }}{{ page.url | replace: "index.html", "" }}</loc>
-          <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
-          <changefreq>monthly</changefreq>
-          <priority>{% if page.url == '/' %}1.0{% else %}0.5{% endif %}</priority>
-        </url>
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
+  <url>
+    <loc>{{ site.url }}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>{{ site.url }}/blog/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>{{ site.url }}/privacy_policy/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>{{ site.url }}/terms/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>{{ site.url }}/support/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
