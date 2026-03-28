@@ -3,7 +3,7 @@ layout: post
 title: CLOV: Or, How I Learned to Stop Worrying and Love the Unprofitable Growth
 description: Join us for a darkly humorous look at Clover Health (CLOV), where AI meets Medicare and investors meet... well, reality. We dissect its valuation with a satirical scalpel wielded by none other than Kurt Vonnegut (writing for SNL). Discover the absurdity, then discover Smartin.
 keywords: CLOV, Kurt Vonnegut, SNL, Smartin, Quick Stock Ratings, AI stock analysis app, stock valuation, P/E, PEG, market analysis, corporate greed
-permalink: /blog/clov-roast-kurt/
+permalink: /blog/clov/
 ---
 
 Listen. Stop. Look around. You see these folks, running in circles, chasing the digital ghosts of wealth? It’s a magnificent, pathetic ballet. And today, our spotlight falls on a particular dance number, a sort of financial interpretive dance called **Clover Health, ticker symbol CLOV**.

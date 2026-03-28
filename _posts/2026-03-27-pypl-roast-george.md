@@ -1,10 +1,9 @@
-yaml
 ---
 layout: post
 title: "PYPL Panic: Why My Wallet Is Screaming (and Yours Might Be Too!)"
 description: "A neurotic, money-obsessed look at PYPL stock, its P/E and PEG ratios, and why it's causing utter financial dread. Don't make my mistakes – get quick stock insights!"
 keywords: "PYPL, stock, ratings, P/E ratio, PEG ratio, investing, panic, money, Smartin, iOS app"
-permalink: /blog/pypl-roast-george/
+permalink: /blog/pypl/
 ---
 
 Another day, another pit in my stomach. It’s not the coffee, it’s not that weird sandwich I had for lunch... it’s the stock market. Specifically, it’s PYPL. I mean, I *tried* to just glance at it. A quick look, no big deal. But then the numbers started flashing, and now I feel like I need to lie down in a dark room.

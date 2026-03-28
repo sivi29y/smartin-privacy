@@ -15,7 +15,7 @@ keywords:
   - AI stock analysis app
   - Financial humor
   - Smartin app
-permalink: /blog/dkng-roast-cosmo/
+permalink: /blog/dkng/
 ---
 
 *KNOCK, KNOCK, KNOCK!*

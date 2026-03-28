@@ -3,7 +3,7 @@ layout: post
 title: "What's the DEAL with AAPL Stock? A Seinfeld Roast of Apple's Ratios!"
 description: "Jerry Seinfeld tackles AAPL's P/E and PEG ratios in a hilarious, observational roast. Are you paying too much for Apple? Smartin helps you find out!"
 keywords: "AAPL stock, Apple stock, P/E ratio, PEG ratio, stock ratings, Smartin app, iOS app, investing, Jerry Seinfeld comedy, observational humor, quick stock ratings"
-permalink: /blog/aapl-roast-jerry/
+permalink: /blog/aapl/
 ---
 
 What is the deal with investing? I mean, you put your money in, and then you just... wait? It's like going to a restaurant, ordering food, and then the waiter says, "Okay, we'll bring it out when it's done... or not. We'll see how it goes!" And then they hand you a little printout with numbers like 'P/E' and 'PEG.' What are these, secret menu codes?
