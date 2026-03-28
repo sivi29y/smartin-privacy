@@ -15,12 +15,12 @@ keywords:
   - AI stock analysis app
   - Financial humor
   - Smartin app
-permalink: /blog/dkng/
+permalink: /blog/2026-03-25/dkng/
 ---
 
 *KNOCK, KNOCK, KNOCK!*
 
-"Jerry! Jerry, you seeing this?! My hair's standing on end! It's an outrage, Jerry! A financial *abomination*!"
+"Jerry! Jerry, you seeing this?! **As of March 25, 2026**, my hair's standing on end! It's an outrage, Jerry! A financial *abomination*!"
 
 "You know DraftKings, right? DKNG? Yeah, yeah, the whole shebang. People putting money on who can throw a ball furthest, who can run fastest, who can... *exist* in a sporting event without tripping! It's a whole digital playground for your gambling urges! A modern-day coliseum where the lions are your impulse control and the gladiators are... well, they're the guys making money off your... *excitement*!"
 

@@ -3,12 +3,12 @@ layout: post
 title: "Tesla (TSLA) Valuation: A Big Valuation About Nothing"
 description: "Amazing company. Terrible price. The TSLA PEG ratio is so high it's currently orbiting Mars with Elon's car. It’s not an investment; it’s a donation."
 keywords: TSLA stock analysis, Tesla evaluation, Finance app, Apple App Store, funny stock review, Peter Lynch
-permalink: /blog/tsla/
+permalink: /blog/2026-03-25/tsla/
 ---
 
 # Tesla (TSLA): The 'Kramer Idea' of the Stock Market
 
-Look, we need to talk about Tesla (TSLA).
+Look, we need to talk about Tesla (TSLA). **As of March 25, 2026**, the numbers are in, and frankly, they're terrifying.
 
 You're holding it because you think it’s the future. You think you're getting in on the ground floor of the robotaxi revolution. It's like buying an oversized suit from Kramer's friend bob sacamano because "everyone's gonna be wearing them next year."
 

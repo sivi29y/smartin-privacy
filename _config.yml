@@ -1,7 +1,7 @@
 title: Smartinthe.App Blog
 description: The official fintainment blog for Smartin App
 url: "https://smartinthe.app"
-permalink: /blog/:title/
+permalink: /blog/:year-:month-:day/:title/
 
 include:
   - favicon.png

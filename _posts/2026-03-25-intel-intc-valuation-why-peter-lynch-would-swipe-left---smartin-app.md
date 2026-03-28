@@ -3,12 +3,12 @@ layout: post
 title: "Intel (INTC) Valuation: Why Peter Lynch Would Swipe Left"
 description: "Is INTC a value trap or a value play? We use the modernized Peter Lynch PEG ratio to roast Intel's stock. Don't buy meme stocks blind. Download Smartin, the AI stock analysis app."
 keywords: AI stock analysis app, Apple App Store, finance app, Peter Lynch, INTC stock rating, value investing
-permalink: /blog/intc/
+permalink: /blog/2026-03-25/intc/
 ---
 
 # Intel (INTC): The 'George Costanza' of Your Portfolio
 
-Look, we need to talk about Intel (INTC). 
+Look, we need to talk about Intel (INTC). **As of March 25, 2026**, the numbers are looking like a George Costanza lie that finally caught up. 
 
 You're holding it because you think it’s a "value play." It's like dating someone just because they own a house, even though the roof is caving in and they still use a flip phone. 
 
