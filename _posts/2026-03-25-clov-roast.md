@@ -7,7 +7,7 @@ keywords: "CLOV, Kurt Vonnegut, SNL, Smartin, Quick Stock Ratings, AI stock anal
 permalink: /blog/2026-03-25/clov/
 ---
 
-Listen. Stop. Look around. **As of March 25, 2026**, you see these folks, running in circles, chasing the digital ghosts of wealth? It’s a magnificent, pathetic ballet. And today, our spotlight falls on a particular dance number, a sort of financial interpretive dance called **Clover Health, ticker symbol CLOV**.
+Listen. Stop. Look around. **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/CLOV)), you see these folks, running in circles, chasing the digital ghosts of wealth? It’s a magnificent, pathetic ballet. The P/E and PEG ratios are currently "N/A" (meaning they're losing money faster than a gambler at 3 AM), and the stock just dropped **-2.78%** in the latest session.
 
 Now, what does CLOV do, you ask? Bless your innocent heart. They’re in the Medicare Advantage game, supposedly using artificial intelligence – because of course they are – to make healthcare more efficient. A noble pursuit, one might say, right up there with trying to teach a goldfish to play chess. The idea is to disrupt, to innovate, to sprinkle a little Silicon Valley fairy dust on the dusty annals of elder care. Sounds... futuristic, doesn’t it? Very sleek. Very "we're changing the world."
 

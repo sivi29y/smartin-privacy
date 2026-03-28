@@ -8,7 +8,7 @@ permalink: /blog/2026-03-25/tsla/
 
 # Tesla (TSLA): The 'Kramer Idea' of the Stock Market
 
-Look, we need to talk about Tesla (TSLA). **As of March 25, 2026**, the numbers are in, and frankly, they're terrifying.
+Look, we need to talk about Tesla (TSLA). **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/TSLA)), the numbers are in: a P/E ratio of **331.95**, a PEG ratio of **5.02**, and a last-session performance of **-2.76%**. Frankly, it's terrifying.
 
 You're holding it because you think it’s the future. You think you're getting in on the ground floor of the robotaxi revolution. It's like buying an oversized suit from Kramer's friend bob sacamano because "everyone's gonna be wearing them next year."
 

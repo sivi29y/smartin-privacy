@@ -6,7 +6,7 @@ keywords: "AAPL stock, Apple stock, P/E ratio, PEG ratio, stock ratings, Smartin
 permalink: /blog/2026-03-25/aapl/
 ---
 
-What is the deal with investing? **As of March 25, 2026**, I mean, you put your money in, and then you just... wait? It's like going to a restaurant, ordering food, and then the waiter says, "Okay, we'll bring it out when it's done... or not. We'll see how it goes!" And then they hand you a little printout with numbers like 'P/E' and 'PEG.' What are these, secret menu codes?
+What is the deal with investing? **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/AAPL)), I mean, you put your money in, and then you just... wait? The P/E ratio is sitting at **31.45**, with a PEG ratio of **2.20**, and it's down **-1.62%** just last session. 
 
 ### The Apple of Our Eye... and Our Wallets? (AAPL, of course!)
 

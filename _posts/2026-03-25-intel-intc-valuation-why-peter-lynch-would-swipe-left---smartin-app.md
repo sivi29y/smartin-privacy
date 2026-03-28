@@ -8,7 +8,7 @@ permalink: /blog/2026-03-25/intc/
 
 # Intel (INTC): The 'George Costanza' of Your Portfolio
 
-Look, we need to talk about Intel (INTC). **As of March 25, 2026**, the numbers are looking like a George Costanza lie that finally caught up. 
+Look, we need to talk about Intel (INTC). **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/INTC)), the numbers are down **-2.20%** today. It's looking like a George Costanza lie that finally caught up.
 
 You're holding it because you think it’s a "value play." It's like dating someone just because they own a house, even though the roof is caving in and they still use a flip phone. 
 

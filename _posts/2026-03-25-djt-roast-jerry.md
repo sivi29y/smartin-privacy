@@ -6,7 +6,7 @@ keywords: DJT stock, Trump Media, Truth Social, stock market, P/E ratio, PEG rat
 permalink: /blog/2026-03-25/djt/
 ---
 
-What is the deal with the stock market? **As of March 25, 2026**, you put your money in, you hope it grows, but then they hit you with all these… *ratios*. P/E, PEG… it’s like they're trying to make it sound more complicated than ordering soup. I mean, do I look like I carry a slide rule in my pocket?
+What is the deal with the stock market? **As of March 28, 2026** ([View on Yahoo Finance](https://finance.yahoo.com/quote/DJT)), you put your money in, you hope it grows, and it drops **-1.40%** in a single day. And the ratios? For DJT, they're non-existent (N/A) because... well, earnings are like Jerry's show about nothing!
 
 And then there's this stock, DJT. Trump Media & Technology Group, you know, the folks behind Truth Social. A social media platform. Okay. Fine. But when you look at the numbers, that’s where things get *really* interesting. Or, rather, *uninteresting* in a fascinating way.
 
