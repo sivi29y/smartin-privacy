@@ -1,0 +1,502 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartinthe.App | Factor & GARP Investing Made Easy</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Advanced Analytics -->
+    {% include analytics.html %}
+
+
+    <!-- Google Structured Data (JSON-LD) for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Smartin",
+          "operatingSystem": "iOS",
+          "applicationCategory": "FinanceApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "installUrl": "https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652",
+          "description": "Smartin is a humorous AI stock analyst for the modern investor. We Rate Stocks, We Roast Stocks, and You Make Money."
+        },
+        {
+          "@type": "Organization",
+          "name": "Smartin.App",
+          "url": "https://smartinthe.app",
+          "logo": "https://smartinthe.app/apple-touch-icon.png"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Smartinthe.App",
+          "url": "https://smartinthe.app"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Supabase Client Logic (No external SDK needed for simple fetch) -->
+    <script>
+        // SECURITY IS ENFORCED VIA SUPABASE ROW LEVEL SECURITY (RLS) POLICIES.
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co'; 
+        // 2. Your Supabase Project Anon Key (Public Key)
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        // 3. The name of the table you want to store emails in (e.g., 'waitlist_emails')
+        const SUPABASE_TABLE_NAME = 'waitlist_emails'; 
+
+        // Check if configuration is set
+        const isSupabaseConfigured = () => {
+            return SUPABASE_URL.startsWith('http') && SUPABASE_ANON_KEY.length > 10;
+        };
+
+        const subscribeEmail = async (event) => {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('emailInput');
+            const messageBox = document.getElementById('messageBox');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!isSupabaseConfigured()) {
+                messageBox.textContent = 'Error: Supabase configuration missing. Please update the URL and Key in the script.';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
+
+            const email = emailInput.value.trim().toLowerCase();
+            const forbiddenDomains = ['example.com', 'test.com', 'internal.com', 'sample.com'];
+            const domain = email.split('@')[1];
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email || !emailRegex.test(email)) {
+                messageBox.textContent = 'Please enter a valid email address (e.g., name@domain.com).';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100');
+                messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                return;
+            }
+
+            if (forbiddenDomains.includes(domain)) {
+                messageBox.textContent = 'Please use a real email address. (No test domains allowed!)';
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100');
+                messageBox.classList.add('bg-yellow-100', 'text-yellow-800');
+                return;
+            }
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            messageBox.classList.add('hidden');
+
+            const apiUrl = `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE_NAME}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal' // Optimizes for speed
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'Landing Page'
+                    })
+                });
+
+                if (response.status === 201 || response.status === 200) {
+                    // 201 Created is the standard successful insertion response for Supabase
+                    messageBox.innerHTML = 'Success! You are on the waitlist. We will notify you when we launch! <br/><span class="text-[11px] opacity-80">Your email is <b>never</b> shared or used for tracking.</span>';
+                    messageBox.classList.remove('hidden', 'bg-yellow-100', 'text-yellow-800', 'bg-red-100');
+                    messageBox.classList.add('bg-green-100', 'text-green-800');
+                    emailInput.value = ''; // Clear input
+                } else {
+                    // Try to parse error message if available
+                    let errorMessage = `API Error: ${response.statusText}`;
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.message) {
+                            errorMessage = errorData.message;
+                        }
+                    } catch (jsonError) {
+                        // Ignore JSON parsing error
+                    }
+                    throw new Error(errorMessage);
+                }
+
+            } catch (e) {
+                console.error("Error adding document to Supabase: ", e.message);
+                messageBox.textContent = `Submission failed. Check console for details. Error: ${e.message.substring(0, 50)}...`;
+                messageBox.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-yellow-100');
+                messageBox.classList.add('bg-red-100', 'text-red-800');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = 'Join the Waitlist';
+            }
+        };
+
+        // Expose function to the global scope for the form handler
+        window.subscribeEmail = subscribeEmail;
+
+    </script>
+
+    <style>
+        /* Apply Inter font globally and ensure full height for centering */
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #050505; /* Pure dark premium background */
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Mobile Frame-Stripping & Stacking */
+        @media (max-width: 768px) {
+            .premium-container {
+                border: none !important;
+                background: transparent !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                box-shadow: none !important;
+            }
+            .card-container {
+                grid-template-columns: 1fr !important;
+            }
+            .glass-card {
+                box-sizing: border-box;
+            }
+        }
+    </style>
+    <!-- Tailwind Configuration for custom color and focus styling -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'smart-primary': '#ef4444', /* Seinfeld Red-500 */
+                        'smart-secondary': '#facc15', /* Seinfeld Yellow-400 */
+                        'smart-dark': '#050505',
+                    },
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(239, 68, 68, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Ambient Glowing Background -->
+    <div class="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-red-600/20 blur-[150px] rounded-[100%] pointer-events-none z-0"></div>
+
+    <main class="w-full max-w-5xl px-4 py-16 relative z-10 transition-all duration-700">
+        <div class="premium-container bg-white/[0.02] backdrop-blur-2xl p-8 sm:p-12 md:p-16 rounded-[2.5rem] shadow-3xl text-center border border-white/10 relative overflow-hidden">
+            
+            <!-- Top Inner Glow -->
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent"></div>
+
+            <!-- Logo & Navigation -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-16 border-b border-white/5 pb-8">
+                <h2 class="text-2xl font-black text-smart-primary tracking-tighter hover:scale-105 transition-transform">
+                    Smartin<span class="text-white">.App</span>
+                </h2>
+                
+                <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="#who-is-it-for" class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">Who is it for?</a>
+                    <a href="#how-it-works" class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">How it works</a>
+                    <a href="#powered-by" class="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-all">Powered by</a>
+                    <div class="w-px h-4 bg-white/10 hidden md:block self-center mx-2"></div>
+                    <a href="/guide/" class="text-xs font-bold uppercase tracking-widest text-smart-secondary hover:brightness-110 transition-all">The Guide</a>
+                    <a href="/blog/" class="text-xs font-bold uppercase tracking-widest text-slate-300 hover:text-white transition-all">The Blog</a>
+                </nav>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="text-5xl sm:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight">
+                We Rate Stocks <br/>
+                We Roast Stocks <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-400 drop-shadow-lg">You Make Money</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-xl sm:text-2xl text-slate-300/80 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+                Like Cosmo Kramer explaining Factor & GARP investing—except it actually saves you from terrible financial decisions.
+            </p>
+
+            <!-- App Store CTA -->
+            <div class="max-w-xl mx-auto mb-6 relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-yellow-500 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" 
+                   class="relative flex items-center justify-center px-8 py-6 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl text-2xl font-bold text-white shadow-2xl shadow-red-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-center">
+                    <span>Get Smartin on iOS</span>
+                </a>
+            </div>
+
+            <!-- Trust Bar / Meta Info -->
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-400/80 mb-10">
+                <span class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Privacy-First</span>
+                </span>
+                <span class="flex items-center space-x-2 border-l border-white/10 pl-6">
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <span>No Cookies</span>
+                </span>
+                <span class="flex items-center space-x-2 border-l border-white/10 pl-6">
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Secure Infrastructure</span>
+                </span>
+            </div>
+
+            <!-- Waitlist Form (Bento Style) -->
+            <div class="max-w-xl mx-auto mb-16 bg-white/[0.03] p-8 rounded-[2rem] border border-white/5 shadow-inner">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">No Soup for Android (Yet). Join the Waitlist.</h3>
+                <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <input type="email" id="emailInput" required placeholder="Enter email to join waitlist" 
+                               class="flex-grow px-5 py-4 bg-[#0a0a0a] border border-white/10 text-white placeholder-slate-500 rounded-xl focus:ring-1 focus:ring-smart-secondary focus:border-smart-secondary transition duration-150 shadow-inner text-sm outline-none">
+                        
+                        <button type="submit" id="submitButton" 
+                                class="flex-shrink-0 px-8 py-4 text-sm font-bold tracking-wide uppercase rounded-xl text-smart-dark bg-white hover:bg-slate-200 transition duration-300 shadow-lg">
+                            Join Waitlist
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-3 text-center sm:text-left font-light leading-snug">
+                        By joining, you agree to receive updates about the Smartin App. We value your privacy: your email is <b>never</b> used for tracking or shared with third parties.
+                    </p>
+                </form>
+                
+                <div id="messageBox" class="hidden mt-4 mx-auto w-full p-4 rounded-xl text-sm font-medium border border-current transition-all duration-300"></div>
+            </div>
+
+            <!-- Today's Roast Preview -->
+            <div class="max-w-3xl mx-auto mb-16 relative group text-left">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-yellow-500 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative bg-[#050505] p-8 sm:p-10 rounded-[2rem] border border-red-500/30 shadow-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                    <div class="flex-shrink-0 w-20 h-20 bg-red-500/10 rounded-2xl flex items-center justify-center border border-red-500/30">
+                        <span class="text-4xl">🥊</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2 tracking-wide uppercase text-red-500">Today's Roast: Tesla (TSLA)</h3>
+                        <p class="text-slate-300 italic mb-5 leading-relaxed text-lg">"Amazing company. Terrible price. You're basically paying for Elon's tweets."</p>
+                        <a href="/blog/2026-03-25/tsla/" class="text-sm font-bold text-white hover:text-yellow-400 transition-colors inline-flex items-center uppercase tracking-widest border-b border-white/20 pb-1">
+                            Read the Roast <span class="ml-2">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Blocks (Bento Grid) -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                
+                <!-- NEW: Peter Lynch Guide Master Card -->
+                <div class="md:col-span-2 lg:col-span-2 group relative p-8 sm:p-10 bg-gradient-to-br from-yellow-500/10 to-transparent backdrop-blur-md rounded-[2.5rem] border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-500 overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <span class="text-6xl">📚</span>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="text-3xl font-extrabold text-white mb-4">The Hitchhiker's Guide to Peter Lynch</h3>
+                        <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-2xl">
+                            We’ve distilled the legendary <strong>Peter Lynch</strong> investment philosophy into a 10-volume masterclass. Written in a darkly satirical, highly improbable style, this guide explains PEG ratios, Tenbaggers, and common-sense investing.
+                        </p>
+                        <a href="/guide/" class="inline-flex items-center px-8 py-4 bg-smart-secondary text-smart-dark font-black rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(250,204,21,0.3)]">
+                            Don't Panic: Start the Guide <span class="ml-2">→</span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Feature 1: The GARP Situation (Now smaller/secondary) -->
+
+                <div class="group relative p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-red-500/30 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 mb-6 text-red-500 bg-red-500/10 rounded-2xl flex items-center justify-center border border-red-500/20 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">The GARP Situation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We run strict intrinsic valuation and historical growth metrics. The math is real. But frankly, the math is boring. So we cut to the chase and tell you if the stock is a "master of its domain," or just a stock in shrinkage.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group relative p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-yellow-400/30 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 mb-6 text-yellow-400 bg-yellow-400/10 rounded-2xl flex items-center justify-center border border-yellow-400/20 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 15a1.4 1.4 0 0 0 .2-1.4v-3.2a1.4 1.4 0 0 0-1.4-1.4H16.4a1.4 1.4 0 0 0-1.4-1.4V5.4a1.4 1.4 0 0 0-1.4-1.4H9.4a1.4 1.4 0 0 0-1.4 1.4V8a1.4 1.4 0 0 0-1.4 1.4H4.4a1.4 1.4 0 0 0-1.4 1.4v3.2a1.4 1.4 0 0 0 .2 1.4L6 18l3.6-3.6a1.4 1.4 0 0 0 1.4.2v3.2a1.4 1.4 0 0 0 1.4 1.4h3.2a1.4 1.4 0 0 0 1.4-1.4V16l3.6-3.6z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">The Factor Insight</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We scan the market for true Value and Momentum signals used by hedge funds. But instead of handing you a 40-page prospectus, we just give it to you straight: is this company sponge-worthy, or is it entirely undateable?
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group relative p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-red-500/30 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-14 h-14 mb-6 text-red-500 bg-red-500/10 rounded-2xl flex items-center justify-center border border-red-500/20 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">The "Bad Idea" Checker</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        You plug in a ticker. We bounce it against historical risk models to see if it holds up. If the data stinks? We roast it. We roast it like George at a Yankees meeting. It’s brutal, and it saves you money.
+                    </p>
+                </div>
+            <!-- Section 1: Who is it for? (The Smartin Quartets) -->
+            <div id="who-is-it-for" class="mt-24 pt-16 border-t border-white/5">
+                <h2 class="text-3xl sm:text-5xl font-black text-white mb-6 uppercase tracking-tighter">Who is it for?</h2>
+                <p class="text-slate-400 mb-12 max-w-2xl mx-auto text-lg italic font-light">
+                    "Investing is the only business where when things go on sale, everyone runs out of the store." — But not you.
+                </p>
+                <div class="card-container grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <!-- Card 1: The Aspiring Investor -->
+                    <div class="glass-card p-8 rounded-[2rem]">
+                        <div class="text-3xl mb-4">🌱</div>
+                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Aspiring Investor</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            You want in on the market, but you don't speak Wall Street. You need a beginner-friendly stock rating app that translates complex financial metrics into plain English, letting you build a portfolio with actual confidence instead of blind luck.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: The Bottom-Liner -->
+                    <div class="glass-card p-8 rounded-[2rem]">
+                        <div class="text-3xl mb-4">⚖️</div>
+                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Bottom-Liner</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            You’re violently allergic to candlestick charts and financial astrology. You don't want to decipher moving averages just to figure out if a company actually makes money. Smartin skips the geometry and gives you the raw, fundamental bottom line.
+                        </p>
+                    </div>
+
+                    <!-- Card 3: The Peter Lynch Disciple -->
+                    <div class="glass-card p-8 rounded-[2rem]">
+                        <div class="text-3xl mb-4">🥧</div>
+                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Peter Lynch Disciple</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            You believe in investing in what you know. But once you spot a potential tenbagger, you still need to verify the math. Smartin digitizes battle-tested fundamental analysis so you can vet companies in seconds.
+                        </p>
+                    </div>
+
+                    <!-- Card 4: The Bored Finance Nerd -->
+                    <div class="glass-card p-8 rounded-[2rem]">
+                        <div class="text-3xl mb-4">🍸</div>
+                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Bored Finance Nerd</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            You demand serious data, but you’re tired of apps that look like a Windows 95 spreadsheet. You want your stock research served with high usability, top-tier typography, and a side of entertainment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: How It Works -->
+            <div id="how-it-works" class="mt-24 pt-16 border-t border-white/5">
+                <h2 class="text-3xl sm:text-5xl font-black text-white mb-6 uppercase tracking-tighter">How It Works</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <div class="relative px-6">
+                        <div class="text-smart-primary font-black text-6xl opacity-20 absolute -top-4 left-1/2 -translate-x-1/2">1</div>
+                        <h3 class="text-xl font-bold text-white mb-3 relative z-10">Drop in the Ticker</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Your brother-in-law pitches you a "sure thing" stock. Open Smartin and type in the ticker. It takes exactly two seconds.
+                        </p>
+                    </div>
+                    <div class="relative px-6">
+                        <div class="text-smart-primary font-black text-6xl opacity-20 absolute -top-4 left-1/2 -translate-x-1/2">2</div>
+                        <h3 class="text-xl font-bold text-white mb-3 relative z-10">Let the Algorithm Eat</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Smartin’s Modernized Peter Lynch Algorithm immediately chews through the company's fundamentals. No moving averages, just a clear rating.
+                        </p>
+                    </div>
+                    <div class="relative px-6">
+                        <div class="text-smart-primary font-black text-6xl opacity-20 absolute -top-4 left-1/2 -translate-x-1/2">3</div>
+                        <h3 class="text-xl font-bold text-white mb-3 relative z-10">Make Your Move</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Stop guessing. You get a straightforward, highly usable verdict. You decide if it belongs in your portfolio or the garbage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Powered By -->
+            <div id="powered-by" class="mt-24 pt-16 border-t border-white/5 text-left bg-white/[0.01] rounded-[3rem] p-12">
+                <h2 class="text-3xl sm:text-5xl font-black text-white mb-8 uppercase tracking-tighter text-center">Powered By</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
+                    <div>
+                        <h3 class="text-2xl font-black text-smart-primary mb-4">The Brains: The Peter Lynch Algorithm</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg font-light">
+                            Lynch was right about "investing in what you know." But strict value investors historically ignored tech. <span class="text-white font-medium">We don't.</span> We took battle-tested fundamental analysis and updated it for the digital age, applying classic valuation math to the "new infrastructure."
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-smart-secondary mb-4">The Brawn: Open Source + AI</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg font-light">
+                            Smartin is a self-sustaining app built by a solopreneur. We run on lightweight open-source architecture and code alongside elite AI Agents (specifically, Gemini). This keeps our overhead at zero and our app blazing fast.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="mt-20 py-16 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                    <div class="text-left max-w-sm">
+                        <div class="text-2xl font-black text-white mb-2">Smartin<span class="text-red-500">.</span>App</div>
+                        <p class="text-slate-400 text-sm">
+                            The humorous AI stock analyst for the modern investor. We Rate Stocks. We Roast Stocks. You Make Money.
+                        </p>
+                    </div>
+                    <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium">
+                        <a href="/guide/" class="text-smart-secondary hover:text-white transition-colors">Peter Lynch Guide</a>
+                        <a href="/blog/" class="text-slate-300 hover:text-white transition-colors">Fintainment Blog</a>
+                        <a href="/privacy_policy/" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="/terms/" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a>
+                        <a href="/support/" class="text-slate-300 hover:text-white transition-colors">Support</a>
+
+                    </nav>
+                </div>
+                <div class="pt-8 border-t border-white/5 text-slate-500 text-xs">
+                    &copy; 2026 Smartin.App. All rights reserved. 
+                    Built for the App Store by the Smartin Team.
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+</body>
+</html>
