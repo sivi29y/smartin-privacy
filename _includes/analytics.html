@@ -1,0 +1,59 @@
+<script data-goatcounter="https://smartin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+    // Advanced Tracking: Time on Page & Outbound Clicks
+    (function() {
+        const startTime = Date.now();
+        let trackedBuckets = new Set();
+
+        function trackDuration() {
+            const durationSeconds = Math.round((Date.now() - startTime) / 1000);
+            let timeBucket = '';
+            
+            if (durationSeconds >= 300) timeBucket = '5+ minutes';
+            else if (durationSeconds >= 120) timeBucket = '2 minutes';
+            else if (durationSeconds >= 60) timeBucket = '1 minute';
+            else if (durationSeconds >= 30) timeBucket = '30 seconds';
+            else if (durationSeconds >= 10) timeBucket = '10 seconds';
+            else return;
+
+            // Only track each bucket once per session
+            if (trackedBuckets.has(timeBucket)) return;
+            trackedBuckets.add(timeBucket);
+
+            if (window.goatcounter && window.goatcounter.count) {
+                window.goatcounter.count({
+                    path: 'duration-' + timeBucket,
+                    title: 'Time on Page: ' + timeBucket,
+                    event: true,
+                });
+            }
+        }
+
+        // Track only when user leaves or switches tabs
+        window.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') trackDuration();
+        });
+        window.addEventListener('pagehide', trackDuration);
+
+        // Outbound Click Tracking
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.href) {
+                try {
+                    const url = new URL(link.href);
+                    const isExternal = url.hostname !== window.location.hostname && !url.protocol.startsWith('javascript');
+                    
+                    if (isExternal && window.goatcounter && window.goatcounter.count) {
+                        window.goatcounter.count({
+                            path: 'outbound-' + link.href,
+                            title: 'Outbound Click: ' + link.href,
+                            event: true,
+                        });
+                    }
+                } catch (err) {
+                    // Ignore malformed URLs
+                }
+            }
+        });
+    })();
+</script>

@@ -65,7 +65,13 @@ selected_stock = random.choice(available_stocks)
 selected_persona = random.choice(available_personas)
 short_persona_name = selected_persona.split()[0].lower()
 
+# Load Centralized Instructions
+instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
+with open(instructions_path, 'r') as f:
+    blog_instructions = f.read()
+
 print(f"Targeting Stock: {selected_stock}")
+
 print(f"Selected Persona: {selected_persona}")
 
 date_str = datetime.now().strftime('%Y-%m-%d')
@@ -78,6 +84,8 @@ Write a highly entertaining, SEO-optimized blog post for the iOS app 'Smartin: Q
 You are roasting the stock {selected_stock} using this precise comedic persona:
 {selected_persona}
 
+{blog_instructions}
+
 Format your absolute output exactly as follows:
 TWEET:
 <Write a punchy, 2-sentence hook for Twitter natively in the persona's voice. Include {selected_stock} and end with this exact text: "Read the full roast: {live_url}">
@@ -86,10 +94,13 @@ TWEET:
 MARKDOWN:
 <Write the full SEO markdown blog post here.
 Remember to briefly explain {selected_stock}, roast its P/E and PEG ratios.
-Must be valid Markdown with YAML frontmatter containing ONLY layout: post, title, description, keywords, and permalink: {permalink}.
-Must include the following call to action line at the bottom: 
+Must follow the H2/H3 'Golden Rule' from the instructions.
+Must include 1-3 internal links from the instruction targets.
+Must start with Jekyll YAML frontmatter containing: layout: post, title, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
+
 
 response = model.generate_content(prompt)
 output_text = response.text

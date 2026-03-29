@@ -65,7 +65,13 @@ def select_persona_dynamic():
 weekly_data = get_weekly_data()
 persona_desc, persona_slug = select_persona_dynamic()
 
+# Load Centralized Instructions
+instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
+with open(instructions_path, 'r') as f:
+    blog_instructions = f.read()
+
 date_str = datetime.now().strftime('%Y-%m-%d')
+
 safe_slug = f"weekly-performance-{persona_slug}"
 permalink = f"/blog/{safe_slug}/"
 live_url = f"https://smartinthe.app{permalink}"
@@ -80,6 +86,8 @@ Analyze the wins and losses of the week based on this data:
 Use this precise comedic persona/dynamic:
 {persona_desc}
 
+{blog_instructions}
+
 Format your absolute output exactly as follows:
 TWEET:
 <Write a punchy, 1-2 sentence hook for Twitter natives in the persona's voice. Include $SPY and end with: "Weekly Summary: {live_url}">
@@ -87,18 +95,12 @@ TWEET:
 
 MARKDOWN:
 <Write the full SEO markdown blog post here.
-Must start with Jekyll YAML frontmatter enclosed in triple-dashes (---):
----
-layout: post
-title: 'The Friday Exit: Weekly Market Roast'
-description: 'Seinfeld-themed weekly performance summary'
-keywords: 'weekly market summary, smartin app, value investing'
-permalink: {permalink}
----
-Use the standard finance format: **[SPY](https://finance.yahoo.com/quote/SPY) (Weekly %)**.
-End with the App Store CTA:
+Summarize the week.
+Must follow the H2/H3 'Golden Rule' from the instructions.
+Must include 1-3 internal links from the instruction targets.
+Must start with Jekyll YAML frontmatter containing: layout: post, title, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
-
 """
 
 response = model.generate_content(prompt)
