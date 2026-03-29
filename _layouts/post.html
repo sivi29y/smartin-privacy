@@ -144,6 +144,16 @@
             prose-a:text-smart-primary prose-a:font-bold hover:prose-a:text-smart-accent 
             prose-p:leading-relaxed prose-p:text-slate-300
             prose-li:text-slate-300">
+            {% if page.url contains '/blog/' %}
+            <h1>{{ page.title }}</h1>
+            <p class="text-sm text-slate-400 italic -mt-10 mb-10">
+                {% if page.author %}
+                Written by: <span class="text-white">{{ page.author }}</span> from the Smartin Team
+                {% else %}
+                Written by: <span class="text-white">The Smartin Team</span>
+                {% endif %}
+            </p>
+            {% endif %}
             {{ content }}
         </article>
         

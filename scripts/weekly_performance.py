@@ -64,6 +64,7 @@ def select_persona_dynamic():
 
 weekly_data = get_weekly_data()
 persona_desc, persona_slug = select_persona_dynamic()
+selected_author = persona_slug.split("-")[0].capitalize()
 
 # Load Centralized Instructions
 instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
@@ -98,7 +99,7 @@ MARKDOWN:
 Summarize the week.
 Must follow the H2/H3 'Golden Rule' from the instructions.
 Must include 1-3 internal links from the instruction targets.
-Must start with Jekyll YAML frontmatter containing: layout: post, title, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+Must start with Jekyll YAML frontmatter containing: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
 Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
