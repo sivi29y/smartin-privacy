@@ -2,15 +2,29 @@ name: Autonomous Marketing Sprint
 
 on:
   schedule:
-    # Runs at 14:00 UTC (10:00 AM EST) on Monday, Wednesday, and Friday
+    # Standard Sprint: 10:00 AM EST (14:00 UTC) Mon, Wed, Fri
     - cron: '0 14 * * 1,3,5'
-  workflow_dispatch: # Allows you to manually trigger it with a button in GitHub UI
+    # Monday Forecast: 08:00 AM EST (12:00 UTC) Monday
+    - cron: '0 12 * * 1'
+    # Friday Performance: 05:00 PM EST (21:00 UTC) Friday
+    - cron: '0 21 * * 5'
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type of sprint to run'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+          - standard
+          - forecast
+          - performance
 
 jobs:
   generate-sprint:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Important: Allows the action to push the generated blog post
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -24,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install google-generativeai tweepy
+          pip install google-generativeai tweepy yfinance pandas
 
       - name: Run Gemini Headless Agent
         env:
@@ -34,13 +48,30 @@ jobs:
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
         run: |
-          python scripts/autonomous_sprint.py
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            TYPE="${{ github.event.inputs.type }}"
+          elif [[ "${{ github.event.schedule }}" == "0 12 * * 1" ]]; then
+            TYPE="forecast"
+          elif [[ "${{ github.event.schedule }}" == "0 21 * * 5" ]]; then
+            TYPE="performance"
+          else
+            TYPE="standard"
+          fi
+          
+          echo "Running $TYPE sprint..."
+          if [[ "$TYPE" == "forecast" ]]; then
+            python scripts/market_forecast.py
+          elif [[ "$TYPE" == "performance" ]]; then
+            python scripts/weekly_performance.py
+          else
+            python scripts/autonomous_sprint.py
+          fi
 
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add _posts/*.md
-          # Only commit if there are changes generated
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated Marketing Sprint by Gemini AI"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generated Marketing Sprint (${{ github.event.inputs.type || 'scheduled' }})"
           git push
+
