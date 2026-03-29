@@ -29,7 +29,7 @@ But you saw it first. You saw it because you are a human being who lives in the 
 Imagine it is 1992. You see people standing in line for three dollars' worth of burnt coffee. You think, "This is madness." But then you see they are doing it every day. 
 *   **Smartin Roast**: If we ran the Smartin App back then, it would have told you that while the coffee was overpriced, the growth was underpriced. The PEG ratio was a beautiful thing to behold.
 
-So it goes. Use your eyes. Then use your brain.
+Don't Panic. Use your eyes. Then use your brain.
 
 ---
 
