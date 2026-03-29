@@ -282,8 +282,8 @@
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-xl sm:text-2xl text-slate-300/80 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-                Everything was beautiful and nothing hurt—except your portfolio last Tuesday. Honest ratings and sharp roasts for the first wave of humans. So it goes.
+            <p id="dynamicSubtitle" class="text-xl sm:text-2xl text-slate-300/80 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+                Because "my friend knows a guy" is not an investment strategy. Verify the rumor with clear, fundamental stock ratings.
             </p>
 
             <!-- App Store CTA -->
@@ -665,6 +665,19 @@
             </footer>
     </main>
 
+    <script>
+        (function() {
+            const subtitles = [
+                'Because "my friend knows a guy" is not an investment strategy. Verify the rumor with clear, fundamental stock ratings.',
+                'You don\'t know what they make, but you\'re going down with the ship. Stop guessing and get honest stock ratings built on actual math.',
+                'Stop sweating over a stock tip you got in a diner. Cut the noise with actionable stock ratings and battle-tested fundamental analysis.',
+                'Investing based on a rumor is a sickness. Find the cure with clear, fundamental stock ratings for the everyday investor.'
+            ];
+            const DURATION = 36 * 60 * 60 * 1000; // 36 hours in ms
+            const cycleIndex = Math.floor(Date.now() / DURATION) % subtitles.length;
+            document.getElementById('dynamicSubtitle').innerText = subtitles[cycleIndex];
+        })();
+    </script>
 </body>
 
 </html>
