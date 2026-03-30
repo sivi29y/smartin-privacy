@@ -19,7 +19,7 @@ TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.5-flash')
 
-# Persona rotation
+# Persona rotation (Single-Persona Monologue Mode)
 ALL_PERSONAS = {
     "costanza": "George Costanza - Neurotic, panicked about losing money, doing the opposite of rational instincts. DO NOT use his name in the output.",
     "kramer": "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock. DO NOT use his name or catchphrases in the output."
@@ -71,23 +71,14 @@ def get_weekly_data():
     return data
 
 def select_persona_dynamic():
-    options = [
-        ("costanza",),
-        ("kramer",),
-        ("costanza", "kramer"),
-        ("kramer", "costanza")
-    ]
-    selected = random.choice(options)
-    description = ""
-    if len(selected) == 1:
-        description = ALL_PERSONAS[selected[0]]
-    else:
-        description = f"A dialogue between {ALL_PERSONAS[selected[0]]} and {ALL_PERSONAS[selected[1]]}. They are arguing about the week's performance."
-    return description, "-".join(selected)
+    selected = random.choice(["costanza", "kramer"])
+    description = f"A decisive monologue by {ALL_PERSONAS[selected]}. This is not a dialogue. It is a data-driven analysis in their unique voice."
+    return description, selected
 
 weekly_data = get_weekly_data()
+data_summary = "\n".join([f"{ticker}: {info['price']} ({info['change']}%)" for ticker, info in weekly_data["us_market"].items()])
 persona_desc, persona_slug = select_persona_dynamic()
-selected_author = persona_slug.split("-")[0].capitalize()
+selected_author = persona_slug.capitalize()
 
 # Load Centralized Instructions
 instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
@@ -95,9 +86,8 @@ with open(instructions_path, 'r') as f:
     blog_instructions = f.read()
 
 date_str = datetime.now().strftime('%Y-%m-%d')
-
-safe_slug = f"weekly-performance-{persona_slug}"
-permalink = f"/blog/{safe_slug}/"
+safe_slug = "weekly-summary"
+permalink = f"/blog/{date_str}/{safe_slug}/"
 live_url = f"https://smartinthe.app{permalink}"
 
 # Significance Filtering (Context only)
@@ -123,10 +113,16 @@ Analyze the wins and losses of the week based on this primary US data:
 {data_summary}
 {global_context_str}
 
-Use this precise comedic persona/dynamic:
+Use this precise comedic persona:
 {persona_desc}
 
 {blog_instructions}
+
+MARKDOWN FORMAT RULES:
+1. Write a DECISIVE MONOLOGUE. Do not write a script or dialogue.
+2. Focus on ACTUAL DATA. Mention the specific prices and % changes provided.
+3. Be OPINIONATED. The persona should have a clear, over-the-top take on what the numbers mean for the week.
+4. NO MEANINGLESS BLURB. Every paragraph must relate to the market numbers or the economic context.
 
 Format your absolute output exactly as follows:
 TWEET:
@@ -153,7 +149,10 @@ except IndexError:
     tweet_content = f"The week is over, and we're roasted. Check the stats: {live_url}"
     markdown_content = output_text
 
-markdown_content = markdown_content.replace('```markdown', '').replace('```', '').strip()
+import re
+markdown_content = re.sub(r'^yaml\n', '', markdown_content, flags=re.MULTILINE | re.IGNORECASE)
+markdown_content = re.sub(r'^markdown\n', '', markdown_content, flags=re.MULTILINE | re.IGNORECASE)
+markdown_content = markdown_content.replace('```markdown', '').replace('```yaml', '').replace('```', '').strip()
 
 # Generate the SEO Article
 os.makedirs("_posts", exist_ok=True)
