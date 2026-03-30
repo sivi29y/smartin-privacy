@@ -133,10 +133,14 @@ permalink: /blog/
             <a href="/" class="text-3xl font-bold tracking-tight text-white hover:text-smart-primary transition-colors">
                 Smartin<span class="text-smart-primary">.App</span>
             </a>
-            <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-gradient-to-tr from-red-600 to-red-500 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-2xl hover:brightness-110 shadow-[0_0_20px_rgba(239,68,68,0.4)] text-sm sm:text-base transition-all transform hover:-translate-y-1 border border-red-400/50 relative overflow-hidden group">
-                <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
-                Get the App
-            </a>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="/blog/" class="text-smart-secondary font-bold text-sm sm:text-base border-b-2 border-smart-secondary pb-0.5">Blog</a>
+                <a href="/guide/" class="text-slate-400 hover:text-white font-medium text-sm sm:text-base transition-colors">Guide</a>
+                <a href="https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652" class="bg-gradient-to-tr from-red-600 to-red-500 text-white font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-2xl hover:brightness-110 shadow-[0_0_20px_rgba(239,68,68,0.4)] text-sm sm:text-base transition-all transform hover:-translate-y-1 border border-red-400/50 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                    Get the App
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -168,21 +172,21 @@ permalink: /blog/
         </div>
         
         <!-- Newsletter Signup -->
-        <div class="mt-20 max-w-xl mx-auto bg-white/[0.02] backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/10 shadow-inner text-center relative overflow-hidden group">
+        <div class="mt-20 max-w-2xl mx-auto bg-white/[0.02] backdrop-blur-xl p-8 sm:p-12 rounded-[2.5rem] border border-white/10 shadow-inner text-center relative overflow-hidden group">
             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-[0.05] pointer-events-none"></div>
-            <h3 class="text-3xl font-extrabold text-white mb-4">Get Roasts in Your Inbox</h3>
-            <p class="text-slate-400 mb-8 font-light text-sm">Join the newsletter and get our weekly stock market comedy algorithms sent straight to your email.</p>
+            <h3 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Get Roasts in Your Inbox</h3>
+            <p class="text-slate-400 mb-8 font-light text-base sm:text-lg max-w-lg mx-auto">Weekly stock comedy. No fluff. No paywalls. Straight to your inbox.</p>
             <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full relative z-10">
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                     <input type="email" id="emailInput" required placeholder="Enter your email address" 
-                           class="flex-grow px-5 py-4 border border-white/10 bg-[#0a0a0a] text-white placeholder-slate-500 rounded-xl focus:ring-1 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none transition duration-150 text-sm">
+                           class="flex-grow px-5 py-4 border border-white/10 bg-[#0a0a0a] text-white placeholder-slate-500 rounded-xl focus:ring-1 focus:ring-smart-secondary focus:border-smart-secondary shadow-inner outline-none transition duration-150 text-base">
                     <button type="submit" id="submitButton" 
-                            class="flex-shrink-0 px-8 py-4 text-sm font-bold tracking-wide uppercase rounded-xl text-smart-dark bg-white hover:bg-slate-200 transition-all font-bold shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                            class="flex-shrink-0 px-8 py-4 text-base font-bold tracking-wide uppercase rounded-xl text-smart-dark bg-white hover:bg-slate-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                         Subscribe
                     </button>
                 </div>
-                <p class="text-[10px] text-slate-500 mt-4 text-center sm:text-left font-light opacity-80">
-                    By subscribing, you agree to receive updates about the Smartin App. We value your privacy: your email is <b>never</b> used for tracking or shared with third parties.
+                <p class="text-xs text-slate-500 mt-4 text-center font-light opacity-80">
+                    Privacy guaranteed. Your email is <b>never</b> shared.
                 </p>
             </form>
             <div id="messageBox" class="hidden mt-4 mx-auto w-full p-3 rounded-lg text-sm font-medium border border-current"></div>
