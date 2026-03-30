@@ -16,8 +16,6 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-    <!-- Advanced Analytics -->
-    {% include analytics.html %}
 
     <!-- Google Structured Data (JSON-LD) for Rich Snippets -->
     <script type="application/ld+json">
@@ -134,9 +132,6 @@
         body {
             font-family: "Inter", sans-serif;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background-color: #0b0b0d; /* Soothed Deep Charcoal */
             color: #f8fafc;
             overflow-x: hidden;
@@ -186,13 +181,15 @@
 </head>
 
 <body>
+    <!-- Advanced Analytics (Hidden from browser unless Jekyll processed) -->
+    <div class="hidden">{% include analytics.html %}</div>
 
     <!-- Ambient Glowing Background (Warm Orange) -->
     <div
         class="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-600/10 blur-[150px] rounded-[100%] pointer-events-none z-0">
     </div>
 
-    <main class="w-full max-w-5xl px-4 py-16 relative z-10 transition-all duration-700">
+    <main class="w-full max-w-5xl px-4 py-16 relative z-10 mx-auto transition-all duration-700">
         <div
             class="premium-container bg-white/[0.01] backdrop-blur-2xl p-8 sm:p-12 md:p-16 rounded-[2.5rem] shadow-3xl text-center border border-white/5 relative overflow-hidden">
 
@@ -211,20 +208,20 @@
 
                 <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
                     <a href="#who-is-it-for"
-                        class="text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">Who
+                        class="text-sm sm:text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">Who
                         is it for?</a>
                     <a href="#how-it-works"
-                        class="text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">How
+                        class="text-sm sm:text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">How
                         it works</a>
                     <a href="#powered-by"
-                        class="text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">Powered
+                        class="text-sm sm:text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-all">Powered
                         by</a>
                     <div class="w-px h-4 bg-white/10 hidden md:block self-center mx-2"></div>
                     <a href="/guide/"
-                        class="text-xs font-bold uppercase tracking-widest text-smart-primary hover:brightness-110 transition-all">The
+                        class="text-sm sm:text-xs font-bold uppercase tracking-widest text-smart-primary hover:brightness-110 transition-all">The
                         Guide</a>
                     <a href="/blog/"
-                        class="text-xs font-bold uppercase tracking-widest text-stone-300 hover:text-white transition-all">The
+                        class="text-sm sm:text-xs font-bold uppercase tracking-widest text-stone-300 hover:text-white transition-all">The
                         Blog</a>
                 </nav>
             </div>
@@ -277,9 +274,8 @@
             </div>
 
             <!-- Waitlist Form (Soothed Style) -->
-            <div class="max-w-xl mx-auto mb-16 bg-white/[0.02] p-8 rounded-[2rem] border border-white/5 shadow-inner">
-                <h3 class="text-xs font-bold text-stone-500 uppercase tracking-widest mb-4">No Soup for Android (Yet).
-                    Join the Waitlist.</h3>
+            <div class="max-w-xl mx-auto mb-16 bg-white/[0.02] p-6 sm:p-8 rounded-[2rem] border border-white/5 shadow-inner">
+                <h3 class="text-base sm:text-xs font-bold text-stone-500 uppercase tracking-widest mb-4">No Soup for Android (Yet). Join the Waitlist.</h3>
                 <form id="waitlistForm" onsubmit="window.subscribeEmail(event)" class="w-full">
                     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         <input type="email" id="emailInput" required placeholder="Enter email to join waitlist"
@@ -290,7 +286,7 @@
                             Join Waitlist
                         </button>
                     </div>
-                    <p class="text-[10px] text-stone-500 mt-3 text-center sm:text-left font-light leading-snug">
+                    <p class="text-sm text-stone-500 mt-3 text-center sm:text-left font-light leading-snug">
                         By joining, you agree to receive updates about the Smartin App. We value your privacy: your
                         email is <b>never</b> used for tracking or shared with third parties.
                     </p>
@@ -312,7 +308,7 @@
                         <span class="text-4xl text-orange-500">🥊</span>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-white mb-2 tracking-wide uppercase text-orange-500">Today's
+                        <h2 class="text-2xl font-bold text-white mb-2 tracking-wide uppercase text-orange-500">Today's
                             Roast: Tesla (TSLA)</h2>
                         <p class="text-stone-300 italic mb-5 leading-relaxed text-lg">"Amazing company. Terrible price.
                             You're basically paying for Elon's tweets."</p>
@@ -346,7 +342,7 @@
                 </div>
 
                 <!-- Feature 1 -->
-                <div class="group relative p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
+                <div class="group relative p-6 sm:p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                     </div>
                     <div class="w-14 h-14 mb-6 text-orange-500 bg-orange-500/10 rounded-2xl flex items-center justify-center border border-orange-500/20 group-hover:scale-110 transition-transform duration-500 shadow-inner">
@@ -357,8 +353,8 @@
                             <line x1="6" y1="20" x2="6" y2="16" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">The Growth Filter</h3>
-                    <p class="text-stone-400 text-sm leading-relaxed">
+                    <h3 class="text-2xl font-bold text-white mb-3">The Growth Filter</h3>
+                    <p class="text-stone-400 text-xl leading-relaxed">
                         GARP is shorthand for "Growth At A Reasonable Price," which is what people say when they want to
                         sound like they know what they’re doing. We run the metrics to see if the growth is real or just
                         a hallucination. The math is boring, but losing money is worse. We tell you if the stock is a
@@ -377,8 +373,8 @@
                                 d="M19.4 15a1.4 1.4 0 0 0 .2-1.4v-3.2a1.4 1.4 0 0 0-1.4-1.4H16.4a1.4 1.4 0 0 0-1.4-1.4V5.4a1.4 1.4 0 0 0-1.4-1.4H9.4a1.4 1.4 0 0 0-1.4 1.4V8a1.4 1.4 0 0 0-1.4 1.4H4.4a1.4 1.4 0 0 0-1.4 1.4v3.2a1.4 1.4 0 0 0 .2 1.4L6 18l3.6-3.6a1.4 1.4 0 0 0 1.4.2v3.2a1.4 1.4 0 0 0 1.4 1.4h3.2a1.4 1.4 0 0 0 1.4-1.4V16l3.6-3.6z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">The PLMS Analysis</h3>
-                    <p class="text-stone-400 text-sm leading-relaxed">
+                    <h3 class="text-2xl font-bold text-white mb-3">The PLMS Analysis</h3>
+                    <p class="text-stone-400 text-xl leading-relaxed">
                         This is the Peter Lynch Modernized Score, or PLMS. It’s a clever algorithm that measures a
                         company's pulse by looking at earnings and debt instead of tweets. The PLMS has no bad days, and
                         it doesn’t get emotional about the score. After the math is done, our AI writes the blog
@@ -388,7 +384,7 @@
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="group relative p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
+                <div class="group relative p-6 sm:p-8 bg-white/[0.02] backdrop-blur-md rounded-[2rem] border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                     </div>
                     <div class="w-14 h-14 mb-6 text-orange-500 bg-orange-500/10 rounded-2xl flex items-center justify-center border border-orange-500/20 group-hover:scale-110 transition-transform duration-500 shadow-inner">
@@ -398,8 +394,8 @@
                             <path d="M9 12l2 2 4-4" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">The "Bad Idea" Checker</h3>
-                    <p class="text-stone-400 text-sm leading-relaxed">
+                    <h3 class="text-2xl font-bold text-white mb-3">The "Bad Idea" Checker</h3>
+                    <p class="text-stone-400 text-xl leading-relaxed">
                         You type in a ticker—any ticker. We bounce it against historical risk models to see if it’s a
                         house of cards or a fortress. If the data stinks, we roast it. We roast it like George at a
                         Yankees meeting, with no mercy and a lot of truth. It saves you from your own bad impulses. So
@@ -417,10 +413,10 @@
                 </p>
                 <div class="card-container grid grid-cols-1 gap-6 text-left">
                     <!-- Card 1: The Aspiring Investor -->
-                    <div class="glass-card p-8 rounded-[2rem]">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2rem]">
                         <div class="text-3xl mb-4">🌱</div>
-                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Aspiring Investor</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">The Aspiring Investor</h3>
+                        <p class="text-stone-400 text-xl sm:text-sm leading-relaxed">
                             You want in on the market, but you don't speak Wall Street. You need a beginner-friendly
                             stock rating app that translates complex financial metrics into plain English, letting you
                             build a portfolio with actual confidence instead of blind luck.
@@ -428,10 +424,10 @@
                     </div>
 
                     <!-- Card 2: The Bottom-Liner -->
-                    <div class="glass-card p-8 rounded-[2rem]">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2rem]">
                         <div class="text-3xl mb-4">⚖️</div>
-                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Bottom-Liner</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">The Bottom-Liner</h3>
+                        <p class="text-stone-400 text-xl sm:text-sm leading-relaxed">
                             You’re violently allergic to candlestick charts and financial astrology. You don't want to
                             decipher moving averages just to figure out if a company actually makes money. Smartin skips
                             the geometry and gives you the raw, fundamental bottom line.
@@ -439,10 +435,10 @@
                     </div>
 
                     <!-- Card 3: The Peter Lynch Disciple -->
-                    <div class="glass-card p-8 rounded-[2rem]">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2rem]">
                         <div class="text-3xl mb-4">🥧</div>
-                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Peter Lynch Disciple</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">The Peter Lynch Disciple</h3>
+                        <p class="text-stone-400 text-xl sm:text-sm leading-relaxed">
                             You believe in investing in what you know. But once you spot a potential tenbagger, you
                             still need to verify the math. Smartin digitizes battle-tested fundamental analysis so you
                             can vet companies in seconds.
@@ -450,10 +446,10 @@
                     </div>
 
                     <!-- Card 4: The Bored Finance Nerd -->
-                    <div class="glass-card p-8 rounded-[2rem]">
+                    <div class="glass-card p-6 sm:p-8 rounded-[2rem]">
                         <div class="text-3xl mb-4">🍸</div>
-                        <h3 class="text-xl font-bold text-white mb-3 tracking-tight">The Bored Finance Nerd</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">The Bored Finance Nerd</h3>
+                        <p class="text-stone-400 text-base sm:text-sm leading-relaxed">
                             You demand serious data, but you’re tired of apps that look like a Windows 95 spreadsheet.
                             You want your stock research served with high usability, top-tier typography, and a side of
                             entertainment.
@@ -468,24 +464,24 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                     <div class="px-6">
                         <div class="text-smart-primary font-black text-5xl mb-6 opacity-40">1</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Drop in the Ticker</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3">Drop in the Ticker</h3>
+                        <p class="text-stone-400 text-xl leading-relaxed">
                             Your brother-in-law pitches you a "sure thing" stock. Open Smartin and type in the ticker.
                             It takes exactly two seconds.
                         </p>
                     </div>
                     <div class="px-6">
                         <div class="text-smart-primary font-black text-5xl mb-6 opacity-40">2</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Let the Algorithm Eat</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3">Let the Algorithm Eat</h3>
+                        <p class="text-stone-400 text-xl leading-relaxed">
                             Smartin’s Modernized Peter Lynch Algorithm immediately chews through the company's
                             fundamentals. No moving averages, just a clear rating.
                         </p>
                     </div>
                     <div class="px-6">
                         <div class="text-smart-primary font-black text-5xl mb-6 opacity-40">3</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Make Your Move</h3>
-                        <p class="text-stone-400 text-sm leading-relaxed">
+                        <h3 class="text-2xl font-bold text-white mb-3">Make Your Move</h3>
+                        <p class="text-stone-400 text-xl leading-relaxed">
                             Stop guessing. You get a straightforward, highly usable verdict. You decide if it belongs in
                             your portfolio or the garbage.
                         </p>
@@ -524,14 +520,14 @@
                     Frequently Asked Questions</h2>
                 <div class="space-y-6">
                     <div class="glass-card p-8 rounded-[2rem]">
-                        <h3 class="text-xl font-bold text-white mb-4 text-orange-500">Is this financial advice?</h3>
+                        <h3 class="text-2xl font-bold text-white mb-4 text-orange-500">Is this financial advice?</h3>
                         <p class="text-stone-400 text-base leading-relaxed italic">
                             Heavily no. We provide ratings and roasts, not a life raft. You are the captain of your
                             own financial shipwreck. So it goes.
                         </p>
                     </div>
                     <div class="glass-card p-8 rounded-[2rem]">
-                        <h3 class="text-xl font-bold text-white mb-4 text-orange-500">What exactly is the PLMS?</h3>
+                        <h3 class="text-2xl font-bold text-white mb-4 text-orange-500">What exactly is the PLMS?</h3>
                         <p class="text-stone-400 text-base leading-relaxed">
                             It stands for Peter Lynch Modernized Score. It’s a mathematical formula that counts
                             money for you so you don't have to use your fingers. It is efficient, unemotional, and
@@ -539,14 +535,14 @@
                         </p>
                     </div>
                     <div class="glass-card p-8 rounded-[2rem]">
-                        <h3 class="text-xl font-bold text-white mb-4 text-orange-500">Why the jokes and roasts?</h3>
+                        <h3 class="text-2xl font-bold text-white mb-4 text-orange-500">Why the jokes and roasts?</h3>
                         <p class="text-stone-400 text-base leading-relaxed">
                             Because finance is usually so boring it makes people want to sleep for a hundred years.
                             We think you should stay awake while spending your money.
                         </p>
                     </div>
                     <div class="glass-card p-8 rounded-[2rem]">
-                        <h3 class="text-xl font-bold text-white mb-4 text-orange-500">Why only for iPhone?</h3>
+                        <h3 class="text-2xl font-bold text-white mb-4 text-orange-500">Why only for iPhone?</h3>
                         <p class="text-stone-400 text-base leading-relaxed">
                             Because building for everyone at once is a great way to build nothing at all. We are
                             starting with iOS to make it perfect for the first few humans who find us. If you have
@@ -576,12 +572,12 @@
                     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
                         <div class="text-left max-w-sm">
                             <div class="text-2xl font-black text-white mb-2">Smartin<span class="text-smart-primary">.</span>App</div>
-                            <p class="text-stone-500 text-sm">
+                            <p class="text-stone-500 text-base">
                                 The humorous AI stock analyst for the modern investor. We Rate Stocks. We Roast Stocks.
                                 You Make Money.
                             </p>
                         </div>
-                        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-medium">
+                        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-base font-medium">
                             <a href="/guide/" class="text-smart-primary hover:text-white transition-colors">Peter Lynch Guide</a>
                             <a href="/blog/" class="text-stone-300 hover:text-white transition-colors">Fintainment Blog</a>
                             <a href="/privacy_policy/" class="text-stone-300 hover:text-white transition-colors">Privacy Policy</a>
@@ -589,7 +585,7 @@
                             <a href="/support/" class="text-stone-300 hover:text-white transition-colors">Support</a>
                         </nav>
                     </div>
-                    <div class="pt-8 border-t border-white/5 text-stone-600 text-xs text-center">
+                    <div class="pt-8 border-t border-white/5 text-stone-600 text-sm text-center">
                         &copy; 2026 Smartin.App. All rights reserved. Built with 🧡
                     </div>
                 </div>

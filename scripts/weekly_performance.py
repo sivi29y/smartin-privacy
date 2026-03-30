@@ -27,8 +27,15 @@ ALL_PERSONAS = {
 
 def get_weekly_data():
     tickers = ["SPY", "QQQ", "DIA", "AAPL", "TSLA", "NVDA"]
-    data = {}
+    global_indices = {
+        "ASX 200 (Australia)": "^AXJO",
+        "TA-35 (Israel)": "TA35.TA",
+        "Euro Stoxx 50 (Europe)": "^STOXX50E"
+    }
     
+    data = {"us_market": {}, "global_context": {}}
+    
+    # Fetch US Market Data
     for ticker in tickers:
         try:
             t = yf.Ticker(ticker)
@@ -37,14 +44,30 @@ def get_weekly_data():
                 start_price = hist['Close'].iloc[0]
                 end_price = hist['Close'].iloc[-1]
                 change_pct = ((end_price - start_price) / start_price) * 100
-                data[ticker] = {
+                data["us_market"][ticker] = {
                     "price": round(end_price, 2),
                     "change": round(change_pct, 2)
                 }
             else:
-                data[ticker] = {"price": "N/A", "change": "0.00"}
+                data["us_market"][ticker] = {"price": "N/A", "change": "0.00"}
         except Exception:
-            data[ticker] = {"price": "N/A", "change": "0.00"}
+            data["us_market"][ticker] = {"price": "N/A", "change": "0.00"}
+            
+    # Fetch Global Context (Impact on US Markets)
+    for name, ticker in global_indices.items():
+        try:
+            t = yf.Ticker(ticker)
+            hist = t.history(period="5d")
+            if len(hist) >= 2:
+                start_price = hist['Close'].iloc[0]
+                end_price = hist['Close'].iloc[-1]
+                change_pct = ((end_price - start_price) / start_price) * 100
+                data["global_context"][name] = round(change_pct, 2)
+            else:
+                data["global_context"][name] = 0.00
+        except Exception:
+            data["global_context"][name] = 0.00
+            
     return data
 
 def select_persona_dynamic():
@@ -77,12 +100,28 @@ safe_slug = f"weekly-performance-{persona_slug}"
 permalink = f"/blog/{safe_slug}/"
 live_url = f"https://smartinthe.app{permalink}"
 
-data_summary = "\n".join([f"{t}: ${d['price']} ({d['change']}%)" for t, d in weekly_data.items()])
+# Significance Filtering (Context only)
+SIGNIFICANCE_THRESHOLD = 0.5
+significant_global = {name: change for name, change in weekly_data["global_context"].items() if abs(change) >= SIGNIFICANCE_THRESHOLD}
+
+global_context_str = ""
+if significant_global:
+    global_context_data = "\n".join([f"{name}: {change}%" for name, change in significant_global.items()])
+    global_context_str = f"""
+GLOBAL CONTEXT (Significant Overnight Moves):
+{global_context_data}
+
+IMPORTANT: Use the Global Context above to set the 'Market Vibe.' For example, if Australia and Europe were down significantly, the persona should start with a more pessimistic/neurotic tone about the US market opening.
+DO NOT directly analyze or list the global tickers in the blog post—keep the primary focus 100% on the US market and the Smartin roasts.
+"""
+else:
+    global_context_str = "\nGLOBAL CONTEXT: Global markets (Australia, Israel, Europe) were relatively stable last week. Focus your analysis purely on US internal metrics and the Smartin roasts."
 
 prompt = f"""
 Write a highly entertaining, SEO-optimized 'Weekly Performance Summary' for the iOS app 'Smartin: Quick Stock Ratings'.
-Analyze the wins and losses of the week based on this data:
+Analyze the wins and losses of the week based on this primary US data:
 {data_summary}
+{global_context_str}
 
 Use this precise comedic persona/dynamic:
 {persona_desc}

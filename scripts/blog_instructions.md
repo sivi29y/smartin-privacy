@@ -15,6 +15,11 @@ Gemini: Select the **most relevant** row from the table below based on the stock
 | "growth at a reasonable price stocks" | Medium - Strategy | How do I balance growth with value? | GARP Investing: The Sweet Spot Between Value and Tech Bubbles | Smartin's rating system is essentially an automated GARP engine. |
 | "fun stock market app" | High - Commercial | Are there finance apps that aren't dry and boring? | The Rise of Fintainment: Why Finance Doesn't Have to be Dry | Switch on Smartin's Empire State Theme and make analyzing stocks actually entertaining. |
 
+## 2. Overnight Sentiment (Global Pulse)
+When writing **Market Forecasts** or **Weekly Summaries**, always check the "Global Context" provided in the data feed (Australia, Israel, Europe).
+*   **Significance Threshold**: Focus on the US-impact of global markets **only** when they show significant movement (e.g., +/- 0.5% or more). 
+*   **Mandate**: If global markets are stable, do not mention them. Only use them as a "driving force" or "major outlier" to adjust the persona's anxiety/pessimism for the US session.
+
 ## 2. Heading Hierarchy (The Golden Rule)
 Search engines read a page like an outline. Never skip levels.
 

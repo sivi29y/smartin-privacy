@@ -28,25 +28,47 @@ ALL_PERSONAS = {
 def get_market_data():
     indices = ["SPY", "QQQ", "DIA"]
     stocks = ["AAPL", "TSLA", "NVDA"]
-    data = {}
+    global_indices = {
+        "ASX 200 (Australia)": "^AXJO",
+        "TA-35 (Israel)": "TA35.TA",
+        "Euro Stoxx 50 (Europe)": "^STOXX50E"
+    }
     
+    data = {"us_market": {}, "global_context": {}}
+    
+    # Fetch US Market Data
     for ticker in indices + stocks:
         try:
             t = yf.Ticker(ticker)
-            # Fetch pre-market data if available, or just the last close
             hist = t.history(period="2d")
             if len(hist) >= 2:
                 prev_close = hist['Close'].iloc[-2]
                 curr_price = hist['Close'].iloc[-1]
                 change_pct = ((curr_price - prev_close) / prev_close) * 100
-                data[ticker] = {
+                data["us_market"][ticker] = {
                     "price": round(curr_price, 2),
                     "change": round(change_pct, 2)
                 }
             else:
-                data[ticker] = {"price": "N/A", "change": "N/A"}
+                data["us_market"][ticker] = {"price": "N/A", "change": "N/A"}
         except Exception:
-            data[ticker] = {"price": "N/A", "change": "0.00"}
+            data["us_market"][ticker] = {"price": "N/A", "change": "0.00"}
+            
+    # Fetch Global Context (Early Indicators)
+    for name, ticker in global_indices.items():
+        try:
+            t = yf.Ticker(ticker)
+            hist = t.history(period="2d")
+            if len(hist) >= 2:
+                prev_close = hist['Close'].iloc[-2]
+                curr_price = hist['Close'].iloc[-1]
+                change_pct = ((curr_price - prev_close) / prev_close) * 100
+                data["global_context"][name] = round(change_pct, 2)
+            else:
+                data["global_context"][name] = 0.00
+        except Exception:
+            data["global_context"][name] = 0.00
+            
     return data
 
 def select_persona_dynamic():
@@ -79,13 +101,29 @@ safe_slug = f"monday-forecast-{persona_slug}"
 permalink = f"/blog/{safe_slug}/"
 live_url = f"https://smartinthe.app{permalink}"
 
-# Construct data string for Gemini
-data_summary = "\n".join([f"{t}: ${d['price']} ({d['change']}%)" for t, d in market_data.items()])
+# Significance Filtering (Early Indicator context)
+SIGNIFICANCE_THRESHOLD = 0.5
+significant_global = {name: change for name, change in market_data["global_context"].items() if abs(change) >= SIGNIFICANCE_THRESHOLD}
+
+global_context_str = ""
+if significant_global:
+    global_context_data = "\n".join([f"{name}: {change}%" for name, change in significant_global.items()])
+    global_context_str = f"""
+GLOBAL CONTEXT (Significant Overnight Moves):
+{global_context_data}
+
+IMPORTANT: Use the Global Context above to set the 'Overnight Sentiment.' While New York was sleeping, these markets already gave us the first clues.
+If the Far East and Europe are red, the persona should be more anxious/neurotic about the US open.
+DO NOT directly analyze or list the global tickers in the blog post—keep the primary focus 100% on the US market and upcoming week.
+"""
+else:
+    global_context_str = "\nGLOBAL CONTEXT: Global markets (Australia, Israel, Europe) were relatively stable overnight. Focus your analysis purely on US internal metrics and the upcoming week's forecast."
 
 prompt = f"""
 Write a highly entertaining, SEO-optimized 'Monday Morning Market Forecast' for the iOS app 'Smartin: Quick Stock Ratings'.
-The goal is to analyze the upcoming week's market vibe based on this data:
+The goal is to analyze the upcoming week's market vibe based on this primary US data:
 {data_summary}
+{global_context_str}
 
 Use this precise comedic persona/dynamic:
 {persona_desc}
