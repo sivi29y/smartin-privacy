@@ -4,7 +4,7 @@ title: "PTON: The Wild Ride to Nowhere (or Is It Somewhere?!)"
 author: Cosmo
 description: "Is PTON a high-growth tech stock, or just a really expensive bike company? We're taking a frantic look at Peloton's P/E and PEG ratios and wondering what's really going on."
 keywords: "good peg ratio for tech stocks"
-permalink: /blog/pton-roast-cosmo/
+permalink: /blog/2026-03-30/pton/
 ---
 
 ## The Peloton Paradox: Sweat, Screens, and... *What Exactly* Are We Paying For?!

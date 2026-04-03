@@ -77,7 +77,7 @@ print(f"Selected Persona: {selected_persona}")
 
 date_str = datetime.now().strftime('%Y-%m-%d')
 safe_slug = f"{selected_stock.lower()}-roast-{short_persona_name}"
-permalink = f"/blog/{safe_slug}/"
+permalink = f"/blog/{date_str}/{selected_stock.lower()}/"
 live_url = f"https://smartinthe.app{permalink}"
 
 prompt = f"""
