@@ -4,7 +4,7 @@ title: "Tilray (TLRY): When Profits Go Up in Smoke (But Your Investment Doesn't)
 author: Kurt
 description: "Ever wonder if investing in cannabis stocks like TLRY is more about hope than actual numbers? We take a darkly humorous look at P/E and PEG ratios that defy gravity – and common sense."
 keywords: fun stock market app
-permalink: /blog/tlry-roast-kurt/
+permalink: /blog/2026-04-01/tlry/
 ---
 
 Ah, humanity. Bless its little heart. Forever chasing the next great escape, whether it's into the cosmos, virtual reality, or, in the case of Tilray Brands (TLRY), the leafy green promise of a plant-based economy. For those of you who've watched the cannabis stock market unfold, it's been a ride worthy of a particularly ill-advised roller coaster: steep climbs, sudden drops, and a general sense of "what just happened?" when it's all over.
