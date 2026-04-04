@@ -19,6 +19,8 @@ Here are the ten lessons you need to master. Don't Panic.
 
 ### The Lessons
 
+0.  **[What's the Deal with Fintainment?](/guide/what-is-fintainment/)**
+    *   Why day-traders are loonies, and why we roast bad stocks. By Jerry.
 1.  **[Invest in What You Know](/guide/invest-in-what-you-know/)**
     *   Using your organic advantage in a world of algorithms.
 2.  **[The PEG Ratio](/guide/the-peg-ratio/)**
