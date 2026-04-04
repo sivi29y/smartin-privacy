@@ -3,7 +3,6 @@ layout: post
 title: "What's the Deal with GARP?"
 description: "Jerry returns to explain Growth At A Reasonable Price, the only investment philosophy that prevents you from paying a million dollars for a lemonade stand."
 permalink: /blog/what-is-garp/
-published: false
 ---
 
 Written by: Jerry from the Smartin team
