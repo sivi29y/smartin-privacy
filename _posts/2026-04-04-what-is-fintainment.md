@@ -21,7 +21,7 @@ That is why we desperately need **Fintainment**.
 
 Finance... and Entertainment. It's a marriage of convenience! We give you the punchline, sure—but the punchline is actually grounded in something real. We are bringing comedy to the fundamentals. We are bringing the roast to the P/E ratio!
 
-Because at the end of the day, you only need one thing: **[GARP](/guide/the-peg-ratio/)**.
+Because at the end of the day, you only need one thing: **[GARP](/blog/what-is-garp/)**.
 
 Growth At A Reasonable Price. GARP! It sounds like a fish! You catch a Garp, you throw it back! But no, it's actually the greatest investing philosophy ever invented. You find a company that is growing fast, but you refuse to overpay for it. It's that simple! 
 
