@@ -1,6 +1,7 @@
 import os
 import glob
 import re
+import random
 import requests
 import json
 from datetime import datetime, timezone, timedelta
@@ -14,6 +15,24 @@ SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 POSTS_DIR = "_posts"
 SITE_URL = "https://smartinthe.app"
+
+PERSONAS = [
+    {
+        "name": "Cosmo",
+        "intro": "Hello, this is Cosmo from Smartin. I've been screaming at the ticker tape all week, and frankly, my blood pressure can't take much more of this market. But before I stroke out, here is what our team chewed up and spit out this week:",
+        "outro": "Keep your stomach out of it, and don't let them hustle you!"
+    },
+    {
+        "name": "Kurt",
+        "intro": "Hello, this is Kurt from Smartin. I've spent the last 120 hours running the exact same Peter Lynch models over and over again because nobody else here respects the math! Here are the undeniable, hard-coded fundamentals we processed this week:",
+        "outro": "Trust the numbers. So it goes."
+    },
+    {
+        "name": "Jerry",
+        "intro": "Hello, this is Jerry from Smartin. What's the deal with these valuations?! Seriously, who looks at these P/E ratios and says 'Yeah, that makes sense'? Here is what we found hiding in the filings this week:",
+        "outro": "See you in the market, and try to keep a straight face."
+    }
+]
 
 def get_recent_posts(days=7):
     """Parses markdown files to find posts published in the last `days` days."""
@@ -41,6 +60,7 @@ def get_recent_posts(days=7):
         if post_date >= cutoff_date:
             # Parse frontmatter
             title = "New Fintainment Roast"
+            description = ""
             permalink = ""
             
             with open(filepath, 'r', encoding='utf-8') as f:
@@ -51,6 +71,11 @@ def get_recent_posts(days=7):
             if title_match:
                 title = title_match.group(1)
                 
+            # Extract description
+            desc_match = re.search(r'^description:\s*["\']?(.*?)["\']?$', content, re.MULTILINE)
+            if desc_match:
+                description = desc_match.group(1)
+                
             # Extract permalink
             permalink_match = re.search(r'^permalink:\s*(.*?)$', content, re.MULTILINE)
             if permalink_match:
@@ -59,6 +84,7 @@ def get_recent_posts(days=7):
             if permalink:
                 recent_posts.append({
                     "title": title,
+                    "description": description,
                     "url": f"{SITE_URL}{permalink}"
                 })
 
@@ -86,7 +112,7 @@ def get_broadcast_audience():
         print(f"FETCH ERROR: {e}")
         return []
 
-def send_weekly_broadcast(email, posts_html, posts_text):
+def send_weekly_broadcast(email, recent_posts, persona):
     """Sends the compiled weekly summary via Resend"""
     resend_url = "https://api.resend.com/emails"
     headers = {
@@ -94,23 +120,39 @@ def send_weekly_broadcast(email, posts_html, posts_text):
         "Content-Type": "application/json"
     }
     
+    # Render the posts HTML and Text blocks
+    posts_html = ""
+    posts_text = ""
+    for post in recent_posts:
+        posts_html += f"""
+        <div style="margin-bottom: 24px;">
+            <h3 style="margin-bottom: 4px; color: #d32f2f;">{post['title']}</h3>
+            <p style="margin-top: 0; font-size: 14px; line-height: 1.5; color: #555;">{post['description']}</p>
+            <a href='{post['url']}' style="color: #0066cc; font-weight: bold; text-decoration: none;">[ Read the full roast ] &rarr;</a>
+        </div>
+        """
+        
+        posts_text += f"\n- {post['title']}\n  {post['description']}\n  URL: {post['url']}\n"
+    
     html_body = f"""
-    <div style="font-family: sans-serif; color: #111;">
-        <p>Hello!</p>
-        <p>Here is what the Smartin algorithm and our writers chewed up and spit out this week:</p>
-        <ul>
-            {posts_html}
-        </ul>
-        <br>
-        <p>Keep your stomach out of it,</p>
-        <p><strong>The Smartin Team</strong></p>
+    <div style="font-family: sans-serif; color: #111; max-width: 600px; line-height: 1.5;">
+        <p>{persona['intro']}</p>
+        
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
+        
+        {posts_html}
+        
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
+        
+        <p>{persona['outro']}</p>
+        <p><strong>- The Smartin Team</strong></p>
     </div>
     """
 
-    text_body = f"Hello!\n\nHere is what the Smartin algorithm and our writers chewed up and spit out this week:\n\n{posts_text}\n\nKeep your stomach out of it,\nThe Smartin Team"
+    text_body = f"{persona['intro']}\n\n{posts_text}\n\n{persona['outro']}\n- The Smartin Team"
     
     payload = {
-        "from": "Smartin <roasts@smartinthe.app>", 
+        "from": f"{persona['name']} at Smartin <roasts@smartinthe.app>", 
         "to": [email],
         "subject": "🥊 Your Weekly Smartin Roasts",
         "html": html_body,
@@ -138,13 +180,6 @@ def run_weekly_broadcast():
         return
         
     print(f"Found {len(recent_posts)} recent posts to broadcast.")
-    
-    # Build the email chunks
-    posts_html = ""
-    posts_text = ""
-    for post in recent_posts:
-        posts_html += f"<li><a href='{post['url']}'>{post['title']}</a></li>\n"
-        posts_text += f"- {post['title']}: {post['url']}\n"
         
     subscribers = get_broadcast_audience()
     if not subscribers:
@@ -153,10 +188,14 @@ def run_weekly_broadcast():
 
     print(f"Found {len(subscribers)} eligible subscribers for the broadcast.")
     
+    # Pick the host persona globally per broadcast so everyone gets the same one this week
+    persona = random.choice(PERSONAS)
+    print(f"Randomly selected broadcast host: {persona['name']}")
+    
     success_count = 0
     for sub in subscribers:
         email = sub.get("email")
-        if send_weekly_broadcast(email, posts_html, posts_text):
+        if send_weekly_broadcast(email, recent_posts, persona):
             success_count += 1
             
     print(f"Successfully broadcasted to {success_count}/{len(subscribers)} subscribers.")
