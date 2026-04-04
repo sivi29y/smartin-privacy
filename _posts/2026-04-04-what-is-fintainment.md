@@ -2,7 +2,7 @@
 layout: post
 title: "What's the Deal with Fintainment?"
 description: "Jerry explains why we desperately need comedy mixed with Growth At A Reasonable Price (GARP) before the day traders completely lose their minds."
-permalink: /guide/what-is-fintainment/
+permalink: /blog/what-is-fintainment/
 ---
 
 *A monologue by Jerry*
