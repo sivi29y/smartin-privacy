@@ -92,7 +92,8 @@
                     body: JSON.stringify({ 
                         email: email, 
                         timestamp: new Date().toISOString(), 
-                        source: `Blog Post: ${window.location.pathname}` 
+                        source: `Newsletter: Blog Post (${window.location.pathname})`,
+                        status: 'pending'
                     })
                 });
 

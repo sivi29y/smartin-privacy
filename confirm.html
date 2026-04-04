@@ -1,0 +1,81 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirming Your Subscription... | Smartin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #050505; color: #f8fafc; font-family: sans-serif; }
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #ef4444;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="flex items-center justify-center min-height-screen">
+    <div class="text-center p-8">
+        <div class="loader mx-auto mb-6"></div>
+        <h1 id="statusText" class="text-2xl font-bold mb-4">Confirming Your Subscription...</h1>
+        <p id="subText" class="text-slate-400">Please wait while we verify your email.</p>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://cgjhjpairujduvctezfp.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnamhqcGFpcnVqZHV2Y3RlemZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzMTgxODMsImV4cCI6MjA3ODg5NDE4M30.Y9vkaSF4w4r9QUmK9hC8DInlicmNl2pmkHJnkNywV18';
+        
+        async function confirmEmail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const email = urlParams.get('email');
+            
+            if (!email) {
+                document.getElementById('statusText').innerText = 'Invalid Link';
+                document.getElementById('subText').innerText = 'No email address found in the confirmation link.';
+                return;
+            }
+
+            try {
+                // Update Supabase using the Anon Key
+                // NOTE: This requires an RLS policy that allows UPDATE for rows where status='pending'
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_emails?email=eq.${encodeURIComponent(email)}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        status: 'active',
+                        email_confirmed: true,
+                        confirmed_at: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    // Success -> Redirect to the beautiful "Confirmed" page
+                    window.location.href = '/email_confirmed/';
+                } else {
+                    const error = await response.json();
+                    console.error('Supabase Error:', error);
+                    document.getElementById('statusText').innerText = 'Confirmation Failed';
+                    document.getElementById('subText').innerText = 'We couldn\'t confirm your email. It might already be active or the link expired.';
+                }
+            } catch (err) {
+                console.error('Fetch Error:', err);
+                document.getElementById('statusText').innerText = 'System Error';
+                document.getElementById('subText').innerText = 'Something went wrong. Please try again later.';
+            }
+        }
+
+        window.onload = confirmEmail;
+    </script>
+</body>
+</html>
