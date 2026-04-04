@@ -126,7 +126,7 @@ def send_weekly_broadcast(email, recent_posts, persona):
     for post in recent_posts:
         posts_html += f"""
         <div style="margin-bottom: 24px;">
-            <h3 style="margin-bottom: 4px; color: #d32f2f;">{post['title']}</h3>
+            <h3 style="margin-bottom: 4px; color: #111;">{post['title']}</h3>
             <p style="margin-top: 0; font-size: 14px; line-height: 1.5; color: #555;">{post['description']}</p>
             <a href='{post['url']}' style="color: #0066cc; font-weight: bold; text-decoration: none;">[ Read the full roast ] &rarr;</a>
         </div>
