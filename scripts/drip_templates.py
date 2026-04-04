@@ -8,7 +8,7 @@ WELCOME_SERIES = {
         "body": """
 Hello!
 
-Thanks so much for joining the Smartin family. 
+Thanks so much for joining the Smartin Roast List. 
 
 Before we send you your first deeply satisfying stock roast, I have a quick favor to ask:
 
@@ -24,7 +24,7 @@ The Smartin Team
         "days_delay": 7, # Send 7 days after confirmation
         "subject": "Welcome to Fintainment (and why we built Smartin)",
         "body": """
-Welcome to the Smartin family!
+Welcome to the Smartin Roast List!
 
 We created Smartin because modern finance has turned into either boring, unreadable charts or incredibly bad TikTok advice. There wasn't a middle ground. 
 
