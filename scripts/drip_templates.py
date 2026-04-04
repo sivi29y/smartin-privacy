@@ -21,7 +21,7 @@ The Smartin Team
         """
     },
     1: {
-        "days_delay": 7, # Send 7 days after confirmation
+        "days_delay": 1, # Hit them the very next day with the manifesto
         "subject": "Welcome to Fintainment (and why we built Smartin)",
         "body": """
 Welcome to the Smartin Roast List!
@@ -37,7 +37,7 @@ The Smartin Team
         """
     },
     2: {
-        "days_delay": 14,
+        "days_delay": 3,
         "subject": "The Philosophy: What the heck is GARP?",
         "body": """
 Hello again!
@@ -53,7 +53,7 @@ The Smartin Team
         """
     },
     3: {
-        "days_delay": 21,
+        "days_delay": 6,
         "subject": "A sneak peek under the hood at Smartin...",
         "body": """
 Ever wonder what thousands of rows of financial data looks like when organized for a normal human?
@@ -70,7 +70,7 @@ The Smartin Team
         """
     },
     4: {
-        "days_delay": 28,
+        "days_delay": 14,
         "subject": "Mini Guide to Peter Lynch (Part 1)",
         "body": """
 Have you ever heard the phrase "Invest in what you know"?
@@ -86,7 +86,7 @@ The Smartin Team
         """
     },
     5: {
-        "days_delay": 35,
+        "days_delay": 21,
         "subject": "Mini Guide to Peter Lynch (Part 2)",
         "body": """
 We need to talk about Diworseification. 
@@ -102,7 +102,7 @@ The Smartin Team
         """
     },
     6: {
-        "days_delay": 42,
+        "days_delay": 28,
         "subject": "Mini Guide to Peter Lynch (Part 3)",
         "body": """
 The elusive "Tenbagger."
