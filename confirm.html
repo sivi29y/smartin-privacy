@@ -43,24 +43,23 @@
             }
 
             try {
-                // Update Supabase using the Anon Key
-                // NOTE: This requires an RLS policy that allows UPDATE for rows where status='pending' AND the token matches
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_emails?email=eq.${encodeURIComponent(email)}&token=eq.${encodeURIComponent(token)}`, {
-                    method: 'PATCH',
+                // Call the Secure RPC function
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/confirm_email`, {
+                    method: 'POST',
                     headers: {
                         'apikey': SUPABASE_ANON_KEY,
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        status: 'active',
-                        email_confirmed: true,
-                        confirmed_at: new Date().toISOString()
+                        p_email: email,
+                        p_token: token
                     })
                 });
 
-                if (response.ok) {
+                const isSuccess = await response.json(); // The RPC returns true/false
+
+                if (response.ok && isSuccess === true) {
                     // Success -> Redirect to the beautiful "Confirmed" page
                     window.location.href = '/email_confirmed/';
                 } else {
