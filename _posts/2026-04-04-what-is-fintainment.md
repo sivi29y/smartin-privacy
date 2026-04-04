@@ -5,7 +5,7 @@ description: "Jerry explains why we desperately need comedy mixed with Growth At
 permalink: /blog/what-is-fintainment/
 ---
 
-*A monologue by Jerry*
+Written by: Jerry from the Smartin team
 
 What is the *deal* with day traders?
 
@@ -21,11 +21,11 @@ That is why we desperately need **Fintainment**.
 
 Finance... and Entertainment. It's a marriage of convenience! We give you the punchline, sure—but the punchline is actually grounded in something real. We are bringing comedy to the fundamentals. We are bringing the roast to the P/E ratio!
 
-Because at the end of the day, you only need one thing: **GARP**.
+Because at the end of the day, you only need one thing: **[GARP](/guide/the-peg-ratio/)**.
 
 Growth At A Reasonable Price. GARP! It sounds like a fish! You catch a Garp, you throw it back! But no, it's actually the greatest investing philosophy ever invented. You find a company that is growing fast, but you refuse to overpay for it. It's that simple! 
 
-We take the GARP philosophy—the hard, unyielding math of Peter Lynch—and we serve it to you with a side of absolute mockery. Because if a company is trading at 400 times its earnings and it hasn't turned a profit since the Clinton administration... it doesn't just deserve a "Sell" rating. It deserves to be roasted into oblivion!
+We take the GARP philosophy—the hard, unyielding math of [Peter Lynch](/guide/)—and we serve it to you with a side of absolute mockery. Because if a company is trading at 400 times its earnings and it hasn't turned a profit since the Clinton administration... it doesn't just deserve a "Sell" rating. It deserves to be roasted into oblivion!
 
 So stick around. Stop trying to day-trade crypto futures. We'll give you the numbers, we'll give you the laughs, and most importantly... we'll try to keep you from becoming one of the loonies.
 
