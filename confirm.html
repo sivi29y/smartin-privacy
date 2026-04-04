@@ -34,17 +34,18 @@
         async function confirmEmail() {
             const urlParams = new URLSearchParams(window.location.search);
             const email = urlParams.get('email');
+            const token = urlParams.get('token');
             
-            if (!email) {
+            if (!email || !token) {
                 document.getElementById('statusText').innerText = 'Invalid Link';
-                document.getElementById('subText').innerText = 'No email address found in the confirmation link.';
+                document.getElementById('subText').innerText = 'The confirmation link is incomplete or missing a security token.';
                 return;
             }
 
             try {
                 // Update Supabase using the Anon Key
-                // NOTE: This requires an RLS policy that allows UPDATE for rows where status='pending'
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_emails?email=eq.${encodeURIComponent(email)}`, {
+                // NOTE: This requires an RLS policy that allows UPDATE for rows where status='pending' AND the token matches
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_emails?email=eq.${encodeURIComponent(email)}&token=eq.${encodeURIComponent(token)}`, {
                     method: 'PATCH',
                     headers: {
                         'apikey': SUPABASE_ANON_KEY,
