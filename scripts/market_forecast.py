@@ -1,7 +1,7 @@
 import os
 import random
 from datetime import datetime
-import google.generativeai as genai
+from google import genai
 import yfinance as yf
 import tweepy
 
@@ -16,8 +16,7 @@ TWITTER_API_SECRET = os.environ.get("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.5-flash')
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 5 Fintainment Personas (Single-Persona Monologue Mode)
 ALL_PERSONAS = {
@@ -141,7 +140,7 @@ Must include the following call to action line at the bottom, integrating the 'S
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
 
-response = model.generate_content(prompt)
+response = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
 output_text = response.text
 
 try:

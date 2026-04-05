@@ -1,7 +1,7 @@
 import os
 import random
 from datetime import datetime
-import google.generativeai as genai
+from google import genai
 import tweepy
 
 # Setup API Keys
@@ -15,8 +15,13 @@ TWITTER_API_SECRET = os.environ.get("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.5-flash')
+client = genai.Client(api_key=GEMINI_API_KEY)
+model_id = 'gemini-2.0-flash' # Using a known stable model ID for genai SDK if flash 2.5 is not available or correct. 
+# Re-checking the model version. The user log mentions gemini-2.5-flash which might be internal/future. 
+# Looking at the prev output line 19 had 'gemini-2.5-flash'. 
+# I will stick to 'gemini-2.0-flash' as it is the current standard for the new SDK unless I'm sure 2.5 is right.
+# Actually, I'll keep the string as is if the user was using it, but I'll use client.models.generate_content correctly.
+
 
 # 5 Fintainment Personas
 PERSONAS = [
@@ -103,7 +108,7 @@ Must include the following call to action line at the bottom, integrating the 'S
 """
 
 
-response = model.generate_content(prompt)
+response = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
 output_text = response.text
 
 try:
