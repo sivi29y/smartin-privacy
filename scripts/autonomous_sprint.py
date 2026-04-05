@@ -27,7 +27,7 @@ model_id = 'gemini-2.0-flash' # Using a known stable model ID for genai SDK if f
 PERSONAS = [
     "Kurt Vonnegut (writing for SNL) - Darkly satirical, pointing out absurd corporate greed. DO NOT use his name or copyrighted material in the output.",
     "Jerry Seinfeld - Observational comedy, confused by the ridiculous minutiae of financial jargon. DO NOT use his name or catchphrases in the output.",
-    "George Costanza - Neurotic, panicked about losing money, doing the opposite of rational instincts. DO NOT use his name in the output.",
+    "George Costonzo - Highly quick-witted but deeply neurotic; a man whose every instinct about the market is fundamentally wrong. He makes financial decisions based on fear and spite, and is currently attempting to 'Post-Roast' his way into a profit by doing the exact opposite of what his gut tells him. CRITICAL: You are simply \"George.\" DO NOT use the names \"Costanza\" or \"Costonzo\" in the text or metadata.",
     "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock. DO NOT use his name or catchphrases in the output.",
     "Elaine Benes - Aggressively confident, tearing down 'bro' stocks with sharp insults. DO NOT use her name in the output."
 ]
@@ -53,7 +53,7 @@ def get_used_history():
             for stock in STOCKS:
                 if f"({stock.lower()})" in content or f" {stock.lower()} " in content:
                     used_stocks.add(stock)
-            for p in ["vonnegut", "seinfeld", "costanza", "kramer", "elaine"]:
+            for p in ["vonnegut", "seinfeld", "costanza", "costonzo", "kramer", "elaine"]:
                 if p in content:
                     used_personas.add(p)
     return used_stocks, used_personas
