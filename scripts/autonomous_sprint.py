@@ -3,6 +3,10 @@ import random
 from datetime import datetime
 from google import genai
 import tweepy
+import sys
+# Ensure we can import from the current script's directory
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from personas import PERSONAS_LIST as PERSONAS
 
 # Setup API Keys
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -23,21 +27,16 @@ model_id = 'gemini-2.0-flash' # Using a known stable model ID for genai SDK if f
 # Actually, I'll keep the string as is if the user was using it, but I'll use client.models.generate_content correctly.
 
 
-# 5 Fintainment Personas
-PERSONAS = [
-    "Kurt Vonnegut (writing for SNL) - Darkly satirical, pointing out absurd corporate greed. DO NOT use his name or copyrighted material in the output.",
-    "Jerry Seinfeld - Observational comedy, confused by the ridiculous minutiae of financial jargon. DO NOT use his name or catchphrases in the output.",
-    "George Costonzo - Highly quick-witted but deeply neurotic; a man whose every instinct about the market is fundamentally wrong. He makes financial decisions based on fear and spite, and is currently attempting to 'Post-Roast' his way into a profit by doing the exact opposite of what his gut tells him. CRITICAL: You are simply \"George.\" DO NOT use the names \"Costanza\" or \"Costonzo\" in the text or metadata.",
-    "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock. DO NOT use his name or catchphrases in the output.",
-    "Elaine Benes - Aggressively confident, tearing down 'bro' stocks with sharp insults. DO NOT use her name in the output."
-]
+# PERSONAS are now imported from personas.py
 
 STOCKS = [
     "AAPL", "TSLA", "GME", "AMC", "PLTR", "SOFI", "NVDA", "AMD", "META", "GOOGL", 
     "AMZN", "NFLX", "MSFT", "INTC", "DJT", "HOOD", "COIN", "MARA", "RIOT", "BABA", 
     "NIO", "ROKU", "PTON", "ZM", "DOCU", "WISH", "CLOV", "WKHS", "BB", "NOK", 
     "SPCE", "MVIS", "SNDL", "TLRY", "CRSR", "DKNG", "PENN", "RBLX", "U", "SNOW", 
-    "DDOG", "NET", "CRWD", "OKTA", "ZS", "PANW", "FTNT", "CHWY", "SQ", "PYPL"
+    "DDOG", "NET", "CRWD", "OKTA", "ZS", "PANW", "FTNT", "CHWY", "SQ", "PYPL",
+    "IBM", "IONQ", "RGTI", "QBTS", "XOM", "CVX", "OXY", "GOLD", "NEM", "AEM",
+    "CLSK", "BTDR", "HIVE"
 ]
 
 def get_used_history():

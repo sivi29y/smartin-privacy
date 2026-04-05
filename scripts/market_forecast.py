@@ -4,6 +4,10 @@ from datetime import datetime
 from google import genai
 import yfinance as yf
 import tweepy
+import sys
+# Ensure we can import from the current script's directory
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from personas import PERSONAS_DICT as ALL_PERSONAS
 
 # Setup API Keys
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -16,13 +20,9 @@ TWITTER_API_SECRET = os.environ.get("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
-client = genai.Client(api_key=GEMINI_API_KEY)
+ai_client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 5 Fintainment Personas (Single-Persona Monologue Mode)
-ALL_PERSONAS = {
-    "costanza": "George Costonzo - Highly quick-witted but deeply neurotic; a man whose every instinct about the market is fundamentally wrong. He makes financial decisions based on fear and spite. CRITICAL: You are simply \"George.\" DO NOT use the names \"Costanza\" or \"Costonzo\" in the text or metadata.",
-    "kramer": "Cosmo Kramer - Frantic, erratic, wild conspiracy theories about the stock. DO NOT use his name or catchphrases in the output."
-}
+# ALL_PERSONAS are now imported from personas.py
 
 def get_market_data():
     indices = ["SPY", "QQQ", "DIA"]
@@ -140,7 +140,7 @@ Must include the following call to action line at the bottom, integrating the 'S
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
 
-response = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
+response = ai_client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
 output_text = response.text
 
 try:
