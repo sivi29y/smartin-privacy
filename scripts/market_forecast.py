@@ -87,7 +87,7 @@ def select_persona_dynamic():
 market_data = get_market_data()
 data_summary = "\n".join([f"{ticker}: {info['price']} ({info['change']}%)" for ticker, info in market_data["us_market"].items()])
 persona_desc, persona_slug = select_persona_dynamic()
-selected_author = "George" if persona_slug == "costanza" else persona_slug.capitalize()
+selected_author = ALL_PERSONAS[persona_slug].split(" - ")[0]
 
 # Load Centralized Instructions
 instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
@@ -144,7 +144,7 @@ MARKDOWN:
 Analyze the trends.
 Must follow the H2/H3 'Golden Rule' from the instructions.
 Must include 1-3 internal links from the instruction targets.
-Must start with Jekyll YAML frontmatter containing: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
 Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """

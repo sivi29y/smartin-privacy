@@ -65,7 +65,7 @@ if not available_personas: available_personas = PERSONAS
 selected_stock = random.choice(available_stocks)
 selected_persona = random.choice(available_personas)
 short_persona_name = selected_persona.split()[0].lower()
-selected_author = "George" if short_persona_name == "george" else selected_persona.split()[0].capitalize()
+selected_author = selected_persona.split(" - ")[0]
 
 # Load Centralized Instructions
 instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
@@ -98,7 +98,7 @@ MARKDOWN:
 Remember to briefly explain {selected_stock}, roast its P/E and PEG ratios.
 Must follow the H2/H3 'Golden Rule' from the instructions.
 Must include 1-3 internal links from the instruction targets.
-Must start with Jekyll YAML frontmatter containing: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
 Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
