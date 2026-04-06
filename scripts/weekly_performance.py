@@ -116,9 +116,12 @@ else:
     global_context_str = "\nGLOBAL CONTEXT: Global markets (Australia, Israel, Europe) were relatively stable last week. Focus your analysis purely on US internal metrics and the Smartin roasts."
 
 prompt = f"""
-Write a highly entertaining, SEO-optimized 'Weekly Performance Summary' for the iOS app 'Smartin: Quick Stock Ratings'.
-Analyze the wins and losses of the week based on this primary US data:
-{data_summary}
+110: Write a highly entertaining, 'Fintainment' blog post called a 'Weekly Market Performance Summary' for the iOS app 'Smartin: Quick Stock Ratings'.
+111: This post MUST be a **joy to read**—priority one is the character's voice and comedic energy. 
+112: However, it must also provide a DECISIVE, DATA-DRIVEN ANALYSIS of the week's market performance based on valid Peter Lynch fundamental principles (e.g. PEG, P/E, Debt) using this primary US data:
+113: {data_summary}
+114: 
+115: IMPORTANT: Keep the SEO natural. Use exactly **1 or 2 terms** from our Target_Keyword list as an **EXACT STRING MATCH** in the text. The post should never feel like 'marketing text'.
 {global_context_str}
 
 Use this precise comedic persona:

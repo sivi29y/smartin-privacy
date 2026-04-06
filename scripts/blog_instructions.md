@@ -36,3 +36,9 @@ Every post must keep the website connected to avoid "orphan pages."
     *   [The Hitchhiker's Guide to Peter Lynch Investing](/guide/)
     *   [Latest Fintainment Roasts](/blog/)
     *   Any relevant specific guide volume (e.g., [/guide/the-peg-ratio/](/guide/the-peg-ratio/))
+
+## 4. Voice & Tone: The Fintainment Balance (Quality Mandate)
+A "Fintainment" post must be three things simultaneously, in this specific order of priority:
+*   **Priority 1: A Joy to Read**: The persona (Cosmo, George, etc.) must be the star. The tone should be high-energy, comedic, and deeply personality-driven. If it's a "forecast," make it a frantic monologue; if it's a "roast," make it cutting.
+*   **Priority 2: Grounded in Lynchian Data**: The comedy is the sugar, but the medicine is the numbers. Every analysis must reference valid Peter Lynch fundamental metrics (e.g., PEG ratio, P/E vs. Growth, or Debt levels). The reader should move away with *actual financial insight*.
+*   **Priority 3: Subtle & Exact SEO**: Use exactly **1 or 2 terms** from our Target_Keyword list. These must be an **EXACT STRING MATCH** (case-insensitive) but integrated naturally into the persona's flow. Never sacrifice the character's voice for a keyword. The post should never feel like "marketing text."

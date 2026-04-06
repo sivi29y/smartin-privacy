@@ -82,8 +82,12 @@ permalink = f"/blog/{date_str}/{selected_stock.lower()}/"
 live_url = f"https://smartinthe.app{permalink}"
 
 prompt = f"""
-Write a highly entertaining, SEO-optimized blog post for the iOS app 'Smartin: Quick Stock Ratings'.
-You are roasting the stock {selected_stock} using this precise comedic persona:
+Write a highly entertaining, 'Fintainment' blog post called a 'Daily Stock Roast' for the ticker {selected_stock}.
+This post MUST be a **joy to read**—priority one is the character's voice and comedic energy. 
+However, it must also provide a DECISIVE, DATA-DRIVEN ANALYSIS of {selected_stock} based on valid Peter Lynch fundamental principles (e.g. PEG, P/E, Debt).
+
+IMPORTANT: Keep the SEO natural. Use exactly **1 or 2 terms** from our Target_Keyword list as an **EXACT STRING MATCH** in the text. The post should never feel like 'marketing text'.
+Persona:
 {selected_persona}
 
 {blog_instructions}

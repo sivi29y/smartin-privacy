@@ -118,10 +118,13 @@ else:
     global_context_str = "\nGLOBAL CONTEXT: Global markets (Australia, Israel, Europe) were relatively stable overnight. Focus your analysis purely on US internal metrics and the upcoming week's forecast."
 
 prompt = f"""
-Write a highly entertaining, SEO-optimized 'Monday Morning Market Forecast' for the iOS app 'Smartin: Quick Stock Ratings'.
-The goal is to provide a DECISIVE, DATA-DRIVEN ANALYSIS of the upcoming week's market vibe based on this primary US data:
+Write a highly entertaining, 'Fintainment' blog post called 'Monday Morning Market Forecast' for the iOS app 'Smartin: Quick Stock Ratings'.
+This post MUST be a **joy to read**—priority one is the character's voice and comedic energy. 
+However, it must also provide a DECISIVE, DATA-DRIVEN ANALYSIS of the upcoming week's market vibe based on valid Peter Lynch fundamental principles (e.g. PEG, P/E, Debt) using this primary US data:
 {data_summary}
 {global_context_str}
+
+IMPORTANT: Keep the SEO natural. Use exactly **1 or 2 terms** from our Target_Keyword list as an **EXACT STRING MATCH** in the text. The post should never feel like 'marketing text'.
 
 Use this precise comedic persona:
 {persona_desc}
