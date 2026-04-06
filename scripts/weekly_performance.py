@@ -25,7 +25,16 @@ ai_client = genai.Client(api_key=GEMINI_API_KEY)
 # ALL_PERSONAS are now imported from personas.py
 
 def get_weekly_data():
-    tickers = ["SPY", "QQQ", "DIA", "AAPL", "TSLA", "NVDA"]
+    tickers = [
+        "SPY", "QQQ", "DIA", "AAPL", "TSLA", "GME", "AMC", "PLTR", "SOFI", "NVDA", "AMD", "META", "GOOGL", 
+        "AMZN", "NFLX", "MSFT", "INTC", "DJT", "HOOD", "COIN", "MARA", "RIOT", "BABA", 
+        "NIO", "ROKU", "PTON", "ZM", "DOCU", "WISH", "CLOV", "WKHS", "BB", "NOK", 
+        "SPCE", "MVIS", "SNDL", "TLRY", "CRSR", "DKNG", "PENN", "RBLX", "U", "SNOW", 
+        "DDOG", "NET", "CRWD", "OKTA", "ZS", "PANW", "FTNT", "CHWY", "SQ", "PYPL",
+        "IBM", "IONQ", "RGTI", "QBTS", "XOM", "CVX", "OXY", "GOLD", "NEM", "AEM",
+        "CLSK", "MU", "RDDT", "MSTR", "LULU", "DNUT", "PBR", "WING", "NYCB", "BLK",
+        "BX", "VTI"
+    ]
     global_indices = {
         "ASX 200 (Australia)": "^AXJO",
         "TA-35 (Israel)": "TA35.TA",
@@ -77,7 +86,7 @@ def select_persona_dynamic():
 weekly_data = get_weekly_data()
 data_summary = "\n".join([f"{ticker}: {info['price']} ({info['change']}%)" for ticker, info in weekly_data["us_market"].items()])
 persona_desc, persona_slug = select_persona_dynamic()
-selected_author = persona_slug.capitalize()
+selected_author = "George" if persona_slug == "costanza" else persona_slug.capitalize()
 
 # Load Centralized Instructions
 instructions_path = os.path.join(os.path.dirname(__file__), "blog_instructions.md")
@@ -138,8 +147,12 @@ Must include the following call to action line at the bottom, integrating the 'S
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
 
-response = ai_client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
-output_text = response.text
+response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+try:
+    output_text = response.text
+except (ValueError, AttributeError):
+    print("AI ERROR: Response was empty or blocked. Defaulting safely.")
+    output_text = "TWEET: Weekly summary is here! $SPY MARKDOWN: AI safety blocked this summary. Stay tuned for the next one."
 
 try:
     tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()
