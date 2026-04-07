@@ -49,7 +49,7 @@ def get_used_history():
             for stock in STOCKS:
                 if f"({stock.lower()})" in content or f" {stock.lower()} " in content:
                     used_stocks.add(stock)
-            for p in ["vonnegut", "seinfeld", "costanza", "costonzo", "kramer", "elaine"]:
+            for p in ["vonnegut", "seinfeld", "george", "cosmo", "elaine"]:
                 if p in content:
                     used_personas.add(p)
     return used_stocks, used_personas

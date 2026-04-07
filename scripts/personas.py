@@ -9,11 +9,7 @@ PERSONAS = {
     "elaine": "Elaine - Aggressively confident, tearing down 'bro' stocks with sharp insults. DO NOT use her name in the output."
 }
 
-# Mapping for scripts that use specific keys
-PERSONAS_DICT = {
-    "costanza": PERSONAS["george"],
-    "kramer": PERSONAS["cosmo"]
-}
+
 
 # List for scripts that rotate through all personas
 PERSONAS_LIST = list(PERSONAS.values())

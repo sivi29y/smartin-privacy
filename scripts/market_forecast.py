@@ -7,7 +7,7 @@ import tweepy
 import sys
 # Ensure we can import from the current script's directory
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from personas import PERSONAS_DICT as ALL_PERSONAS
+from personas import PERSONAS as ALL_PERSONAS
 
 # Setup API Keys
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -80,7 +80,7 @@ def get_market_data():
     return data
 
 def select_persona_dynamic():
-    selected = random.choice(["costanza", "kramer"])
+    selected = random.choice(["george", "cosmo"])
     description = f"A decisive monologue by {ALL_PERSONAS[selected]}. This is not a dialogue. It is a data-driven analysis in their unique voice."
     return description, selected
 
