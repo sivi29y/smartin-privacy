@@ -143,9 +143,9 @@ TWEET:
 MARKDOWN:
 <Write the full SEO markdown blog post here.
 Summarize the week.
-Must follow the H2/H3 'Golden Rule' from the instructions.
-Must include 1-3 internal links from the instruction targets.
-Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title, author: {selected_author}, description, keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
+146: Must follow the H2/H3 'Golden Rule' from the instructions.
+147: Must include 1-3 internal links from the instruction targets.
+148: Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title (DO NOT include the words 'Kramer' or 'George' or 'Seinfeld' in the title), author: {selected_author}, description (a compelling 140-160 character summary for the blog index), keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
 Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
 """
