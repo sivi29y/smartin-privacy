@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "What's the DEAL with AAPL Stock? A Seinfeld Roast of Apple's Ratios!"
-description: "Jerry Seinfeld tackles AAPL's P/E and PEG ratios in a hilarious, observational roast. Are you paying too much for Apple? Smartin helps you find out!"
-keywords: "AAPL stock, Apple stock, P/E ratio, PEG ratio, stock ratings, Smartin app, iOS app, investing, Jerry Seinfeld comedy, observational humor, quick stock ratings"
+title: "What's the DEAL with AAPL Stock? A Smartin Roast of Apple's Ratios!"
+description: "Smartin Smartin tackles AAPL's P/E and PEG ratios in a hilarious, observational roast. Are you paying too much for Apple? Smartin helps you find out!"
+keywords: "AAPL stock, Apple stock, P/E ratio, PEG ratio, stock ratings, Smartin app, iOS app, investing, Smartin Smartin comedy, observational humor, quick stock ratings"
 permalink: /blog/2026-03-25/aapl/
 ---
 

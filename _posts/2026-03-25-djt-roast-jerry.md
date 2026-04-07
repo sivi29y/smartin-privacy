@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "What's The Deal With DJT Stock? A Seinfeld Roast of Its Ratios (and My Sanity)"
-description: "Jerry Seinfeld tackles the absurdity of DJT stock's P/E and PEG ratios. Get ready for some observational comedy on why this stock just doesn't make sense. Find clarity with Smartin."
-keywords: DJT stock, Trump Media, Truth Social, stock market, P/E ratio, PEG ratio, investing comedy, Jerry Seinfeld, Smartin app, stock analysis, iOS app
+title: "What's The Deal With DJT Stock? A Smartin Roast of Its Ratios (and My Sanity)"
+description: "Smartin Smartin tackles the absurdity of DJT stock's P/E and PEG ratios. Get ready for some observational comedy on why this stock just doesn't make sense. Find clarity with Smartin."
+keywords: DJT stock, Trump Media, Truth Social, stock market, P/E ratio, PEG ratio, investing comedy, Smartin Smartin, Smartin app, stock analysis, iOS app
 permalink: /blog/2026-03-25/djt/
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Why Palantir is Going to Ruin My Life"
 description: "A completely rational, totally calm look at Palantir's P/E ratio."
-keywords: AI stock analysis app, Apple App Store, finance app, PLTR stock rating, George Costanza
+keywords: AI stock analysis app, Apple App Store, finance app, PLTR stock rating, George
 permalink: /blog/draft-george/
 ---
 

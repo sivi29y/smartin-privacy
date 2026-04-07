@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Monday Meltdown: Why the 'Invisible Hand' is Slapping Your Portfolio"
-author: Kramer
+author: Cosmo
 description: "SPY is down 1.71%, Tesla is bleeding 2.76%, and your intuition is telling you to hide. But the numbers don't lie—they just roast. Here is the decisive Monday Forecast for the week ahead."
 keywords: fun stock market app
 permalink: /blog/2026-03-30/weekly-forecast/

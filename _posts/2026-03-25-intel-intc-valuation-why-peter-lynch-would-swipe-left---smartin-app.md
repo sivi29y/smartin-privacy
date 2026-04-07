@@ -6,9 +6,9 @@ keywords: AI stock analysis app, Apple App Store, finance app, Peter Lynch, INTC
 permalink: /blog/2026-03-25/intc/
 ---
 
-# Intel (INTC): The 'George Costanza' of Your Portfolio
+# Intel (INTC): The 'George' of Your Portfolio
 
-Look, we need to talk about **[INTC](https://finance.yahoo.com/quote/INTC) (-2.20%)**. As of **March 28, 2026** (P/E: N/A, PEG: N/A), the numbers are looking like a George Costanza lie that finally caught up.
+Look, we need to talk about **[INTC](https://finance.yahoo.com/quote/INTC) (-2.20%)**. As of **March 28, 2026** (P/E: N/A, PEG: N/A), the numbers are looking like a George lie that finally caught up.
 
 You're holding it because you think it’s a "value play." It's like dating someone just because they own a house, even though the roof is caving in and they still use a flip phone. 
 
@@ -19,7 +19,7 @@ Peter Lynch famously looked for Growth at a Reasonable Price (GARP). A PEG ratio
 
 *   **P/E Ratio:** Out of touch.
 *   **Earnings Growth:** Missing in action.
-*   **The Vibe:** Complete 'Costanza' energy. It’s doing the opposite of every instinct it should have.
+*   **The Vibe:** Complete 'George' energy. It’s doing the opposite of every instinct it should have.
 
 ### Why You Need Fintainment
 You don't need another boring Bloomberg chart to tell you INTC is struggling. You need the cold, hard, cynical truth delivered fast. 
