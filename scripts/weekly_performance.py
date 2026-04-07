@@ -135,19 +135,22 @@ MARKDOWN FORMAT RULES:
 3. Be OPINIONATED. The persona should have a clear, over-the-top take on what the numbers mean for the week.
 4. NO MEANINGLESS BLURB. Every paragraph must relate to the market numbers or the economic context.
 
-Format your absolute output exactly as follows:
-TWEET:
-<Write a punchy, 1-2 sentence hook for Twitter natives in the persona's voice. Include $SPY and end with: "Weekly Summary: {live_url}">
-<CRITICAL COPYRIGHT RULE: NO REAL NAMES OR CATCHPHRASES.>
-
-MARKDOWN:
-<Write the full SEO markdown blog post here.
-Summarize the week.
-146: Must follow the H2/H3 'Golden Rule' from the instructions.
-147: Must include 1-3 internal links from the instruction targets.
-148: Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title (DO NOT include the words 'Kramer' or 'George' or 'Seinfeld' in the title), author: {selected_author}, description (a compelling 140-160 character summary for the blog index), keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
-Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
-👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
+138: Format your absolute output exactly as follows:
+139: TWEET:
+140: <Write a punchy, 1-2 sentence hook for Twitter natives in the persona's voice. Include $SPY and end with: "Weekly Summary: {live_url}">
+141: <CRITICAL COPYRIGHT RULE: NO REAL NAMES OR CATCHPHRASES.>
+142: 
+143: MARKDOWN:
+144: ---
+145: layout: post
+146: title: <Title here (MUST NOT use 'Kramer' or 'George')>
+147: author: {selected_author}
+148: description: <140-160 character SEO summary for the blog index>
+149: keywords: <Target_Keywords here>
+150: permalink: {permalink}
+151: ---
+152: <Full SEO markdown blog post here, starting with a Header as per the Golden Rule.>
+153: 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**
 """
 
 response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
@@ -159,10 +162,11 @@ except (ValueError, AttributeError):
 
 try:
     tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()
-    markdown_content = output_text.split("MARKDOWN:")[1].strip()
+    # Ensure the front matter starts at the absolute top by stripping all leading whitespace
+    markdown_content = output_text.split("MARKDOWN:")[1].lstrip()
 except IndexError:
-    tweet_content = f"The week is over, and we're roasted. Check the stats: {live_url}"
-    markdown_content = output_text
+    tweet_content = f"Fresh roast incoming! Check it out: {live_url}"
+    markdown_content = output_text.strip()
 
 import re
 markdown_content = re.sub(r'^yaml\n', '', markdown_content, flags=re.MULTILINE | re.IGNORECASE)

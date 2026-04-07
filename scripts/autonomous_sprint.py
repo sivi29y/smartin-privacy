@@ -82,29 +82,22 @@ permalink = f"/blog/{date_str}/{selected_stock.lower()}/"
 live_url = f"https://smartinthe.app{permalink}"
 
 prompt = f"""
-Write a highly entertaining, 'Fintainment' blog post called a 'Daily Stock Roast' for the ticker {selected_stock}.
-This post MUST be a **joy to read**—priority one is the character's voice and comedic energy. 
-However, it must also provide a DECISIVE, DATA-DRIVEN ANALYSIS of {selected_stock} based on valid Peter Lynch fundamental principles (e.g. PEG, P/E, Debt).
-
-IMPORTANT: Keep the SEO natural. Use exactly **1 or 2 terms** from our Target_Keyword list as an **EXACT STRING MATCH** in the text. The post should never feel like 'marketing text'.
-Persona:
-{selected_persona}
-
-{blog_instructions}
-
-Format your absolute output exactly as follows:
-TWEET:
-<Write a punchy, 2-sentence hook for Twitter natively in the persona's voice. Include {selected_stock} and end with this exact text: "Read the full roast: {live_url}">
-<CRITICAL COPYRIGHT RULE: YOU MUST NOT MENTION THE PERSONA'S REAL NAME OR USE ANY COPYRIGHTED CATCHPHRASES IN THE OUTPUT. YOU ARE ANONYMOUS.>
-
-MARKDOWN:
-<Write the full SEO markdown blog post here.
-102: Remember to briefly explain {selected_stock}, roast its P/E and PEG ratios.
-103: Must follow the H2/H3 'Golden Rule' from the instructions.
-104: Must include 1-3 internal links from the instruction targets.
-105: Must start with Jekyll YAML frontmatter enclosed in triple-dash delimiters (---). It must contain: layout: post, title (DO NOT include the words 'Kramer' or 'George' or 'Seinfeld' in the title), author: {selected_author}, description (a compelling 140-160 character summary for the blog index), keywords (use the Target_Keyword from the instructions), and permalink: {permalink}.
-Must include the following call to action line at the bottom, integrating the 'Smartin_App_Pitch' from your selected SEO row: 
-👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**>
+95: Format your absolute output exactly as follows:
+96: TWEET:
+97: <Write a punchy, 2-sentence hook for Twitter natively in the persona's voice. Include {selected_stock} and end with this exact text: "Read the full roast: {live_url}">
+98: <CRITICAL COPYRIGHT RULE: YOU MUST NOT MENTION THE PERSONA'S REAL NAME OR USE ANY COPYRIGHTED CATCHPHRASES IN THE OUTPUT. YOU ARE ANONYMOUS.>
+99: 
+100: MARKDOWN:
+101: ---
+102: layout: post
+103: title: <Title here (MUST NOT use 'Kramer' or 'George')>
+104: author: {selected_author}
+105: description: <140-160 character SEO summary for the blog index>
+106: keywords: <Target_Keywords here>
+107: permalink: {permalink}
+108: ---
+109: <Full SEO markdown blog post here, starting with a Header as per the Golden Rule.>
+110: 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**
 """
 
 
@@ -117,11 +110,11 @@ except (ValueError, AttributeError):
 
 try:
     tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()
-    markdown_content = output_text.split("MARKDOWN:")[1].strip()
+    # Ensure the front matter starts at the absolute top by stripping all leading whitespace
+    markdown_content = output_text.split("MARKDOWN:")[1].lstrip()
 except IndexError:
-    print("Formatting error from Gemini. Defaulting safely.")
-    tweet_content = f"Check out our latest roast on {selected_stock}! {live_url}"
-    markdown_content = output_text
+    tweet_content = f"Roast incoming for {selected_stock}! {live_url}"
+    markdown_content = output_text.strip()
 
 markdown_content = markdown_content.replace('```markdown', '').replace('```', '').strip()
 

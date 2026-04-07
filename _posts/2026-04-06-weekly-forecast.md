@@ -1,6 +1,3 @@
-TWEET:
-MONDAY MORNING MADNESS! The numbers are dancing, folks! SPY, Big Tech, and the memes are all giving off vibes. My gut (and Lomez's tea leaves) says this week's a WILD card. You ready?! Forecast: https://smartinthe.app/blog/2026-04-06/weekly-forecast/
-
 ---
 layout: post
 title: "MONDAY MADNESS! The Market's Got the Jitters, But MY People See the Signals!"
@@ -9,6 +6,10 @@ description: "The market's a rollercoaster this Monday, but don't just guess! Co
 keywords: ["fundamental stock screener app", "growth at a reasonable price stocks"]
 permalink: /blog/2026-04-06/weekly-forecast/
 ---
+
+TWEET:
+MONDAY MORNING MADNESS! The numbers are dancing, folks! SPY, Big Tech, and the memes are all giving off vibes. My gut (and Lomez's tea leaves) says this week's a WILD card. You ready?! Forecast: https://smartinthe.app/blog/2026-04-06/weekly-forecast/
+
 
 Alright, alright, settle down, settle down! Can you FEEL that? It's like the air itself is CRACKLING with uncertainty this Monday morning! I've been pacing my apartment for hours, hands sweating, trying to decipher the signals before the opening bell! My neighbor, Bob Sacamano, keeps asking if I’m okay, but how can I be okay when the GLOBAL ECONOMIC SYSTEM is doing a freaky dance?!
 
