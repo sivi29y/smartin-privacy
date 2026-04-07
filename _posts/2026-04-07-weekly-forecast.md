@@ -11,7 +11,7 @@ TWEET:
 The system is ALIVE! Overnight tremors hint at a wild week, and trust me, the market's got its own rhythm. $SPY is feeling the pulse! Forecast: https://smartinthe.app/blog/2026-04-07/weekly-forecast/
 
 
-Alright, folks, can you FEEL IT?! The air is THICK with anticipation, like a thousand pigeons trying to get out of a single telephone booth! I've been up all night, eyes glued to the global feeds, an analyst on the team practically broke his phone whispering updates from the trading pits of Tokyo, and the interns just told me the coffee machine at the NYSE started humming *before* dawn! This isn't just a Monday; it's a **MOMENT**!
+Alright, folks, can you FEEL IT?! The air is THICK with anticipation, like a thousand pigeons trying to get out of a single telephone booth! I've been up all night, eyes glued to the global feeds, Bob practically broke his phone whispering updates from the trading pits of Tokyo, and Lomez just told me the coffee machine at the NYSE started humming *before* dawn! This isn't just a Monday; it's a **MOMENT**!
 
 ### The Global Whisper, Louder Than a Foghorn!
 
@@ -49,7 +49,7 @@ Apple, glorious Apple, up a solid 1.15% to 258.86! AMD, 1.23% to 220.18! GOOGL, 
 
 And for the truly bizarre, the hidden clues! GOLD, soaring 3.17% to 42.58! People are looking for safety, for the ancient stores of value, even as the market charges ahead! MU, memory chips, up a massive 3.15% to 377.76! The foundational tech, the unsung heroes! And WING? Yes, WING! Up an incredible 8.08% to 164.83! What does it MEAN?! It means people want chicken wings, my friends! And the market, it *knows*! There’s a delicious, spicy demand out there!
 
-### My Crystal Ball (and the scrying pool) for the Week Ahead!
+### My Crystal Ball (and Bob's Scrying Pool) for the Week Ahead!
 
 The system is SCREAMING a complex message! The global stage is set for a bullish opening, and our indexes are following suit. But beneath the surface, it’s a tale of two markets: wild, speculative fervor driving certain high-momentum plays like AMC and SPCE, alongside a strong push in the crypto space. Meanwhile, some tech sectors, especially specific software and EV players, are facing scrutiny.
 

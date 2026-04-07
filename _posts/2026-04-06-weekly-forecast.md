@@ -8,10 +8,10 @@ permalink: /blog/2026-04-06/weekly-forecast/
 ---
 
 TWEET:
-MONDAY MORNING MADNESS! The numbers are dancing, folks! SPY, Big Tech, and the memes are all giving off vibes. My gut (and the interns' tea leaves) says this week's a WILD card. You ready?! Forecast: https://smartinthe.app/blog/2026-04-06/weekly-forecast/
+MONDAY MORNING MADNESS! The numbers are dancing, folks! SPY, Big Tech, and the memes are all giving off vibes. My gut (and Lomez's tea leaves) says this week's a WILD card. You ready?! Forecast: https://smartinthe.app/blog/2026-04-06/weekly-forecast/
 
 
-Alright, alright, settle down, settle down! Can you FEEL that? It's like the air itself is CRACKLING with uncertainty this Monday morning! I've been pacing my apartment for hours, hands sweating, trying to decipher the signals before the opening bell! My neighbor, Bob from the and analyst team, keeps asking if I’m okay, but how can I be okay when the GLOBAL ECONOMIC SYSTEM is doing a freaky dance?!
+Alright, alright, settle down, settle down! Can you FEEL that? It's like the air itself is CRACKLING with uncertainty this Monday morning! I've been pacing my apartment for hours, hands sweating, trying to decipher the signals before the opening bell! My neighbor, Bob, keeps asking if I’m okay, but how can I be okay when the GLOBAL ECONOMIC SYSTEM is doing a freaky dance?!
 
 ## The Global Jitters & My Coffee Spill!
 
@@ -34,7 +34,7 @@ Now, the big tech names. They’re the engines, the heavy lifters. And look at t
 *   **AMD** powered up 2.3% to 222.5.
 *   **INTC** even joined the party, rising 2.33% to 51.56.
 
-These are the kind of numbers that make you think, "Are these truly **growth at a reasonable price stocks** anymore, or are we just riding the wave?" Peter Lynch always preached about valuing growth appropriately. He'd be asking, "Is that P/E justifiable? Is the PEG ratio telling us these rockets have sustainable fuel, or are they just flashing pretty lights?!" My friend on the dev team, he says the air around these tickers smells like expensive data centers and… *optimism*. But sometimes optimism is just the prelude to a reality check!
+These are the kind of numbers that make you think, "Are these truly **growth at a reasonable price stocks** anymore, or are we just riding the wave?" Peter Lynch always preached about valuing growth appropriately. He'd be asking, "Is that P/E justifiable? Is the PEG ratio telling us these rockets have sustainable fuel, or are they just flashing pretty lights?!" My friend Lomez, he says the air around these tickers smells like expensive data centers and… *optimism*. But sometimes optimism is just the prelude to a reality check!
 
 ### NVIDIA & Microsoft: A Hiccup in the Code?
 
@@ -72,9 +72,9 @@ Ah, debt! The silent killer of portfolios! Peter Lynch would tell you, always ch
 *   **DDOG** fell -2.6% to 117.24.
 *   **CHWY** dipped -1.34% to 26.51.
 
-These dips, even when the broader market is green, are like little red flags waving in the wind. Are they saddled with too much debt? Is their P/E completely out of whack with their growth prospects? Wondering **what is a good debt to equity ratio** is a critical question here! If the "system" is tightening up, the overleveraged players are the first to feel the squeeze! Bob from the analyst team says he heard whispers of "structural weakness" in the old pipes! It means the foundation, folks! Always the foundation!
+These dips, even when the broader market is green, are like little red flags waving in the wind. Are they saddled with too much debt? Is their P/E completely out of whack with their growth prospects? Wondering **what is a good debt to equity ratio** is a critical question here! If the "system" is tightening up, the overleveraged players are the first to feel the squeeze! Bob says he heard whispers of "structural weakness" in the old pipes! It means the foundation, folks! Always the foundation!
 
-## My Crystal Ball (and the interns' scrying pool) for the Week Ahead!
+## My Crystal Ball (and Bob's Scrying Pool) for the Week Ahead!
 
 So, what does this all MEAN?! The global markets are giving us mixed signals, the big tech players are mostly surging but with a couple of stutters, and the meme stocks are just doing their own wild thing. My take? This week is going to be a WHIRLWIND! Expect VOLATILITY! Expect sudden shifts! The "system" is trying to rebalance, and it's doing it with all the grace of a caffeinated squirrel!
 
