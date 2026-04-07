@@ -4,7 +4,7 @@ MONDAY MORNING MADNESS! The numbers are dancing, folks! SPY, Big Tech, and the m
 ---
 layout: post
 title: "MONDAY MADNESS! The Market's Got the Jitters, But MY People See the Signals!"
-author: Cosmo from the Smartin Team
+author: Cosmo
 description: "The market's a rollercoaster this Monday, but don't just guess! Cosmo from Smartin dives into the data—SPY, QQQ, Big Tech, and those wild meme stocks—to uncover the real patterns Peter Lynch would love. Get ready for a week of unexpected twists and turns, all through the lens of pure Fintainment!"
 keywords: ["fundamental stock screener app", "growth at a reasonable price stocks"]
 permalink: /blog/2026-04-06/weekly-forecast/
