@@ -1,5 +1,6 @@
 import os
 import random
+import time
 from datetime import datetime
 from google import genai
 import tweepy
@@ -20,7 +21,7 @@ TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
-model_id = 'gemini-2.5-flash' 
+model_id = 'gemini-3-flash-preview' 
 
 
 # PERSONAS are now imported from personas.py
@@ -101,12 +102,23 @@ prompt = f"""
 """
 
 
-response = client.models.generate_content(model=model_id, contents=prompt)
-try:
-    output_text = response.text
-except (ValueError, AttributeError):
-    print("AI ERROR: Response was empty or blocked. Defaulting safely.")
-    output_text = "TWEET: Roast incoming! MARKDOWN: AI safety blocked this roast. Stay tuned for the next one."
+# Generate Content with Retry Logic
+output_text = ""
+max_retries = 3
+for attempt in range(max_retries):
+    try:
+        response = client.models.generate_content(model=model_id, contents=prompt)
+        output_text = response.text
+        break
+    except Exception as e:
+        print(f"AI ERROR (Attempt {attempt+1}/{max_retries}): {e}")
+        if attempt < max_retries - 1:
+            wait_time = (attempt + 1) * 5
+            print(f"Retrying in {wait_time}s...")
+            time.sleep(wait_time)
+        else:
+            print("MAX RETRIES REACHED. Defaulting safely.")
+            output_text = "TWEET: Roast incoming! MARKDOWN: AI safety blocked this roast or server overloaded. Stay tuned for the next one."
 
 try:
     tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()

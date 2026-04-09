@@ -1,5 +1,6 @@
 import os
 import random
+import time
 from datetime import datetime
 from google import genai
 import yfinance as yf
@@ -21,6 +22,7 @@ TWITTER_ACCESS_TOKEN = os.environ.get("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_SECRET = os.environ.get("TWITTER_ACCESS_SECRET")
 
 ai_client = genai.Client(api_key=GEMINI_API_KEY)
+model_id = 'gemini-3-flash-preview'
 
 # ALL_PERSONAS are now imported from personas.py
 
@@ -142,12 +144,23 @@ However, it must also provide a DECISIVE, DATA-DRIVEN ANALYSIS of the upcoming w
 154: 👉 **[Download Smartin: Quick Stock Ratings on the App Store today](https://apps.apple.com/il/app/smartin-quick-stock-ratings/id6755475652)**
 """
 
-response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-try:
-    output_text = response.text
-except (ValueError, AttributeError):
-    print("AI ERROR: Response was empty or blocked. Defaulting safely.")
-    output_text = "TWEET: Market forecast incoming! $SPY MARKDOWN: AI safety blocked this forecast. Stay tuned for the next one."
+# Generate Content with Retry Logic
+output_text = ""
+max_retries = 3
+for attempt in range(max_retries):
+    try:
+        response = ai_client.models.generate_content(model=model_id, contents=prompt)
+        output_text = response.text
+        break
+    except Exception as e:
+        print(f"AI ERROR (Attempt {attempt+1}/{max_retries}): {e}")
+        if attempt < max_retries - 1:
+            wait_time = (attempt + 1) * 5
+            print(f"Retrying in {wait_time}s...")
+            time.sleep(wait_time)
+        else:
+            print("MAX RETRIES REACHED. Defaulting safely.")
+            output_text = "TWEET: Market forecast incoming! $SPY MARKDOWN: AI safety blocked this forecast or server overloaded. Stay tuned for the next one."
 
 try:
     tweet_content = output_text.split("MARKDOWN:")[0].replace("TWEET:", "").strip()
